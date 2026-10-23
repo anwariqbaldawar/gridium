@@ -127,18 +127,6 @@
   });
 
   // Scroll Reveal Observer
-  if ('IntersectionObserver' in window && document.body.classList.contains('has-motion')) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
-  }
-
   // Localization Selectors Auto-Submit
   document.querySelectorAll('[data-localization-form] select').forEach((sel) => {
     sel.addEventListener('change', () => sel.closest('form').submit());

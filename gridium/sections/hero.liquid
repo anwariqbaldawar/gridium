@@ -1,13 +1,20 @@
-<section class="hero color-{{ section.settings.color_scheme }}" style="--hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
+{%- liquid
+  assign meta_blocks = section.blocks | where: 'type', 'meta'
+-%}
+
+<section
+  class="hero color-{{ section.settings.color_scheme }}"
+  style="--hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+>
   <div class="hero__media">
     {%- if section.settings.video != blank -%}
       {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, image_size: '1600x' }}
     {%- elsif section.settings.image != blank -%}
       {{
         section.settings.image
-        | image_url: width: 2200
+        | image_url: width: 2400
         | image_tag:
-          widths: '640, 960, 1280, 1600, 2200',
+          widths: '640, 960, 1280, 1600, 2000, 2400',
           sizes: '100vw',
           fetchpriority: 'high',
           loading: 'eager',
@@ -20,21 +27,30 @@
   </div>
 
   <div class="container hero__content">
-    <div class="hero__grid" data-reveal>
+    <div class="hero__grid">
       <div>
         {%- if section.settings.eyebrow != blank -%}
-          <p class="mono-label" style="color:inherit;opacity:0.85;margin-bottom:16px;">{{ section.settings.eyebrow }}</p>
+          <p class="mono-label" data-hero-stagger style="--stagger: 0; color: inherit; opacity: 0.8; margin-bottom: 18px;">
+            {{ section.settings.eyebrow }}
+          </p>
         {%- endif -%}
-        <h1 class="display-xl" style="color:inherit;">{{ section.settings.heading }}</h1>
+        <h1 class="display-xl hero__title" data-hero-stagger style="--stagger: 1; color: inherit;">
+          {{ section.settings.heading }}
+        </h1>
       </div>
+
       <div>
         {%- if section.settings.subheading != blank -%}
-          <p style="font-size:1.0625rem;line-height:1.55;opacity:0.9;">{{ section.settings.subheading }}</p>
+          <p class="hero__lead" data-hero-stagger style="--stagger: 2; color: inherit;">
+            {{ section.settings.subheading }}
+          </p>
         {%- endif -%}
-        <div class="hero__actions">
+
+        <div class="hero__actions" data-hero-stagger style="--stagger: 3">
           {%- if section.settings.button_label != blank -%}
             <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="button">
               {{ section.settings.button_label }}
+              {% render 'icon', name: 'arrow-right', size: 15 %}
             </a>
           {%- endif -%}
           {%- if section.settings.secondary_label != blank -%}
@@ -45,7 +61,22 @@
         </div>
       </div>
     </div>
+
+    {%- if meta_blocks.size > 0 -%}
+      <div class="hero__meta" data-hero-stagger style="--stagger: 4; color: inherit;">
+        {%- for block in meta_blocks -%}
+          <div class="hero__meta-item" {{ block.shopify_attributes }}>
+            <strong>{{ block.settings.label }}</strong>
+            <span>{{ block.settings.value }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
+
+  {%- if section.settings.show_scroll_cue -%}
+    <span class="hero__scroll-cue" aria-hidden="true">{{ 'general.scroll_down' | t }}</span>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -67,13 +98,34 @@
     { "type": "video", "id": "video", "label": "Optional background video (overrides image)" },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 70, "step": 5, "unit": "%", "label": "Scrim contrast", "default": 30 },
     { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "01 / SEASON 04 SHIRTING ARCHIVE" },
-    { "type": "text", "id": "heading", "label": "Headline", "default": "Engineered Shirting. Exact Proportions." },
-    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Single-needle Portuguese poplin, 240 GSM Supima jersey tees, and breathable Belgian flax linen built for calm daily uniforming." },
-    { "type": "text", "id": "button_label", "label": "Primary CTA label", "default": "Shop All Shirts" },
+    { "type": "text", "id": "heading", "label": "Headline", "default": "Engineered shirting, cut to exact proportion." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Single-needle Portuguese poplin, 240 GSM Supima jersey and breathable Belgian flax — built for calm daily uniforming." },
+    { "type": "text", "id": "button_label", "label": "Primary CTA label", "default": "Shop all shirts" },
     { "type": "url", "id": "button_link", "label": "Primary CTA link" },
-    { "type": "text", "id": "secondary_label", "label": "Secondary CTA label", "default": "Explore Fabrics" },
-    { "type": "url", "id": "secondary_link", "label": "Secondary CTA link" }
+    { "type": "text", "id": "secondary_label", "label": "Secondary CTA label", "default": "Our craft" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary CTA link" },
+    { "type": "checkbox", "id": "show_scroll_cue", "label": "Show scroll cue", "default": true }
   ],
-  "presets": [{ "name": "Hero banner" }]
+  "blocks": [
+    {
+      "type": "meta",
+      "name": "Hero meta item",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "MILLS" },
+        { "type": "text", "id": "value", "label": "Value", "default": "Portugal · Belgium · Japan" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero banner",
+      "blocks": [
+        { "type": "meta", "settings": { "label": "MILLS", "value": "Portugal · Belgium · Japan" } },
+        { "type": "meta", "settings": { "label": "CONSTRUCTION", "value": "22 SPI · single-needle" } },
+        { "type": "meta", "settings": { "label": "DISPATCH", "value": "Tracked, 24-hour" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

@@ -481,3 +481,166 @@
   .about-step__summary:hover { padding-left: 0; }
   .about-chapter:hover .about-chapter__dot { transform: none; }
 }
+
+/* ==========================================================================
+   v1.2 — proportion & typography corrections
+   ========================================================================== */
+
+/* The quote previously inherited a ch-based max-width from the body font-size,
+   collapsing the statement into a one-word column. Measure now lives on the
+   quote itself, where ch is relative to the display size. */
+.about-manifesto__quote {
+  max-width: none;
+  display: grid;
+  gap: clamp(24px, 4vw, 48px);
+  padding-block: clamp(36px, 5vw, 76px);
+  align-items: end;
+}
+.about-manifesto__quote p {
+  max-width: 21ch;
+  font-family: var(--font-display-family);
+  font-weight: 400;
+  font-size: clamp(2rem, 4.8vw, 4rem);
+  line-height: 0.99;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.about-manifesto__signature { padding-bottom: 6px; }
+@media (min-width: 1024px) {
+  .about-manifesto__quote { grid-template-columns: minmax(0, 1fr) minmax(220px, 300px); }
+  .about-manifesto__signature {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    border-left: 1px solid var(--color-border);
+    padding-left: 22px;
+  }
+}
+
+/* Hero accent: a true italic serif line reads more editorial than an outline */
+.about-hero__accent {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-text);
+  opacity: 0.66;
+  letter-spacing: -0.015em;
+  -webkit-text-stroke: 0;
+  margin-top: 0.04em;
+}
+.about-hero__title {
+  max-width: 16ch;
+  font-size: clamp(2.75rem, 6.1vw, 5.25rem);
+  line-height: 0.94;
+}
+.about-hero__frame img { animation: about-hero-drift 26s ease-out both; }
+@keyframes about-hero-drift {
+  from { transform: scale(1.07); }
+  to { transform: scale(1); }
+}
+.about-hero { padding-block: clamp(44px, 6.5vw, 96px) 0; }
+
+/* Editorial weight for structural labels inside the story */
+.about-principle__title { font-family: var(--font-display-family); font-weight: 400; font-size: 1.375rem; letter-spacing: -0.01em; }
+.about-chapter__year { font-size: 1.625rem; }
+.about-step__title { font-size: 1.125rem; }
+.material-card__title { font-size: 1.0625rem; }
+.about-story__statement h2 { max-width: 16ch; }
+
+/* Richer motion */
+@media (prefers-reduced-motion: no-preference) {
+  .about-stat { transition: background-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out); }
+  .about-stat:hover { transform: translateY(-2px); }
+  .team-card__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 17, 17, 0) 55%, rgba(17, 17, 17, 0.18) 100%);
+    opacity: 0;
+    transition: opacity var(--duration-slow) var(--ease-out);
+    pointer-events: none;
+  }
+  .team-card:hover .team-card__media::after { opacity: 1; }
+}
+
+/* --- about-team (shared with studio preview) --- */
+.about-team .section-header__titles { gap: 14px; }
+.team-grid {
+  display: grid;
+  gap: var(--grid-gap, 24px);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .team-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.team-card { display: grid; gap: 16px; align-content: start; }
+.team-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-subtle);
+}
+.team-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.02);
+  transform: scale(1.01);
+  transition: filter 800ms var(--ease-out), transform 1200ms var(--ease-out);
+}
+.team-card:hover .team-card__img { filter: grayscale(0); transform: scale(1.04); }
+.team-card__index {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 8px;
+  font-family: var(--font-mono-family);
+  font-size: var(--fs-micro, 0.6875rem);
+  letter-spacing: 0.1em;
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+}
+.team-card__body { display: grid; gap: 8px; }
+.team-card__name { font-size: 1.125rem; letter-spacing: -0.015em; }
+.team-card__bio { font-size: 0.875rem; line-height: 1.65; color: var(--color-text-muted); max-width: 40ch; }
+.team-card__link { margin-top: 4px; }
+.about-team__cta {
+  margin-top: clamp(48px, 6vw, 88px);
+  padding: clamp(24px, 4vw, 48px);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--color-bg-subtle);
+}
+.about-team__cta-copy { display: grid; gap: 10px; }
+.about-team__cta-copy h3 { max-width: 22ch; }
+.about-team__cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* --- about-story (shared with studio preview) --- */
+.about-story { overflow: hidden; }
+.about-story__head {
+  display: grid;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: end;
+}
+.about-story__statement { display: grid; gap: 18px; }
+.about-story__statement h2 { max-width: 15ch; }
+.about-story__lead { display: grid; gap: 14px; max-width: 50ch; }
+.about-story__values { margin-top: clamp(48px, 7vw, 96px); }
+.about-story__values-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+.about-story__values .about-principles { margin-top: 0; border-top: 0; }
+@media (min-width: 1024px) {
+  .about-story__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+}

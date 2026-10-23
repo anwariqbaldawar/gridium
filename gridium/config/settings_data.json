@@ -54,7 +54,8 @@
     "enable_country_selector": true,
     "enable_language_selector": true,
     "enable_scroll_progress": true,
-    "logo_invert_on_dark": true
+    "logo_invert_on_dark": true,
+    "display_typeface": "editorial"
   },
   "presets": {
     "Gridium Default": {
@@ -112,7 +113,8 @@
       "enable_country_selector": true,
       "enable_language_selector": true,
       "enable_scroll_progress": true,
-      "logo_invert_on_dark": true
+      "logo_invert_on_dark": true,
+      "display_typeface": "editorial"
     }
   }
 }

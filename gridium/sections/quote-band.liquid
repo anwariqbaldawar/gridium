@@ -1,0 +1,58 @@
+<section class="quote-band color-{{ section.settings.color_scheme }}">
+  <div class="container quote-band__inner">
+    <div class="quote-band__aside" data-reveal>
+      <span class="mono-label">{{ section.settings.eyebrow }}</span>
+      {%- if section.settings.meta != blank -%}
+        <span class="section-index">{{ section.settings.meta }}</span>
+      {%- endif -%}
+    </div>
+
+    <blockquote class="quote-band__quote" data-reveal data-reveal-delay="1">
+      <p>{{ section.settings.statement }}</p>
+      {%- if section.settings.attribution != blank -%}
+        <footer class="quote-band__footer">
+          <span class="quote-band__rule" aria-hidden="true"></span>
+          <span>{{ section.settings.attribution }}</span>
+        </footer>
+      {%- endif -%}
+    </blockquote>
+
+    {%- if section.settings.link_label != blank -%}
+      <a
+        href="{{ section.settings.link | default: '/pages/about' }}"
+        class="link-arrow quote-band__link"
+        data-reveal
+        data-reveal-delay="2"
+      >
+        {{ section.settings.link_label }}
+        {% render 'icon', name: 'arrow-right', size: 14 %}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quote band",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "MANIFESTO" },
+    { "type": "text", "id": "meta", "label": "Right meta note", "default": "GRIDIUM STUDIO · PORTO" },
+    { "type": "textarea", "id": "statement", "label": "Statement", "default": "We are not interested in reinventing the shirt every season. We are interested in the eleventh revision of the same collar." },
+    { "type": "text", "id": "attribution", "label": "Attribution", "default": "Lukas Lindqvist & Clara Monteiro, Founders" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Read the house story" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [{ "name": "Quote band" }]
+}
+{% endschema %}

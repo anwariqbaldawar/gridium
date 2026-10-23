@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Gridium",
-    "theme_version": "1.1.0",
+    "theme_version": "1.2.0",
     "theme_author": "Gridium Studio",
     "theme_documentation_url": "https://github.com/anwariqbaldawar/gridium",
     "theme_support_url": "https://help.shopify.com"
@@ -196,6 +196,23 @@
         "id": "type_body_font",
         "label": "t:settings_schema.typography.settings.body_font.label",
         "default": "inter_n4"
+      },
+      {
+        "type": "select",
+        "id": "display_typeface",
+        "label": "t:settings_schema.typography.settings.display_typeface.label",
+        "info": "t:settings_schema.typography.settings.display_typeface.info",
+        "default": "editorial",
+        "options": [
+          {
+            "value": "editorial",
+            "label": "t:settings_schema.typography.settings.display_typeface.options.editorial"
+          },
+          {
+            "value": "heading",
+            "label": "t:settings_schema.typography.settings.display_typeface.options.heading"
+          }
+        ]
       },
       {
         "type": "range",

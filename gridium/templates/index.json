@@ -6,13 +6,42 @@
         "color_scheme": "midnight",
         "overlay_opacity": 30,
         "eyebrow": "01 / SEASON 04 SHIRTING ARCHIVE",
-        "heading": "Engineered Shirting. Exact Proportions.",
-        "subheading": "Single-needle Portuguese poplin, 240 GSM Supima jersey tees, and breathable Belgian flax linen built for calm daily uniforming.",
-        "button_label": "Shop All Shirts",
+        "heading": "Engineered shirting, cut to exact proportion.",
+        "subheading": "Single-needle Portuguese poplin, 240 GSM Supima jersey and breathable Belgian flax — built for calm daily uniforming.",
+        "button_label": "Shop all shirts",
         "button_link": "shopify://collections/all",
-        "secondary_label": "Our Philosophy",
-        "secondary_link": "/pages/about"
-      }
+        "secondary_label": "Our craft",
+        "secondary_link": "/pages/about",
+        "show_scroll_cue": true
+      },
+      "blocks": {
+        "m1": {
+          "type": "meta",
+          "settings": {
+            "label": "MILLS",
+            "value": "Portugal · Belgium · Japan"
+          }
+        },
+        "m2": {
+          "type": "meta",
+          "settings": {
+            "label": "CONSTRUCTION",
+            "value": "22 SPI · single-needle"
+          }
+        },
+        "m3": {
+          "type": "meta",
+          "settings": {
+            "label": "DISPATCH",
+            "value": "Tracked, 24-hour"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ]
     },
     "categories": {
       "type": "category-tiles",
@@ -58,7 +87,13 @@
           }
         }
       },
-      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5"],
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5"
+      ],
       "settings": {
         "color_scheme": "paper",
         "eyebrow": "02 / SILHOUETTES",
@@ -84,7 +119,10 @@
           }
         }
       },
-      "block_order": ["tab_1", "tab_2"],
+      "block_order": [
+        "tab_1",
+        "tab_2"
+      ],
       "settings": {
         "color_scheme": "paper",
         "eyebrow": "03 / NEW ARRIVALS",
@@ -147,7 +185,12 @@
           }
         }
       },
-      "block_order": ["u1", "u2", "u3", "u4"],
+      "block_order": [
+        "u1",
+        "u2",
+        "u3",
+        "u4"
+      ],
       "settings": {
         "color_scheme": "paper"
       }
@@ -192,7 +235,11 @@
           }
         }
       },
-      "block_order": ["r1", "r2", "r3"],
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
       "settings": {
         "color_scheme": "paper",
         "eyebrow": "06 / CLIENT NOTES",
@@ -202,12 +249,37 @@
     "lookbook": {
       "type": "instagram-grid",
       "blocks": {
-        "p1": { "type": "post", "settings": { "caption": "Poplin collar architecture" } },
-        "p2": { "type": "post", "settings": { "caption": "Belgian flax summer uniform" } },
-        "p3": { "type": "post", "settings": { "caption": "240 GSM Supima knit closeup" } },
-        "p4": { "type": "post", "settings": { "caption": "Brushed Oxford cuff detail" } }
+        "p1": {
+          "type": "post",
+          "settings": {
+            "caption": "Poplin collar architecture"
+          }
+        },
+        "p2": {
+          "type": "post",
+          "settings": {
+            "caption": "Belgian flax summer uniform"
+          }
+        },
+        "p3": {
+          "type": "post",
+          "settings": {
+            "caption": "240 GSM Supima knit closeup"
+          }
+        },
+        "p4": {
+          "type": "post",
+          "settings": {
+            "caption": "Brushed Oxford cuff detail"
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3", "p4"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
       "settings": {
         "color_scheme": "paper",
         "eyebrow": "07 / UNIFORM INDEX",
@@ -223,13 +295,36 @@
         "heading": "Seasonal Mill Releases",
         "subtext": "Early access to small-batch Italian poplins, Japanese chambrays, and archival restocks."
       }
+    },
+    "ticker": {
+      "type": "ticker",
+      "settings": {
+        "color_scheme": "paper",
+        "label": "Store promises",
+        "text": "Complimentary shipping over $150|30-day exchanges|22 stitches per inch|Mill-first sourcing|Plastic-free packaging|Repairs for a decade",
+        "speed": 45
+      }
+    },
+    "quote": {
+      "type": "quote-band",
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "MANIFESTO",
+        "meta": "GRIDIUM STUDIO · PORTO",
+        "statement": "We are not interested in reinventing the shirt every season. We are interested in the eleventh revision of the same collar.",
+        "attribution": "Lukas Lindqvist & Clara Monteiro, Founders",
+        "link_label": "Read the house story",
+        "link": "/pages/about"
+      }
     }
   },
   "order": [
     "hero",
+    "ticker",
     "categories",
     "new_arrivals",
     "editorial",
+    "quote",
     "usp",
     "bestsellers",
     "reviews",

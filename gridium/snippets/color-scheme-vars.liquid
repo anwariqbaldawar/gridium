@@ -4,12 +4,30 @@
   assign body_bold = body_font | font_modify: 'weight', 'bold'
 -%}
 <style>
+  /* Editorial display face — self-hosted so the art direction never depends on a
+     font-library handle and never flashes an unstyled fallback. */
+  @font-face {
+    font-family: 'Instrument Serif';
+    src: url({{ 'instrument-serif-400.woff2' | asset_url }}) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Instrument Serif';
+    src: url({{ 'instrument-serif-400-italic.woff2' | asset_url }}) format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
   {{ heading_font | font_face: font_display: 'swap' }}
   {{ body_font | font_face: font_display: 'swap' }}
   {%- if body_bold -%}{{ body_bold | font_face: font_display: 'swap' }}{%- endif -%}
 
   :root {
     --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Jost', 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display-family: {% if settings.display_typeface == 'heading' %}{{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Jost', sans-serif{% else %}'Instrument Serif', 'Times New Roman', Georgia, serif{% endif %};
     --font-heading-style: {{ heading_font.style }};
     --font-heading-weight: {{ heading_font.weight }};
     --font-heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
@@ -65,9 +83,9 @@
     --duration-reveal: 760ms;
 
     /* Fluid type scale (single source of truth) */
-    --fs-display: clamp(2.75rem, 7.2vw, 6.5rem);
-    --fs-h1: clamp(2.125rem, 4.4vw, 3.75rem);
-    --fs-h2: clamp(1.75rem, 3.1vw, 2.75rem);
+    --fs-display: clamp(3rem, 8vw, 7.25rem);
+    --fs-h1: clamp(2.25rem, 5vw, 4.25rem);
+    --fs-h2: clamp(1.875rem, 3.6vw, 3.25rem);
     --fs-h3: clamp(1.25rem, 1.9vw, 1.625rem);
     --fs-lead: clamp(1.0625rem, 1.35vw, 1.25rem);
     --fs-body: calc(1rem * var(--font-body-scale, 1));

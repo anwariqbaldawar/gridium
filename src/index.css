@@ -5,6 +5,22 @@
 @import "../gridium/assets/component-cart.css";
 @import "../gridium/assets/component-about.css";
 @import "../gridium/assets/component-blog.css";
+
+/* Editorial display face (self-hosted, matches the Shopify theme asset) */
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/instrument-serif-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/fonts/instrument-serif-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 @import "../gridium/assets/component-footer.css";
 
 :root {
@@ -13,6 +29,15 @@
   --font-heading-weight: 600;
   --font-heading-scale: 1;
 
+  --fs-display: clamp(3rem, 8vw, 7.25rem);
+  --fs-h1: clamp(2.25rem, 5vw, 4.25rem);
+  --fs-h2: clamp(1.875rem, 3.6vw, 3.25rem);
+  --fs-h3: clamp(1.25rem, 1.9vw, 1.625rem);
+  --fs-lead: clamp(1.0625rem, 1.35vw, 1.25rem);
+  --fs-small: 0.875rem;
+  --fs-micro: 0.6875rem;
+
+  --font-display-family: 'Instrument Serif', 'Times New Roman', Georgia, serif;
   --font-body-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body-style: normal;
   --font-body-weight: 400;

@@ -1,4 +1,4 @@
-# Gridium — Shopify Online Store 2.0 Theme · v1.1.0
+# Gridium — Shopify Online Store 2.0 Theme · v1.2.0
 
 A premium, editorial shirting theme built for real client hand-off: clone it, upload the ZIP,
 and the storefront renders a complete brand experience with **zero theme-editor setup**.
@@ -8,7 +8,7 @@ and the storefront renders a complete brand experience with **zero theme-editor 
 ## 1. Install in three clicks (the ZIP your client drops in)
 
 1. Shopify Admin → **Online Store → Themes → Add theme → Upload zip file**
-2. Select `gridium-shopify-theme-v1.1.0.zip` (build it with `npm run theme:zip`)
+2. Select `gridium-shopify-theme-v1.2.0.zip` (build it with `npm run theme:zip`)
 3. Click **Publish** (or **Preview** first)
 
 That is the whole install. Shopify uploads the theme, reads `templates/index.json`, applies the
@@ -41,9 +41,9 @@ bundled colour schemes, fonts and section settings, and the homepage is live imm
 
 ```bash
 npm install
-npm run theme:zip      # → release/gridium-shopify-theme-v1.1.0.zip  (theme dirs at root)
+npm run theme:zip      # → release/gridium-shopify-theme-v1.2.0.zip  (theme dirs at root)
 npm run theme:audit    # static checks: JSON, section/snippet refs, settings, translations
-npm run theme:check    # Shopify Theme Check (0 offenses on v1.1.0)
+npm run theme:check    # Shopify Theme Check (0 offenses on v1.2.0)
 npm run theme:zip      # package only when every check passes
 ```
 
@@ -155,6 +155,11 @@ so the theme editor previews changes instantly.
 
 ## 9. Version history
 
+- **v1.2.0** — Editorial art direction: self-hosted Instrument Serif display face (with a
+  heading-font fallback setting), cinematic full-bleed hero with staggered entrance and vertical
+  scroll cue, marquee promise ticker, founder quote band, refined category tiles, scroll-reveal
+  motion layer with reduced-motion guards, larger logo lockup, route transitions in the studio,
+  About manifesto typography rebuilt (21ch display measure + bordered signature column).
 - **v1.1.0** — About story system (8 new/rewritten sections), journal templates (blog + article),
   brand lockup with auto-inverting monogram,
   Jost typography, refinement motion layer, scroll progress, footer grid fix, OG/favicon fallbacks,

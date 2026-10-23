@@ -52,31 +52,7 @@
   </div>
 </section>
 
-{% stylesheet %}
-.about-story { overflow: hidden; }
-.about-story__head {
-  display: grid;
-  gap: clamp(24px, 4vw, 56px);
-  align-items: end;
-}
-.about-story__statement { display: grid; gap: 18px; }
-.about-story__statement h2 { max-width: 15ch; }
-.about-story__lead { display: grid; gap: 14px; max-width: 50ch; }
-.about-story__values { margin-top: clamp(48px, 7vw, 96px); }
-.about-story__values-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--color-border);
-}
-.about-story__values .about-principles { margin-top: 0; border-top: 0; }
-@media (min-width: 1024px) {
-  .about-story__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
-}
-{% endstylesheet %}
+
 
 {% schema %}
 {

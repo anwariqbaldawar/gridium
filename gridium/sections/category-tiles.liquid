@@ -23,8 +23,9 @@
             assign span_class = 'category-tile--narrow'
           endif
         -%}
-        <a href="{{ tile_url }}" class="category-tile {{ span_class }}" {{ block.shopify_attributes }} data-reveal>
-          <div class="category-tile__media">
+        <a href="{{ tile_url }}" class="category-tile {{ span_class }}" {{ block.shopify_attributes }} data-reveal data-reveal-delay="{{ forloop.index }}">
+          <div class="category-tile__media" data-reveal-media>
+            <span class="category-tile__index">0{{ forloop.index }}</span>
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 1200 | image_tag: widths: '480, 800, 1200', sizes: '(min-width: 768px) 50vw, 100vw', loading: 'lazy', alt: tile_title }}
             {%- elsif col_obj.featured_image != blank -%}

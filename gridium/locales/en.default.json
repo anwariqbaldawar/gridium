@@ -74,7 +74,8 @@
       "submit": "Enter Studio",
       "owner_html": "Are you the store owner? <a href=\"/admin\">Log in here</a>",
       "powered_by": "Architecture powered by Shopify"
-    }
+    },
+    "scroll_down": "Scroll"
   },
   "header": {
     "menu": "Menu",

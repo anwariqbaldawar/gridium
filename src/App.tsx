@@ -22,6 +22,21 @@ import { AboutPage } from './components/AboutPage';
 
 type SchemeName = 'paper' | 'stone' | 'midnight';
 
+const PROMISES = [
+  'Complimentary shipping over $150',
+  '30-day exchanges',
+  '22 stitches per inch',
+  'Mill-first sourcing',
+  'Plastic-free packaging',
+  'Repairs for a decade',
+];
+
+const HERO_META = [
+  { label: 'MILLS', value: 'Portugal · Belgium · Japan' },
+  { label: 'CONSTRUCTION', value: '22 SPI · single-needle' },
+  { label: 'DISPATCH', value: 'Tracked, 24-hour' },
+];
+
 const ALL_SIZES: ShirtSize[] = ['S', 'M', 'L', 'XL'];
 const ALL_FITS: FitType[] = ['Slim', 'Regular', 'Relaxed', 'Oversized'];
 
@@ -105,6 +120,28 @@ export function App() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Scroll reveal for every [data-reveal] block, refreshed per route
+  useEffect(() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-visible)'));
+    if (!targets.length) return;
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -6% 0px' }
+    );
+    targets.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [route]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -191,7 +228,7 @@ export function App() {
     (maxPrice < 200 ? 1 : 0);
 
   return (
-    <div className={`color-${globalScheme}`} style={{ minHeight: '100vh' }}>
+    <div className={`color-${globalScheme} has-motion`} style={{ minHeight: '100vh' }}>
       <a className="skip-to-content-link button" href="#MainContent">
         Skip to main content
       </a>
@@ -269,7 +306,7 @@ export function App() {
             >
               <span
                 className="logo-lockup logo-lockup--auto-invert"
-                style={{ ['--logo-height' as string]: '28px' }}
+                style={{ ['--logo-height' as string]: '38px' }}
               >
                 <span className="logo-lockup__mark">
                   <img className="logo-lockup__img" src="/logo.png" alt="" width={120} height={120} />
@@ -525,7 +562,7 @@ export function App() {
       </div>
 
       {/* MAIN CONTENT ROUTER */}
-      <main id="MainContent" className="main-content" role="main" tabIndex={-1}>
+      <main id="MainContent" key={route} className="main-content route-transition" role="main" tabIndex={-1}>
         {/* 1. HOMEPAGE */}
         {route === 'home' && (
           <>
@@ -541,23 +578,35 @@ export function App() {
                 />
                 <div className="hero__scrim" />
               </div>
+
               <div className="container hero__content">
                 <div className="hero__grid">
                   <div>
-                    <p className="mono-label" style={{ color: '#FAFAF8', opacity: 0.85, marginBottom: 16 }}>
+                    <p
+                      className="mono-label"
+                      data-hero-stagger
+                      style={{ '--stagger': 0, color: '#FAFAF8', opacity: 0.8, marginBottom: 18 } as React.CSSProperties}
+                    >
                       01 / SEASON 04 SHIRTING ARCHIVE
                     </p>
-                    <h1 className="display-xl" style={{ color: '#FAFAF8' }}>
-                      Engineered Shirting. Exact Proportions.
+                    <h1
+                      className="display-xl hero__title"
+                      data-hero-stagger
+                      style={{ '--stagger': 1, color: '#FAFAF8' } as React.CSSProperties}
+                    >
+                      Engineered shirting, cut to exact proportion.
                     </h1>
                   </div>
+
                   <div style={{ color: '#FAFAF8' }}>
-                    <p style={{ fontSize: '1.0625rem', lineHeight: 1.55, opacity: 0.9 }}>
-                      Single-needle Portuguese poplin, 240 GSM Supima jersey tees, and breathable Belgian flax linen built for calm daily uniforming.
+                    <p className="hero__lead" data-hero-stagger style={{ '--stagger': 2 } as React.CSSProperties}>
+                      Single-needle Portuguese poplin, 240 GSM Supima jersey and breathable Belgian flax —
+                      built for calm daily uniforming.
                     </p>
-                    <div className="hero__actions">
+                    <div className="hero__actions" data-hero-stagger style={{ '--stagger': 3 } as React.CSSProperties}>
                       <button type="button" className="button" onClick={() => navigate('collection:all')}>
-                        Shop All Shirts
+                        Shop all shirts
+                        <Icon name="arrow-right" size={15} />
                       </button>
                       <button
                         type="button"
@@ -565,18 +614,44 @@ export function App() {
                         style={{ color: '#FAFAF8', borderColor: 'rgba(250,250,248,0.55)' }}
                         onClick={() => navigate('about')}
                       >
-                        Our Craft
+                        Our craft
                       </button>
                     </div>
                   </div>
                 </div>
+
+                <div className="hero__meta" data-hero-stagger style={{ '--stagger': 4, color: '#FAFAF8' } as React.CSSProperties}>
+                  {HERO_META.map((meta) => (
+                    <div className="hero__meta-item" key={meta.label}>
+                      <strong>{meta.label}</strong>
+                      <span>{meta.value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              <span className="hero__scroll-cue" aria-hidden="true">Scroll</span>
             </section>
+
+            {/* Ticker */}
+            <div className="ticker">
+              <div className="marquee" style={{ '--marquee-duration': '46s' } as React.CSSProperties} aria-hidden="true">
+                <div className="marquee__track">
+                  {[0, 1].map((pass) => (
+                    <React.Fragment key={pass}>
+                      {PROMISES.map((promise) => (
+                        <span className="marquee__item" key={`${pass}-${promise}`}>{promise}</span>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {/* Asymmetric Category Tiles */}
             <section className="section-pad section-border-bottom">
               <div className="container">
-                <div className="section-header">
+                <div className="section-header" data-reveal>
                   <div className="section-header__titles">
                     <span className="mono-label">02 / SILHOUETTES</span>
                     <h2>Shop by Category</h2>
@@ -595,18 +670,21 @@ export function App() {
                 </div>
 
                 <div className="category-tiles-grid">
-                  {COLLECTIONS.map((col) => (
+                  {COLLECTIONS.map((col, idx) => (
                     <a
                       key={col.handle}
                       href={`#collection/${col.handle}`}
                       className={`category-tile category-tile--${col.layoutSpan}`}
+                      data-reveal
+                      data-reveal-delay={(idx % 4) + 1}
                       onClick={(e) => {
                         e.preventDefault();
                         clearAllFilters();
                         navigate(`collection:${col.handle}`);
                       }}
                     >
-                      <div className="category-tile__media">
+                      <div className="category-tile__media" data-reveal-media>
+                        <span className="category-tile__index">0{idx + 1}</span>
                         <img src={col.image} alt={col.title} width={900} height={675} loading="lazy" />
                       </div>
                       <div className="category-tile__meta">
@@ -625,7 +703,7 @@ export function App() {
             {/* Featured Collection with Tabs */}
             <section className="section-pad section-border-bottom">
               <div className="container">
-                <div className="section-header">
+                <div className="section-header" data-reveal>
                   <div className="section-header__titles">
                     <span className="mono-label">03 / NEW ARRIVALS</span>
                     <h2>Seasonal Shirting</h2>
@@ -676,10 +754,10 @@ export function App() {
             <section className={`section-pad section-border-bottom ${globalScheme === 'midnight' ? 'color-midnight' : 'color-stone'}`}>
               <div className="container">
                 <div className="grid-12 split-5-7">
-                  <div className="editorial-media">
+                  <div className="editorial-media" data-reveal data-reveal-media>
                     <img src={STUDIO_MEDIA.atelierPatterns} alt="Gridium pattern drafting atelier" width={800} height={1000} loading="lazy" />
                   </div>
-                  <div className="editorial-copy">
+                  <div className="editorial-copy" data-reveal data-reveal-delay="1">
                     <span className="mono-label">04 / MILL SPECIFICATION</span>
                     <h2>22 Stitches Per Inch. Zero Excess.</h2>
                     <p className="text-muted">
@@ -701,10 +779,41 @@ export function App() {
               </div>
             </section>
 
+            {/* Manifesto quote band */}
+            <section className="quote-band color-paper">
+              <div className="container quote-band__inner">
+                <div className="quote-band__aside" data-reveal>
+                  <span className="mono-label">MANIFESTO</span>
+                  <span className="section-index">GRIDIUM STUDIO · PORTO</span>
+                </div>
+                <blockquote className="quote-band__quote" data-reveal data-reveal-delay="1">
+                  <p>
+                    We are not interested in reinventing the shirt every season. We are interested in the eleventh revision
+                    of the same collar.
+                  </p>
+                  <footer className="quote-band__footer">
+                    <span className="quote-band__rule" aria-hidden="true" />
+                    <span>Lukas Lindqvist &amp; Clara Monteiro, Founders</span>
+                  </footer>
+                </blockquote>
+                <button
+                  type="button"
+                  className="link-arrow quote-band__link"
+                  data-reveal
+                  data-reveal-delay="2"
+                  style={{ background: 'none', border: 0, borderBottom: '1px solid currentColor', cursor: 'pointer' }}
+                  onClick={() => navigate('about')}
+                >
+                  Read the house story
+                  <Icon name="arrow-right" size={14} />
+                </button>
+              </div>
+            </section>
+
             {/* Numbered USP Row 01–04 */}
             <section className="section-pad-sm section-border-bottom">
               <div className="container">
-                <div className="usp-grid">
+                <div className="usp-grid" data-reveal>
                   {[
                     {
                       code: '01 / TEXTILE',
@@ -747,7 +856,7 @@ export function App() {
             {/* Bestsellers */}
             <section className="section-pad section-border-bottom">
               <div className="container">
-                <div className="section-header">
+                <div className="section-header" data-reveal>
                   <div className="section-header__titles">
                     <span className="mono-label">05 / PERMANENT COLLECTION</span>
                     <h2>Studio Bestsellers</h2>
@@ -785,7 +894,7 @@ export function App() {
             {/* Verified Client Testimonials */}
             <section className="section-pad section-border-bottom">
               <div className="container">
-                <div className="section-header">
+                <div className="section-header" data-reveal>
                   <div className="section-header__titles">
                     <span className="mono-label">06 / CLIENT NOTES</span>
                     <h2>Worn &amp; Reviewed</h2>
@@ -819,7 +928,7 @@ export function App() {
                             <Icon key={n} name="star" size={14} />
                           ))}
                         </div>
-                        <p style={{ fontSize: '1.0625rem', lineHeight: 1.55 }}>&ldquo;{r.quote}&rdquo;</p>
+                        <p className="testimonial-quote">&ldquo;{r.quote}&rdquo;</p>
                       </div>
                       <footer
                         style={{
@@ -842,7 +951,7 @@ export function App() {
             {/* Visual Archive / Instagram Lookbook Grid */}
             <section className="section-pad section-border-bottom">
               <div className="container">
-                <div className="section-header">
+                <div className="section-header" data-reveal>
                   <div className="section-header__titles">
                     <span className="mono-label">07 / UNIFORM INDEX</span>
                     <h2>In Daily Rotation</h2>
@@ -1328,7 +1437,7 @@ export function App() {
             </nav>
             <section className="section-pad">
               <div className="container">
-                <div className="section-header">
+                <div className="section-header" data-reveal>
                   <div className="section-header__titles">
                     <span className="mono-label">01 / DIRECTORY</span>
                     <h1>Shirting Collections</h1>
@@ -1521,7 +1630,7 @@ export function App() {
         {route === 'wishlist' && (
           <section className="section-pad">
             <div className="container">
-              <div className="section-header">
+              <div className="section-header" data-reveal>
                 <div className="section-header__titles">
                   <span className="mono-label">01 / PERSONAL SHORTLIST</span>
                   <h1>Saved Shirts ({wishlist.length})</h1>
@@ -1560,7 +1669,7 @@ export function App() {
         {route === 'cart' && (
           <section className="section-pad">
             <div className="container">
-              <div className="section-header">
+              <div className="section-header" data-reveal>
                 <div className="section-header__titles">
                   <span className="mono-label">01 / SHOPPING BAG</span>
                   <h1>Your Bag ({totalBagCount})</h1>
@@ -1698,7 +1807,7 @@ export function App() {
               >
                 <span
                   className="logo-lockup logo-lockup--auto-invert"
-                  style={{ ['--logo-height' as string]: '34px' }}
+                  style={{ ['--logo-height' as string]: '44px' }}
                 >
                   <span className="logo-lockup__mark">
                     <img className="logo-lockup__img" src="/logo.png" alt="" width={120} height={120} />
@@ -2223,7 +2332,7 @@ const ProductDetailView: React.FC<{
       {/* Related Shirtings */}
       <section className="section-pad section-border-bottom">
         <div className="container">
-          <div className="section-header">
+          <div className="section-header" data-reveal>
             <div className="section-header__titles">
               <span className="mono-label">02 / RELATED ARCHIVE</span>
               <h2>Related Shirtings</h2>
@@ -2249,7 +2358,7 @@ const ProductDetailView: React.FC<{
       {recentProducts.length > 0 && (
         <section className="section-pad">
           <div className="container">
-            <div className="section-header">
+            <div className="section-header" data-reveal>
               <div className="section-header__titles">
                 <span className="mono-label">03 / VIEWED HISTORY</span>
                 <h2>Recently Inspected</h2>

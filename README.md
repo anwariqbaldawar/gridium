@@ -15,7 +15,7 @@ Logo.png            ← master brand monogram (also copied to gridium/assets/log
 ```bash
 npm install
 npm run dev          # Studio preview at http://localhost:5173
-npm run theme:zip    # → release/gridium-shopify-theme-v1.1.0.zip
+npm run theme:zip    # → release/gridium-shopify-theme-v1.2.0.zip
 npm run theme:audit  # static theme checks
 ```
 
@@ -23,7 +23,7 @@ npm run theme:audit  # static theme checks
 
 1. `npm run theme:zip`
 2. Shopify Admin → **Online Store → Themes → Add theme → Upload zip file**
-3. Choose `release/gridium-shopify-theme-v1.1.0.zip` → **Publish**
+3. Choose `release/gridium-shopify-theme-v1.2.0.zip` → **Publish**
 
 The theme renders a complete storefront with zero editor setup (bundled logo fallback, three
 colour schemes, Jost/Inter typography, full homepage and About page). Product, menu and page

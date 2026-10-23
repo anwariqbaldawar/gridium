@@ -61,6 +61,14 @@
         },
         "body_scale": {
           "label": "Body size scale"
+        },
+        "display_typeface": {
+          "label": "Display typeface",
+          "info": "Editorial serif is used for headlines, hero statements and pull quotes.",
+          "options": {
+            "editorial": "Instrument Serif (editorial)",
+            "heading": "Match the heading font"
+          }
         }
       }
     },
