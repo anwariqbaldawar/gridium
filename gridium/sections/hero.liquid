@@ -15,7 +15,7 @@
         | image_url: width: 2400
         | image_tag:
           widths: '640, 960, 1280, 1600, 2000, 2400',
-          sizes: '100vw',
+          sizes: '(min-width: 900px) 55vw, 100vw',
           fetchpriority: 'high',
           loading: 'eager',
           alt: section.settings.heading
@@ -24,27 +24,28 @@
       {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
     {%- endif -%}
     <div class="hero__scrim"></div>
+    <span class="hero__frame" aria-hidden="true"></span>
+
+    {%- if section.settings.image_caption != blank -%}
+      <span class="hero__caption" aria-hidden="true">{{ section.settings.image_caption }}</span>
+    {%- endif -%}
+    {%- if section.settings.image_index != blank -%}
+      <span class="hero__index" aria-hidden="true">{{ section.settings.image_index }}</span>
+    {%- endif -%}
   </div>
 
-  <div class="container hero__content">
+  <div class="hero__content">
     <div class="hero__grid">
-      <div>
+      <div class="hero__lead-col">
         {%- if section.settings.eyebrow != blank -%}
-          <p class="mono-label" data-hero-stagger style="--stagger: 0; color: inherit; opacity: 0.8; margin-bottom: 18px;">
+          <p class="hero__eyebrow" data-hero-stagger style="--stagger: 0;">
+            <span class="hero__eyebrow-rule" aria-hidden="true"></span>
             {{ section.settings.eyebrow }}
           </p>
         {%- endif -%}
-        <h1 class="display-xl hero__title" data-hero-stagger style="--stagger: 1; color: inherit;">
+        <h1 class="display-xl hero__title" data-hero-stagger style="--stagger: 1;">
           {{ section.settings.heading }}
         </h1>
-      </div>
-
-      <div>
-        {%- if section.settings.subheading != blank -%}
-          <p class="hero__lead" data-hero-stagger style="--stagger: 2; color: inherit;">
-            {{ section.settings.subheading }}
-          </p>
-        {%- endif -%}
 
         <div class="hero__actions" data-hero-stagger style="--stagger: 3">
           {%- if section.settings.button_label != blank -%}
@@ -54,24 +55,32 @@
             </a>
           {%- endif -%}
           {%- if section.settings.secondary_label != blank -%}
-            <a href="{{ section.settings.secondary_link | default: routes.collections_url }}" class="button button--secondary" style="color:inherit;border-color:currentColor;">
+            <a href="{{ section.settings.secondary_link | default: routes.collections_url }}" class="button button--secondary">
               {{ section.settings.secondary_label }}
             </a>
           {%- endif -%}
         </div>
       </div>
-    </div>
 
-    {%- if meta_blocks.size > 0 -%}
-      <div class="hero__meta" data-hero-stagger style="--stagger: 4; color: inherit;">
-        {%- for block in meta_blocks -%}
-          <div class="hero__meta-item" {{ block.shopify_attributes }}>
-            <strong>{{ block.settings.label }}</strong>
-            <span>{{ block.settings.value }}</span>
+      <div class="hero__aside">
+        {%- if section.settings.subheading != blank -%}
+          <p class="hero__lead" data-hero-stagger style="--stagger: 2;">
+            {{ section.settings.subheading }}
+          </p>
+        {%- endif -%}
+
+        {%- if meta_blocks.size > 0 -%}
+          <div class="hero__meta" data-hero-stagger style="--stagger: 4;">
+            {%- for block in meta_blocks -%}
+              <div class="hero__meta-item" {{ block.shopify_attributes }}>
+                <strong>{{ block.settings.label }}</strong>
+                <span>{{ block.settings.value }}</span>
+              </div>
+            {%- endfor -%}
           </div>
-        {%- endfor -%}
+        {%- endif -%}
       </div>
-    {%- endif -%}
+    </div>
   </div>
 
   {%- if section.settings.show_scroll_cue -%}
@@ -104,6 +113,9 @@
     { "type": "url", "id": "button_link", "label": "Primary CTA link" },
     { "type": "text", "id": "secondary_label", "label": "Secondary CTA label", "default": "Our craft" },
     { "type": "url", "id": "secondary_link", "label": "Secondary CTA link" },
+    { "type": "header", "content": "Image micro-typography" },
+    { "type": "text", "id": "image_caption", "label": "Image caption", "default": "Season 04 — mill edition, Porto" },
+    { "type": "text", "id": "image_index", "label": "Image index numeral", "default": "04" },
     { "type": "checkbox", "id": "show_scroll_cue", "label": "Show scroll cue", "default": true }
   ],
   "blocks": [

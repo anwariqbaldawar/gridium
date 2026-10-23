@@ -37,6 +37,7 @@
     if (!el) return;
     el.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('overlay-open');
     trapFocus(el);
   }
 
@@ -45,6 +46,7 @@
     el.setAttribute('aria-hidden', 'true');
     if (!document.querySelector('[aria-hidden="false"].drawer-backdrop, [aria-hidden="false"].modal-overlay, [aria-hidden="false"].search-overlay')) {
       document.body.style.overflow = '';
+      document.documentElement.classList.remove('overlay-open');
     }
     if (activeTrapCleanup) activeTrapCleanup();
   }
@@ -295,5 +297,45 @@
       behavior: reduceMotion ? 'auto' : 'smooth'
     });
     history.replaceState(null, '', id);
+  });
+})();
+
+/* --------------------------------------------------------------------------
+   Colour mode — Paper by day, Midnight by night. Persisted per visitor.
+   -------------------------------------------------------------------------- */
+(() => {
+  const KEY = 'gridium-color-mode';
+  const root = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+
+  const syncButtons = (mode) => {
+    document.querySelectorAll('[data-mode-toggle]').forEach((btn) => {
+      const isDark = mode === 'dark';
+      btn.setAttribute('aria-pressed', String(isDark));
+      const next = btn.getAttribute(isDark ? 'data-label-light' : 'data-label-dark');
+      if (next) btn.setAttribute('aria-label', next);
+      const label = btn.querySelector('[data-mode-label]');
+      if (label && next) label.textContent = next;
+    });
+  };
+
+  const apply = (mode, persist) => {
+    root.dataset.mode = mode;
+    if (meta) meta.setAttribute('content', mode === 'dark' ? '#111211' : '#FAFAF8');
+    syncButtons(mode);
+    if (persist) {
+      try { localStorage.setItem(KEY, mode); } catch (e) { /* storage blocked */ }
+    }
+  };
+
+  let stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) { /* storage blocked */ }
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  apply(stored || (prefersDark ? 'dark' : 'light'), false);
+
+  document.addEventListener('click', (event) => {
+    const btn = event.target.closest('[data-mode-toggle]');
+    if (!btn) return;
+    apply(root.dataset.mode === 'dark' ? 'light' : 'dark', true);
   });
 })();

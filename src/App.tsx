@@ -91,6 +91,43 @@ export function App() {
   // Homepage tab state & newsletter state
   const [homeTab, setHomeTab] = useState<'all' | 'woven' | 'tees'>('all');
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [studioBarOpen, setStudioBarOpen] = useState(false);
+
+  // Keep the document colour mode in sync with the studio scheme, and publish the
+  // live header height so sticky toolbars sit exactly under the header.
+  useEffect(() => {
+    document.documentElement.dataset.mode = globalScheme === 'midnight' ? 'dark' : 'light';
+  }, [globalScheme]);
+
+  // Lock the page behind any open overlay (menu, cart, search) — the mobile drawer
+  // must never let the page scroll underneath it.
+  const anyOverlayOpen = mobileMenuOpen || cartOpen || searchOpen;
+  useEffect(() => {
+    document.documentElement.classList.toggle('overlay-open', anyOverlayOpen);
+    document.body.classList.toggle('overlay-open', anyOverlayOpen);
+    return () => {
+      document.documentElement.classList.remove('overlay-open');
+      document.body.classList.remove('overlay-open');
+    };
+  }, [anyOverlayOpen]);
+
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>('.site-header');
+    if (!header) return;
+    const sync = () =>
+      document.documentElement.style.setProperty(
+        '--header-height',
+        `${Math.round(header.getBoundingClientRect().height)}px`
+      );
+    sync();
+    const ro = new ResizeObserver(sync);
+    ro.observe(header);
+    window.addEventListener('resize', sync);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', sync);
+    };
+  }, []);
 
   // Collection filter & sort state
   const [selectedSizes, setSelectedSizes] = useState<ShirtSize[]>([]);
@@ -233,11 +270,12 @@ export function App() {
         Skip to main content
       </a>
 
-      {/* Developer / Theme Studio Bar */}
+      {/* Preview-only theme studio bar — never part of the shipped theme */}
+      {studioBarOpen && (
       <div className="studio-dev-bar">
         <div className="container studio-dev-bar__inner">
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
-            <span>GRIDIUM v1.1.0 · ONLINE STORE 2.0 SHOPIFY THEME</span>
+            <span>GRIDIUM v1.3.0 · ONLINE STORE 2.0 SHOPIFY THEME</span>
             <span style={{ opacity: 0.4 }}>|</span>
             <span style={{ opacity: 0.8 }}>SCHEME:</span>
             {(['paper', 'stone', 'midnight'] as SchemeName[]).map((sc) => (
@@ -256,9 +294,28 @@ export function App() {
             <button type="button" className="studio-pill-btn is-active" onClick={() => setStudioOpen(true)}>
               Inspect Theme Files &amp; Download .ZIP
             </button>
+            <button
+              type="button"
+              className="studio-pill-btn"
+              onClick={() => setStudioBarOpen(false)}
+              aria-label="Hide studio bar"
+            >
+              Hide
+            </button>
           </div>
         </div>
       </div>
+      )}
+
+      <button
+        type="button"
+        className="studio-fab"
+        onClick={() => setStudioBarOpen(true)}
+        aria-label="Open theme studio"
+      >
+        <span className="studio-fab__dot" aria-hidden="true" />
+        Studio
+      </button>
 
       {/* Rotating Announcement Bar */}
       <div className="announcement-bar color-midnight">
@@ -478,25 +535,44 @@ export function App() {
             </nav>
 
             <div className="site-header__actions">
-              <button type="button" className="icon-btn" onClick={() => setSearchOpen(true)} aria-label="Open search">
+              <button type="button" className="icon-btn" onClick={() => { setStudioBarOpen(false); setSearchOpen(true); }} aria-label="Open search">
                 <Icon name="search" size={20} />
               </button>
+              <div className="site-header__actions-secondary">
+                <button
+                  type="button"
+                  className="icon-btn"
+                  onClick={() => navigate('wishlist')}
+                  aria-label="Saved shirts"
+                >
+                  <Icon name="heart" size={20} />
+                  <span className="header-count-badge">{wishlist.length}</span>
+                </button>
+                <button
+                  type="button"
+                  className="icon-btn"
+                  onClick={() => navigate('account')}
+                  aria-label="Client Account"
+                >
+                  <Icon name="user" size={20} />
+                </button>
+              </div>
               <button
                 type="button"
-                className="icon-btn"
-                onClick={() => navigate('wishlist')}
-                aria-label="Saved shirts"
+                className="icon-btn mode-toggle"
+                data-mode-toggle
+                aria-pressed={globalScheme === 'midnight'}
+                aria-label={globalScheme === 'midnight' ? 'Light mode' : 'Dark mode'}
+                data-label-dark="Dark mode"
+                data-label-light="Light mode"
+                onClick={() => setGlobalScheme(globalScheme === 'midnight' ? 'paper' : 'midnight')}
               >
-                <Icon name="heart" size={20} />
-                <span className="header-count-badge">{wishlist.length}</span>
-              </button>
-              <button
-                type="button"
-                className="icon-btn"
-                onClick={() => navigate('account')}
-                aria-label="Client Account"
-              >
-                <Icon name="user" size={20} />
+                <span className="mode-toggle__icon mode-toggle__icon--moon">
+                  <Icon name="moon" size={19} />
+                </span>
+                <span className="mode-toggle__icon mode-toggle__icon--sun">
+                  <Icon name="sun" size={19} />
+                </span>
               </button>
               <button
                 type="button"
@@ -557,6 +633,58 @@ export function App() {
                 </li>
               ))}
             </ul>
+
+            <div className="drawer-footer">
+              <div className="drawer-signup">
+                <span className="mono-label">Studio dispatch</span>
+                <p className="drawer-signup__text">Monthly mill notes, restocks and fit guidance. No noise.</p>
+                {newsletterSubmitted ? (
+                  <p className="mono-label" style={{ color: 'var(--color-text)' }}>Thank you — you are subscribed.</p>
+                ) : (
+                  <form
+                    className="drawer-signup__form"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setNewsletterSubmitted(true);
+                    }}
+                  >
+                    <input
+                      type="email"
+                      className="field__input"
+                      placeholder="Enter your email address"
+                      aria-label="Email address"
+                      required
+                    />
+                    <button type="submit" className="button button--sm">
+                      Subscribe
+                      <Icon name="arrow-right" size={14} />
+                    </button>
+                  </form>
+                )}
+              </div>
+
+              <div className="drawer-footer__row">
+                <button
+                  type="button"
+                  className="drawer-mode"
+                  data-mode-toggle
+                  aria-pressed={globalScheme === 'midnight'}
+                  onClick={() => setGlobalScheme(globalScheme === 'midnight' ? 'paper' : 'midnight')}
+                >
+                  <span className="mode-toggle__icon mode-toggle__icon--moon"><Icon name="moon" size={16} /></span>
+                  <span className="mode-toggle__icon mode-toggle__icon--sun"><Icon name="sun" size={16} /></span>
+                  <span data-mode-label>{globalScheme === 'midnight' ? 'Light mode' : 'Dark mode'}</span>
+                </button>
+                <button
+                  type="button"
+                  className="drawer-footer__link link-underline"
+                  style={{ background: 'none', border: 0, cursor: 'pointer' }}
+                  onClick={() => navigate('account')}
+                >
+                  Account
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -567,7 +695,7 @@ export function App() {
         {route === 'home' && (
           <>
             {/* Hero */}
-            <section className="hero color-midnight" style={{ '--hero-overlay': 0.36 } as React.CSSProperties}>
+            <section className="hero color-midnight" style={{ '--hero-overlay': 0.32 } as React.CSSProperties}>
               <div className="hero__media">
                 <img
                   src={STUDIO_MEDIA.heroRack}
@@ -577,32 +705,22 @@ export function App() {
                   height={1000}
                 />
                 <div className="hero__scrim" />
+                <span className="hero__frame" aria-hidden="true" />
+                <span className="hero__caption" aria-hidden="true">Season 04 — mill edition, Porto</span>
+                <span className="hero__index" aria-hidden="true">04</span>
               </div>
 
-              <div className="container hero__content">
+              <div className="hero__content">
                 <div className="hero__grid">
-                  <div>
-                    <p
-                      className="mono-label"
-                      data-hero-stagger
-                      style={{ '--stagger': 0, color: '#FAFAF8', opacity: 0.8, marginBottom: 18 } as React.CSSProperties}
-                    >
-                      01 / SEASON 04 SHIRTING ARCHIVE
+                  <div className="hero__lead-col">
+                    <p className="hero__eyebrow" data-hero-stagger style={{ '--stagger': 0 } as React.CSSProperties}>
+                      <span className="hero__eyebrow-rule" aria-hidden="true" />
+                      01 / Season 04 shirting archive
                     </p>
-                    <h1
-                      className="display-xl hero__title"
-                      data-hero-stagger
-                      style={{ '--stagger': 1, color: '#FAFAF8' } as React.CSSProperties}
-                    >
+                    <h1 className="display-xl hero__title" data-hero-stagger style={{ '--stagger': 1 } as React.CSSProperties}>
                       Engineered shirting, cut to exact proportion.
                     </h1>
-                  </div>
 
-                  <div style={{ color: '#FAFAF8' }}>
-                    <p className="hero__lead" data-hero-stagger style={{ '--stagger': 2 } as React.CSSProperties}>
-                      Single-needle Portuguese poplin, 240 GSM Supima jersey and breathable Belgian flax —
-                      built for calm daily uniforming.
-                    </p>
                     <div className="hero__actions" data-hero-stagger style={{ '--stagger': 3 } as React.CSSProperties}>
                       <button type="button" className="button" onClick={() => navigate('collection:all')}>
                         Shop all shirts
@@ -611,22 +729,27 @@ export function App() {
                       <button
                         type="button"
                         className="button button--secondary"
-                        style={{ color: '#FAFAF8', borderColor: 'rgba(250,250,248,0.55)' }}
                         onClick={() => navigate('about')}
                       >
                         Our craft
                       </button>
                     </div>
                   </div>
-                </div>
 
-                <div className="hero__meta" data-hero-stagger style={{ '--stagger': 4, color: '#FAFAF8' } as React.CSSProperties}>
-                  {HERO_META.map((meta) => (
-                    <div className="hero__meta-item" key={meta.label}>
-                      <strong>{meta.label}</strong>
-                      <span>{meta.value}</span>
+                  <div className="hero__aside">
+                    <p className="hero__lead" data-hero-stagger style={{ '--stagger': 2 } as React.CSSProperties}>
+                      Single-needle Portuguese poplin, 240 GSM Supima jersey and breathable Belgian flax —
+                      built for calm daily uniforming.
+                    </p>
+                    <div className="hero__meta" data-hero-stagger style={{ '--stagger': 4 } as React.CSSProperties}>
+                      {HERO_META.map((meta) => (
+                        <div className="hero__meta-item" key={meta.label}>
+                          <strong>{meta.label}</strong>
+                          <span>{meta.value}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
 
@@ -2386,62 +2509,249 @@ const ProductDetailView: React.FC<{
 
 /* Legal Policy View with Sticky Table of Contents & 68ch Reading Column */
 const PolicyView: React.FC<{ type: 'privacy' | 'refund'; onHome: () => void }> = ({ type, onHome }) => {
-  const sections =
-    type === 'privacy'
-      ? [
-          {
-            id: 'info-collect',
-            title: '1. Information We Collect',
-            body: 'When you browse or purchase from Gridium, we collect essential contact, shipping, and encrypted payment token details necessary to fulfill your garment order, process exchanges, and provide concierge sizing assistance.',
-          },
-          {
-            id: 'how-we-use',
-            title: '2. How We Use Your Data',
-            body: 'Personal information is strictly used for order dispatch, fraud prevention, statutory tax compliance, and—only where explicitly opted in—studio newsletter dispatches. We never sell or rent client records to third parties.',
-          },
-          {
-            id: 'shopify-security',
-            title: '3. Payment Security & Shopify Infrastructure',
-            body: 'Our online store is hosted on Shopify Inc. All card transactions are encrypted through PCI-DSS Level 1 standards; Gridium never stores raw credit card numbers on studio systems.',
-          },
-          {
-            id: 'cookies-storage',
-            title: '4. Cookies & Local Storage',
-            body: 'We use minimal functional cookies and browser localStorage to preserve your shopping bag, currency preference, grid density, and saved wishlist items across sessions.',
-          },
-          {
-            id: 'privacy-rights',
-            title: '5. Your Privacy Rights',
-            body: 'Under GDPR, UK GDPR, and CCPA, you may request access, correction, portability, or deletion of your personal records at any time by writing to concierge@gridiumstudio.com.',
-          },
-        ]
-      : [
-          {
-            id: 'return-window',
-            title: '1. 30-Day Return & Exchange Window',
-            body: 'We accept returns and complimentary size exchanges within 30 days of delivery. Shirts must remain unworn, unwashed, unaltered, and returned in original archival packaging with garment tags attached.',
-          },
-          {
-            id: 'instant-exchange',
-            title: '2. Instant Size Exchanges',
-            body: 'Need a closer Slim fit or a roomier Regular size? Request an exchange using your order number via our Contact page and we will reserve your replacement shirt immediately upon carrier scan.',
-          },
-          {
-            id: 'refund-timeline',
-            title: '3. Refund Processing',
-            body: 'Once inspected at our studio warehouse, approved refunds are credited back to your original payment method within 3–5 business days. Express shipping upgrades are non-refundable.',
-          },
-          {
-            id: 'international-returns',
-            title: '4. International Duties & Returns',
-            body: 'International clients may generate a prepaid DHL or UPS return airwaybill through client care. Import duties paid directly to local customs authorities can be reclaimed locally.',
-          },
-          {
-            id: 'quality-guarantee',
-            title: '5. Mill & Seam Quality Guarantee',
-            body: 'In the rare event of a mill weave flaw or seam defect, contact our atelier team with a photograph for an immediate complimentary replacement.',
-          },
-        ];
+  const isPrivacy = type === 'privacy';
+
+  const intro = isPrivacy
+    ? 'Your measurements, orders and messages belong to you. This page explains exactly what we collect, why we collect it, how long we keep it and the controls you have.'
+    : 'Shirts should fit on the first wear. If the cut, the fabric or the sizing is not right, this page sets out how returns, exchanges and repairs work — plainly, without small print.';
+
+  const summary = isPrivacy
+    ? [
+        'We never sell or rent your personal data.',
+        'Card details are handled by PCI-DSS Level 1 payment providers.',
+        'Analytics cookies are optional and consent-based.',
+        'You can request a copy or deletion of your data at any time.',
+      ]
+    : [
+        '30 days to return or exchange, from the day of delivery.',
+        'Size exchanges are complimentary and reserved on carrier scan.',
+        'Refunds are issued within 3–5 business days of inspection.',
+        'Manufacturing faults are replaced free, for a decade.',
+      ];
+
+  type Block =
+    | { kind: 'p'; text: string }
+    | { kind: 'ul'; items: string[] }
+    | { kind: 'table'; head: string[]; rows: string[][] };
+
+  const privacy: { id: string; title: string; blocks: Block[] }[] = [
+    {
+      id: 'who-we-are',
+      title: '1. Who We Are',
+      blocks: [
+        { kind: 'p', text: 'Gridium Studio ("Gridium", "we", "us") designs, manufactures and sells a deliberately small catalogue of shirts and knitwear. This policy explains what personal data we collect when you browse or buy from our store, why we collect it, how long we keep it and the choices available to you.' },
+        { kind: 'p', text: 'For the purposes of the EU and UK General Data Protection Regulation, Gridium Studio is the data controller of the personal data described here. Our storefront is hosted on Shopify Inc., which acts as our data processor.' },
+      ],
+    },
+    {
+      id: 'information-we-collect',
+      title: '2. Information We Collect',
+      blocks: [
+        {
+          kind: 'ul',
+          items: [
+            'Contact and identity data — name, email address, telephone number and delivery or billing address.',
+            'Order data — items purchased, size and fit choices, order value, returns and exchange history.',
+            'Payment data — handled entirely by our PCI-DSS Level 1 payment providers. We receive a payment confirmation and the last four digits of a card; we never store full card numbers.',
+            'Technical data — IP address, device and browser type, operating system, referring URL and pages viewed.',
+            'Communication data — emails, chat transcripts and fit-consultation notes you send to our studio.',
+            'Marketing preferences — newsletter opt-in status, size profile and product interests.',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'why-we-use-it',
+      title: '3. Why We Use Your Data',
+      blocks: [
+        {
+          kind: 'table',
+          head: ['Purpose', 'Data used', 'Legal basis (GDPR Art. 6)'],
+          rows: [
+            ['Fulfilling and delivering your order', 'Contact, order, payment confirmation', 'Performance of a contract'],
+            ['Returns, exchanges and repairs', 'Order, communication', 'Performance of a contract'],
+            ['Answering fit and product questions', 'Contact, communication', 'Legitimate interests'],
+            ['Fraud prevention and payment security', 'Technical, order, IP address', 'Legitimate interests / legal obligation'],
+            ['Tax, accounting and audit records', 'Order, contact', 'Legal obligation'],
+            ['Studio newsletter and restock notices', 'Contact, marketing preferences', 'Consent (withdrawable at any time)'],
+            ['Site performance and analytics', 'Technical, aggregated usage', 'Consent where cookies require it'],
+          ],
+        },
+      ],
+    },
+    {
+      id: 'cookies',
+      title: '4. Cookies & Local Storage',
+      blocks: [
+        { kind: 'p', text: 'We keep cookies to the minimum required to run the store. Strictly necessary cookies power the shopping bag, checkout session, currency and region selection, and saved shortlist. Analytics and marketing cookies are only set after you consent, and you can withdraw consent at any time.' },
+        {
+          kind: 'table',
+          head: ['Category', 'Purpose', 'Retention'],
+          rows: [
+            ['Strictly necessary', 'Cart, checkout, session, security', 'Session to 30 days'],
+            ['Preferences', 'Region, currency, saved items, colour mode', 'Up to 12 months'],
+            ['Analytics', 'Aggregated page and funnel measurement', 'Up to 24 months'],
+            ['Marketing', 'Measuring campaigns you opt into', 'Up to 13 months'],
+          ],
+        },
+      ],
+    },
+    {
+      id: 'sharing',
+      title: '5. Sharing & Sub-Processors',
+      blocks: [
+        { kind: 'p', text: 'We never sell or rent personal data. We share only what is necessary with vetted partners who are contractually bound to protect it:' },
+        {
+          kind: 'ul',
+          items: [
+            'Shopify Inc. — storefront, checkout and order management.',
+            'Payment providers — card, wallet and local payment processing.',
+            'Carriers — DHL, UPS and national postal services for delivery and returns.',
+            'Email and support platforms — transactional mail, newsletter dispatch and client care.',
+            'Professional advisers — accountants, auditors and legal counsel where required.',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'transfers',
+      title: '6. International Transfers',
+      blocks: [
+        { kind: 'p', text: 'Our partners may process data outside your country of residence. Where data leaves the EEA or the UK we rely on adequacy decisions or Standard Contractual Clauses, together with technical and organisational safeguards such as encryption in transit and at rest.' },
+      ],
+    },
+    {
+      id: 'retention',
+      title: '7. How Long We Keep Data',
+      blocks: [
+        {
+          kind: 'ul',
+          items: [
+            'Order records — 7 years, to satisfy tax and consumer-protection obligations.',
+            'Client care correspondence — 24 months from the last interaction.',
+            'Marketing contact records — until you unsubscribe, plus a short suppression period afterwards.',
+            'Fraud and security logs — up to 12 months.',
+            'Abandoned cart emails — 30 days unless you place an order.',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'your-rights',
+      title: '8. Your Rights',
+      blocks: [
+        { kind: 'p', text: 'Depending on where you live, you may have the right to access, correct, delete, restrict, port or object to the processing of your personal data, and to withdraw consent at any time. California residents may additionally request disclosure of categories of personal information collected and opt out of any "sale" or "sharing" of personal information — Gridium does not sell personal information.' },
+        { kind: 'p', text: 'To exercise any right, email concierge@gridiumstudio.com. We respond within 30 days and may ask for verification that protects your account. You also have the right to lodge a complaint with your local supervisory authority.' },
+      ],
+    },
+    {
+      id: 'security',
+      title: '9. Security',
+      blocks: [
+        { kind: 'p', text: 'All traffic to this store is encrypted with TLS. Access to client data is limited to a small number of studio staff, protected by multi-factor authentication and role-based permissions. We review our processors regularly and will notify you and the relevant authority of any breach that is likely to present a high risk to your rights.' },
+      ],
+    },
+    {
+      id: 'children',
+      title: '10. Children',
+      blocks: [
+        { kind: 'p', text: 'Our store is intended for adults. We do not knowingly collect personal data from children under 16. If you believe a child has provided us with personal data, contact us and we will delete it.' },
+      ],
+    },
+    {
+      id: 'automated-decisions',
+      title: '11. Automated Decisions',
+      blocks: [
+        { kind: 'p', text: 'We do not make decisions with legal or similarly significant effects about you based solely on automated processing. Recommendations you see in-store are based on aggregate behaviour and can be ignored without affecting your order.' },
+      ],
+    },
+    {
+      id: 'changes-contact',
+      title: '12. Changes & Contact',
+      blocks: [
+        { kind: 'p', text: 'We may update this policy as our services evolve; the "last updated" date above always reflects the current version, and material changes will be announced on this page or by email.' },
+        { kind: 'p', text: 'Questions, requests or complaints: concierge@gridiumstudio.com — or write to Gridium Studio, Data Protection, Rua da Fábrica 14, 4050-262 Porto, Portugal.' },
+      ],
+    },
+  ];
+
+  const refund: { id: string; title: string; blocks: Block[] }[] = [
+    {
+      id: 'return-window',
+      title: '1. 30-Day Return & Exchange Window',
+      blocks: [
+        { kind: 'p', text: 'We accept returns and complimentary size exchanges within 30 days of delivery. Shirts must remain unworn, unwashed, unaltered and returned in their original archival packaging with garment tags attached.' },
+        { kind: 'p', text: 'Try the shirt on indoors, over a t-shirt if you are unsure. We inspect every return by hand, and garments showing wear, scent or laundering are sent back to you.' },
+      ],
+    },
+    {
+      id: 'instant-exchange',
+      title: '2. Instant Size Exchanges',
+      blocks: [
+        { kind: 'p', text: 'Need a closer Slim fit or a roomier Regular size? Request an exchange with your order number through the Contact page. We reserve the replacement size the moment your parcel is scanned by the carrier, so you are not waiting for warehouse processing.' },
+      ],
+    },
+    {
+      id: 'refund-timeline',
+      title: '3. Refund Processing',
+      blocks: [
+        { kind: 'p', text: 'Once inspected at our studio warehouse, approved refunds are credited to the original payment method within 3–5 business days. Express shipping upgrades and duties are non-refundable, and your bank may add one settlement cycle.' },
+      ],
+    },
+    {
+      id: 'international-returns',
+      title: '4. International Returns',
+      blocks: [
+        { kind: 'p', text: 'International clients can generate a prepaid DHL or UPS return airwaybill through client care. Import duties paid directly to local customs authorities are reclaimed locally with the receipt we provide.' },
+      ],
+    },
+    {
+      id: 'exclusions',
+      title: '5. What Cannot Be Returned',
+      blocks: [
+        {
+          kind: 'ul',
+          items: [
+            'Garments that have been worn, washed, altered or tailored.',
+            'Final-sale archive pieces and sample-sale items, marked at checkout.',
+            'Gift cards and digital certificates.',
+            'Items returned after 30 days without prior agreement.',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'how-to-return',
+      title: '6. How To Start A Return',
+      blocks: [
+        {
+          kind: 'ul',
+          items: [
+            'Email concierge@gridiumstudio.com with your order number and the reason for return.',
+            'We reply within one business day with a prepaid label or a collection slot.',
+            'Pack the shirt in its original archival sleeve with the tags attached.',
+            'Drop the parcel with the carrier — we handle the rest and email tracking.',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'quality-guarantee',
+      title: '7. Mill & Seam Quality Guarantee',
+      blocks: [
+        { kind: 'p', text: 'Every shirt is single-needle stitched at 22 stitches per inch and inspected twice. In the rare event of a mill weave flaw, a skipped seam or a hardware failure, contact our atelier with a photograph for an immediate complimentary replacement — valid for ten years from purchase.' },
+      ],
+    },
+    {
+      id: 'repairs',
+      title: '8. Repairs For A Decade',
+      blocks: [
+        { kind: 'p', text: 'Missing buttons, split seams and worn cuffs can be repaired at our Porto atelier at cost for ten years. Send us the garment and we will quote before any work begins.' },
+      ],
+    },
+  ];
+
+  const sections = isPrivacy ? privacy : refund;
 
   return (
     <>
@@ -2450,36 +2760,65 @@ const PolicyView: React.FC<{ type: 'privacy' | 'refund'; onHome: () => void }> =
           <ol className="breadcrumbs__list mono-label">
             <li><a href="#home" onClick={(e) => { e.preventDefault(); onHome(); }}>Home</a></li>
             <li className="breadcrumbs__sep">/</li>
-            <li aria-current="page">{type === 'privacy' ? 'Privacy Policy' : 'Returns & Refund Policy'}</li>
+            <li aria-current="page">{isPrivacy ? 'Privacy Policy' : 'Returns & Refund Policy'}</li>
           </ol>
         </div>
       </nav>
 
       <section className="section-pad">
         <div className="container">
-          <div style={{ marginBottom: 48, paddingBottom: 28, borderBottom: '1px solid var(--color-border)' }}>
-            <span className="mono-label">EFFECTIVE &amp; REVIEWED: CURRENT SEASON</span>
-            <h1 style={{ marginTop: 8 }}>{type === 'privacy' ? 'Privacy Policy' : 'Returns & Refund Policy'}</h1>
-          </div>
+          <header className="policy-hero">
+            <span className="mono-label">Last updated · October 2026</span>
+            <h1>{isPrivacy ? 'Privacy Policy' : 'Returns & Refund Policy'}</h1>
+            <p className="policy-hero__intro">{intro}</p>
+            <ul className="policy-summary">
+              {summary.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </header>
 
           <div className="policy-layout">
             <aside className="policy-toc" aria-label="On This Page">
               <span className="mono-label">ON THIS PAGE</span>
               <ul className="policy-toc__list">
-                {sections.map((s) => (
-                  <li key={s.id}>
-                    <a href={`#${s.id}`} className="policy-toc__link">{s.title}</a>
+                {sections.map((sec) => (
+                  <li key={sec.id}>
+                    <a href={`#${sec.id}`} className="policy-toc__link">{sec.title}</a>
                   </li>
                 ))}
               </ul>
+              <div className="policy-toc__contact">
+                <span className="mono-label">QUESTIONS?</span>
+                <a className="link-underline" href="mailto:concierge@gridiumstudio.com">concierge@gridiumstudio.com</a>
+              </div>
             </aside>
 
-            <article className="rte">
-              {sections.map((s) => (
-                <div key={s.id} id={s.id} style={{ marginBottom: 32 }}>
-                  <h2 className="h3" style={{ marginTop: 0 }}>{s.title}</h2>
-                  <p className="text-muted">{s.body}</p>
-                </div>
+            <article className="rte policy-document">
+              {sections.map((sec) => (
+                <section key={sec.id} id={sec.id}>
+                  <h2>{sec.title}</h2>
+                  {sec.blocks.map((block, i) => {
+                    if (block.kind === 'p') return <p key={i}>{block.text}</p>;
+                    if (block.kind === 'ul') {
+                      return (
+                        <ul key={i}>
+                          {block.items.map((item) => <li key={item}>{item}</li>)}
+                        </ul>
+                      );
+                    }
+                    return (
+                      <table key={i}>
+                        <thead>
+                          <tr>{block.head.map((h) => <th key={h}>{h}</th>)}</tr>
+                        </thead>
+                        <tbody>
+                          {block.rows.map((row) => (
+                            <tr key={row.join('-')}>{row.map((cell) => <td key={cell}>{cell}</td>)}</tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    );
+                  })}
+                </section>
               ))}
             </article>
           </div>

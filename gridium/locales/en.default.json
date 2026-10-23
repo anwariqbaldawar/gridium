@@ -84,7 +84,9 @@
     "log_in": "Sign in",
     "wishlist": "Saved",
     "cart": "Bag",
-    "cart_count": "{{ count }} items in bag"
+    "cart_count": "{{ count }} items in bag",
+    "dark_mode": "Dark mode",
+    "light_mode": "Light mode"
   },
   "footer": {
     "newsletter_heading": "Studio Dispatch",
@@ -225,9 +227,10 @@
   },
   "policy": {
     "contents": "On This Page",
-    "last_updated": "Effective & Reviewed: Current Season",
+    "last_updated": "Last updated",
     "privacy_fallback_title": "Privacy Policy",
-    "refund_fallback_title": "Returns & Refund Policy"
+    "refund_fallback_title": "Returns & Refund Policy",
+    "questions": "Questions?"
   },
   "customer": {
     "login": {

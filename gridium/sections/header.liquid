@@ -101,17 +101,34 @@
           {% render 'icon', name: 'search', size: 20 %}
         </button>
 
-        {%- if settings.card_enable_wishlist -%}
-          <a href="/pages/wishlist" class="icon-btn" aria-label="{{ 'accessibility.wishlist' | t }}">
-            {% render 'icon', name: 'heart', size: 20 %}
-            <span class="header-count-badge" data-wishlist-count>0</span>
-          </a>
-        {%- endif -%}
+        <div class="site-header__actions-secondary">
+          {%- if settings.card_enable_wishlist -%}
+            <a href="/pages/wishlist" class="icon-btn" aria-label="{{ 'accessibility.wishlist' | t }}">
+              {% render 'icon', name: 'heart', size: 20 %}
+              <span class="header-count-badge" data-wishlist-count>0</span>
+            </a>
+          {%- endif -%}
 
-        {%- if shop.customer_accounts_enabled -%}
-          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-btn" aria-label="{{ 'header.account' | t }}">
-            {% render 'icon', name: 'user', size: 20 %}
-          </a>
+          {%- if shop.customer_accounts_enabled -%}
+            <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-btn" aria-label="{{ 'header.account' | t }}">
+              {% render 'icon', name: 'user', size: 20 %}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_mode_toggle -%}
+          <button
+            type="button"
+            class="icon-btn mode-toggle"
+            data-mode-toggle
+            aria-pressed="false"
+            aria-label="{{ 'header.dark_mode' | t }}"
+            data-label-dark="{{ 'header.dark_mode' | t }}"
+            data-label-light="{{ 'header.light_mode' | t }}"
+          >
+            <span class="mode-toggle__icon mode-toggle__icon--moon">{% render 'icon', name: 'moon', size: 19 %}</span>
+            <span class="mode-toggle__icon mode-toggle__icon--sun">{% render 'icon', name: 'sun', size: 19 %}</span>
+          </button>
         {%- endif -%}
 
         {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
@@ -171,6 +188,58 @@
           <li class="mobile-nav__item"><a href="/pages/wishlist" class="mobile-nav__link">{{ 'products.wishlist.title' | t }}</a></li>
         {%- endif -%}
       </ul>
+
+      <div class="drawer-footer">
+        {%- if section.settings.show_drawer_signup -%}
+          <div class="drawer-signup">
+            <span class="mono-label">{{ section.settings.drawer_signup_label | default: 'Studio dispatch' }}</span>
+            <p class="drawer-signup__text">{{ section.settings.drawer_signup_text | default: 'Monthly mill notes, restocks and fit guidance. No noise.' }}</p>
+            {%- form 'customer', id: 'DrawerNewsletter', class: 'drawer-signup__form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input
+                type="email"
+                name="contact[email]"
+                class="field__input"
+                placeholder="{{ 'general.newsletter.label' | t }}"
+                aria-label="{{ 'general.newsletter.label' | t }}"
+                required
+                autocorrect="off"
+                autocapitalize="off"
+              >
+              <button type="submit" class="button button--sm">
+                {{ 'general.newsletter.button' | t }}
+                {% render 'icon', name: 'arrow-right', size: 14 %}
+              </button>
+              {%- if form.posted_successfully? -%}
+                <p class="mono-label">{{ 'general.newsletter.success' | t }}</p>
+              {%- endif -%}
+            {%- endform -%}
+          </div>
+        {%- endif -%}
+
+        <div class="drawer-footer__row">
+          {%- if section.settings.show_mode_toggle -%}
+            <button
+              type="button"
+              class="drawer-mode"
+              data-mode-toggle
+              aria-pressed="false"
+              data-label-dark="{{ 'header.dark_mode' | t }}"
+              data-label-light="{{ 'header.light_mode' | t }}"
+            >
+              <span class="mode-toggle__icon mode-toggle__icon--moon">{% render 'icon', name: 'moon', size: 16 %}</span>
+              <span class="mode-toggle__icon mode-toggle__icon--sun">{% render 'icon', name: 'sun', size: 16 %}</span>
+              <span data-mode-label>{{ 'header.dark_mode' | t }}</span>
+            </button>
+          {%- endif -%}
+
+          {%- if shop.customer_accounts_enabled -%}
+            <a class="drawer-footer__link link-underline" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
+              {{ 'header.account' | t }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -221,7 +290,12 @@
       ]
     },
     { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Leave empty to use the bundled Gridium monogram." },
-    { "type": "range", "id": "logo_size", "min": 16, "max": 56, "step": 2, "unit": "px", "label": "Logo height", "default": 28 },
+    { "type": "range", "id": "logo_size", "min": 16, "max": 56, "step": 2, "unit": "px", "label": "Logo height", "default": 34 },
+    { "type": "checkbox", "id": "show_mode_toggle", "label": "Show dark mode toggle", "default": true },
+    { "type": "header", "content": "Mobile drawer signup" },
+    { "type": "checkbox", "id": "show_drawer_signup", "label": "Show newsletter signup in the mobile drawer", "default": true },
+    { "type": "text", "id": "drawer_signup_label", "label": "Signup eyebrow", "default": "Studio dispatch" },
+    { "type": "textarea", "id": "drawer_signup_text", "label": "Signup copy", "default": "Monthly mill notes, restocks and fit guidance. No noise." },
     { "type": "checkbox", "id": "show_wordmark", "label": "Show brand wordmark beside logo", "default": true },
     { "type": "link_list", "id": "menu", "label": "Main navigation menu", "default": "main-menu" },
     { "type": "checkbox", "id": "enable_sticky", "label": "Enable sticky header", "default": true },

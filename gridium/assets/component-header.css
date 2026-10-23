@@ -328,3 +328,150 @@
 .drawer-panel details summary::-webkit-details-marker { display: none; }
 .drawer-panel details[open] summary svg { transform: rotate(180deg); }
 .drawer-panel summary svg { transition: transform var(--duration-base) var(--ease-out); }
+
+/* ==========================================================================
+   v1.3 — Mobile header integrity, brand presence, dark-mode switch
+   ========================================================================== */
+
+/* Optional action cluster (wishlist / account) — inline on desktop only */
+.site-header__actions-secondary { display: flex; align-items: center; gap: 4px; }
+
+/* Three-zone mobile bar: the lockup is centred and can never be clipped. */
+.site-header__bar { position: relative; }
+@media (max-width: 1023px) {
+  .site-header__bar {
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    min-height: 60px;
+    gap: 6px;
+  }
+  .site-header.is-scrolled .site-header__bar { min-height: 54px; }
+  .site-header__logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 0;
+    max-width: calc(100vw - 152px);
+    font-size: 1rem;
+  }
+  .site-header__logo .logo-lockup { gap: 8px; }
+  .site-header__logo .logo-lockup__mark { height: clamp(22px, 6.4vw, 28px); }
+  .site-header__logo .logo-lockup__img { height: clamp(22px, 6.4vw, 28px); }
+  .site-header__logo .logo-lockup__word {
+    font-size: clamp(11px, 3.2vw, 14px);
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+  }
+  .site-header__mobile-trigger { grid-column: 1; }
+  .site-header__actions { grid-column: 3; gap: 0; }
+  .site-header__actions-secondary { display: none; }
+  .site-header__actions .icon-btn { width: 38px; height: 38px; }
+  .site-header__link { padding-block: 18px; }
+}
+@media (max-width: 767px) {
+  .announcement-bar { font-size: 0.625rem; letter-spacing: 0.1em; padding-block: 7px; }
+  .announcement-bar__inner .mono-label,
+  .announcement-bar__inner > * {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media (max-width: 380px) {
+  .site-header__logo .logo-lockup__word { font-size: 10px; letter-spacing: 0.16em; }
+  .site-header__logo .logo-lockup__mark,
+  .site-header__logo .logo-lockup__img { height: 20px; }
+  .site-header__actions .icon-btn { width: 34px; height: 34px; }
+}
+
+/* Dark-mode switch */
+.mode-toggle { position: relative; overflow: hidden; }
+.mode-toggle__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out);
+}
+.mode-toggle__icon--sun { position: absolute; inset: 0; display: flex; opacity: 0; transform: rotate(-45deg) scale(0.6); }
+html[data-mode="dark"] .mode-toggle__icon--moon { opacity: 0; transform: rotate(45deg) scale(0.6); }
+html[data-mode="dark"] .mode-toggle__icon--sun { opacity: 1; transform: none; }
+
+.drawer-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-mono-family);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--corner-radius, 2px);
+}
+.drawer-mode .mode-toggle__icon { position: static; opacity: 1; transform: none; }
+.drawer-mode .mode-toggle__icon--sun { display: none; }
+html[data-mode="dark"] .drawer-mode .mode-toggle__icon--sun { display: inline-flex; }
+html[data-mode="dark"] .drawer-mode .mode-toggle__icon--moon { display: none; }
+
+/* Drawer: editorial navigation, locked scroll, signup footer */
+.drawer-backdrop[aria-hidden="false"] { overscroll-behavior: contain; }
+body.overlay-open { overflow: hidden; }
+.drawer-panel { max-height: 100dvh; }
+.drawer-body { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.mobile-nav__link {
+  font-family: var(--font-display-family);
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  padding-block: 4px;
+  line-height: 1.12;
+}
+.mobile-nav__item { padding-block: 16px; }
+.mobile-nav__link svg { opacity: 0.4; transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base); }
+.mobile-nav__link:hover svg,
+.mobile-nav__link:focus-visible svg { opacity: 1; transform: translateX(3px); }
+
+.drawer-footer {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: 18px;
+}
+.drawer-signup__text {
+  margin: 6px 0 12px;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  max-width: 34ch;
+}
+.drawer-signup__form { display: grid; gap: 10px; }
+.drawer-signup__form .field__input { width: 100%; }
+.drawer-signup__form .button { justify-content: center; }
+.drawer-footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.drawer-footer__link { font-size: 0.8125rem; }
+
+/* Dark mode token bridge — flips the light schemes, leaves Midnight intact */
+html[data-mode="dark"] { color-scheme: dark; }
+html[data-mode="dark"] .color-paper,
+html[data-mode="dark"] .color-stone {
+  --color-bg: #111211;
+  --color-bg-subtle: #1A1B18;
+  --color-surface: #191A17;
+  --color-text: #FAFAF8;
+  --color-text-muted: #A9ABA4;
+  --color-border: rgba(250, 250, 248, 0.16);
+}
+html[data-mode="dark"] .logo-lockup--auto-invert .logo-lockup__img { filter: invert(1); }
+html[data-mode="dark"] .site-header.is-scrolled {
+  background-color: color-mix(in srgb, var(--color-bg) 86%, transparent);
+}

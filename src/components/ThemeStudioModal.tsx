@@ -61,7 +61,7 @@ export const ThemeStudioModal: React.FC<ThemeStudioModalProps> = ({ open, onClos
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'gridium-shopify-theme-v1.1.0.zip';
+      a.download = 'gridium-shopify-theme-v1.3.0.zip';
       a.click();
       URL.revokeObjectURL(url);
     } finally {
@@ -80,7 +80,7 @@ export const ThemeStudioModal: React.FC<ThemeStudioModalProps> = ({ open, onClos
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'gridium-full-workspace-v1.1.0.zip';
+      a.download = 'gridium-full-workspace-v1.3.0.zip';
       a.click();
       URL.revokeObjectURL(url);
     } finally {
@@ -120,7 +120,7 @@ export const ThemeStudioModal: React.FC<ThemeStudioModalProps> = ({ open, onClos
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 18 }}>
           <div>
             <span className="mono-label">ONLINE STORE 2.0 PACKAGE · {filePaths.length} FILES VERIFIED</span>
-            <h2 className="h3" style={{ marginTop: 4 }}>Gridium v1.1.0 — Complete Shopify Theme Files</h2>
+            <h2 className="h3" style={{ marginTop: 4 }}>Gridium v1.3.0 — Complete Shopify Theme Files</h2>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
             <button type="button" className="button button--sm" onClick={handleDownloadShopifyZip} disabled={zipping}>
