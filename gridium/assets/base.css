@@ -724,10 +724,23 @@ html[data-heading-weight="light"] .display-xl { font-weight: 400; }
 .button:hover .icon,
 .button:hover svg { transform: translateX(3px); }
 
-.button--secondary::before { background: var(--color-text); }
+.button--secondary::before { display: none; }
 .button--secondary:hover:not(:disabled) {
-  color: var(--color-bg);
-  border-color: var(--color-text);
+  background-color: var(--color-text) !important;
+  color: var(--color-bg) !important;
+  border-color: var(--color-text) !important;
+}
+.hero .button--secondary,
+.color-midnight .button--secondary {
+  background-color: transparent !important;
+  color: #FAFAF8 !important;
+  border-color: rgba(250, 250, 248, 0.38) !important;
+}
+.hero .button--secondary:hover:not(:disabled),
+.color-midnight .button--secondary:hover:not(:disabled) {
+  background-color: #FAFAF8 !important;
+  color: #111211 !important;
+  border-color: #FAFAF8 !important;
 }
 .button--ghost {
   background: transparent;
@@ -994,7 +1007,7 @@ html[data-heading-weight="light"] .display-xl { font-weight: 400; }
    Instrument Serif display typography, cinematic hero, refined proportions.
    ========================================================================== */
 
-/* ---------- Display typeface ---------- */
+/* ---------- Display typeface (Modern Avant-Garde / Grotesk) ---------- */
 h1, .h1, h2, .h2,
 .display-xl,
 .hero__title,
@@ -1003,17 +1016,18 @@ h1, .h1, h2, .h2,
 .article-page__title,
 .article-card--featured .article-card__title {
   font-family: var(--font-display-family);
-  font-weight: 400;
+  font-weight: 700;
   font-synthesis: none;
+  text-wrap: balance;
 }
-h1, .h1 { font-size: var(--fs-h1); line-height: 1.0; letter-spacing: -0.02em; }
-h2, .h2 { font-size: var(--fs-h2); line-height: 1.05; letter-spacing: -0.017em; }
+h1, .h1 { font-size: var(--fs-h1); line-height: 1.05; letter-spacing: -0.035em; }
+h2, .h2 { font-size: var(--fs-h2); line-height: 1.1; letter-spacing: -0.03em; }
 .display-xl {
   font-size: var(--fs-display);
-  line-height: 0.9;
-  letter-spacing: -0.022em;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
 }
-h3, .h3, h4, .h4 { letter-spacing: -0.012em; font-weight: 500; }
+h3, .h3, h4, .h4 { letter-spacing: -0.02em; font-weight: 600; text-wrap: balance; }
 .section-header__titles h2 { max-width: 22ch; }
 
 /* ---------- Brand lockup sizing ---------- */
@@ -1205,10 +1219,8 @@ h3, .h3, h4, .h4 { letter-spacing: -0.012em; font-weight: 500; }
     min-height: 100%;
   }
   .hero__scrim {
-    background:
-      linear-gradient(90deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 42%, transparent) 18%, transparent 46%),
-      linear-gradient(180deg, rgba(17, 17, 17, 0.22) 0%, transparent 26%, rgba(17, 17, 17, 0.42) 100%);
-    opacity: 1;
+    background: transparent;
+    opacity: 0;
   }
   .hero__frame {
     inset: clamp(20px, 2.2vw, 34px) clamp(20px, 2.2vw, 34px) clamp(20px, 2.2vw, 34px) 0;
@@ -1236,21 +1248,12 @@ h3, .h3, h4, .h4 { letter-spacing: -0.012em; font-weight: 500; }
   .hero__caption { left: calc(var(--hero-pad) + 24px); bottom: calc(var(--hero-pad) + 20px); }
 }
 
-/* Staggered hero entrance — blur-and-rise, deliberately slow */
-@media (prefers-reduced-motion: no-preference) {
-  .hero [data-hero-stagger] {
-    opacity: 0;
-    transform: translate3d(0, 22px, 0);
-    filter: blur(7px);
-    animation: gridium-hero-in 1150ms var(--ease-out) forwards;
-    animation-delay: calc(var(--stagger, 0) * 120ms + 160ms);
-  }
-  @keyframes gridium-hero-in {
-    to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero [data-hero-stagger] { opacity: 1; transform: none; filter: none; }
+/* Instant, crisp hero presentation — zero slow blur or fade delay */
+.hero [data-hero-stagger] {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
 }
 
 /* ---------- Ticker strip ---------- */

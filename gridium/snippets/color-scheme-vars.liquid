@@ -26,8 +26,8 @@
   {%- if body_bold -%}{{ body_bold | font_face: font_display: 'swap' }}{%- endif -%}
 
   :root {
-    --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Jost', 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-display-family: {% if settings.display_typeface == 'heading' %}{{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Jost', sans-serif{% else %}'Instrument Serif', 'Times New Roman', Georgia, serif{% endif %};
+    --font-heading-family: 'Syne', {{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display-family: 'Syne', {{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-heading-style: {{ heading_font.style }};
     --font-heading-weight: {{ heading_font.weight }};
     --font-heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
