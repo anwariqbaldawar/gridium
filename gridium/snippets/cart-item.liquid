@@ -1,0 +1,51 @@
+<div class="cart-item" data-cart-line="{{ line_index }}">
+  <a href="{{ item.url }}" class="cart-item__media">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 200 | image_tag: widths: '100, 160, 200', sizes: '80px', loading: 'lazy', alt: item.title }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </a>
+
+  <div class="cart-item__details">
+    <div>
+      <div class="cart-item__top">
+        <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+        <span class="price">{{ item.final_line_price | money }}</span>
+      </div>
+      {%- unless item.product.has_only_default_variant -%}
+        <p class="cart-item__options">{{ item.variant.title }}</p>
+      {%- endunless -%}
+    </div>
+
+    <div class="cart-item__bottom">
+      <div class="qty-stepper">
+        <button
+          type="button"
+          class="qty-stepper__btn"
+          data-cart-qty-btn
+          data-line="{{ line_index }}"
+          data-qty="{{ item.quantity | minus: 1 }}"
+          aria-label="{{ 'products.product.decrease_qty' | t }}"
+        >
+          {% render 'icon', name: 'minus', size: 14 %}
+        </button>
+        <span class="qty-stepper__input" style="display:inline-flex;align-items:center;justify-content:center;">{{ item.quantity }}</span>
+        <button
+          type="button"
+          class="qty-stepper__btn"
+          data-cart-qty-btn
+          data-line="{{ line_index }}"
+          data-qty="{{ item.quantity | plus: 1 }}"
+          aria-label="{{ 'products.product.increase_qty' | t }}"
+        >
+          {% render 'icon', name: 'plus', size: 14 %}
+        </button>
+      </div>
+
+      <button type="button" class="cart-item__remove" data-cart-remove data-line="{{ line_index }}">
+        {{ 'cart.remove' | t }}
+      </button>
+    </div>
+  </div>
+</div>

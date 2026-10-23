@@ -1,0 +1,70 @@
+<section class="section-pad-sm section-border-bottom color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div class="usp-grid" data-reveal>
+      {%- for block in section.blocks -%}
+        <div class="usp-card" {{ block.shopify_attributes }}>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono-label">0{{ forloop.index }} / {{ block.settings.code }}</span>
+            {% render 'icon', name: block.settings.icon, size: 20 %}
+          </div>
+          <h3 class="h4">{{ block.settings.title }}</h3>
+          <p class="text-muted" style="font-size:0.875rem;">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Numbered USP row",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "Pillar",
+      "settings": [
+        { "type": "text", "id": "code", "label": "Mono tag", "default": "FABRIC" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "shirt",
+          "options": [
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "return", "label": "Returns" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "shield", "label": "Security" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Heading", "default": "Long-Staple Natural Fibers" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "GOTS-certified organic cottons and Masters of Linen® Belgian flax." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Numbered USP row",
+      "blocks": [
+        { "type": "usp", "settings": { "code": "TEXTILE", "icon": "shirt", "title": "Mill-Certified Fabrics", "text": "Two-ply organic poplin, 240 GSM Supima jersey, and breathable European flax." } },
+        { "type": "usp", "settings": { "code": "EXCHANGE", "icon": "return", "title": "30-Day Effortless Returns", "text": "Complimentary size exchanges and prepaid return labels on unworn garments." } },
+        { "type": "usp", "settings": { "code": "DISPATCH", "icon": "truck", "title": "24-Hour Tracked Dispatch", "text": "Orders placed before 2 PM ship same-day in plastic-free archival packaging." } },
+        { "type": "usp", "settings": { "code": "CHECKOUT", "icon": "shield", "title": "Encrypted Global Payment", "text": "PCI-DSS Level 1 security with Shop Pay, Apple Pay, and multi-currency duties." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

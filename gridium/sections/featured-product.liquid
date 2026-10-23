@@ -1,0 +1,101 @@
+{%- assign product = section.settings.product -%}
+<section class="section-pad section-border-bottom color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    {%- if product != blank -%}
+      {%- assign current_variant = product.selected_or_first_available_variant -%}
+      <product-info data-product-handle="{{ product.handle }}" data-money-format="{{ shop.money_format | escape }}" data-update-url="false">
+        <div class="pdp-grid">
+          <div class="pdp-stage">
+            {%- if product.featured_media -%}
+              {{ product.featured_media | image_url: width: 1200 | image_tag: widths: '480, 800, 1200', sizes: '(min-width: 1024px) 55vw, 100vw', loading: 'lazy', alt: product.title }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          <div class="pdp-info">
+            <span class="mono-label">{{ section.settings.eyebrow }}</span>
+            <h2>{{ product.title }}</h2>
+            <div data-product-price>{% render 'price', product: product, variant: current_variant, show_badge: true %}</div>
+            <p class="text-muted">{{ product.description | strip_html | truncatewords: 36 }}</p>
+
+            {%- unless product.has_only_default_variant -%}
+              {%- for option in product.options_with_values -%}
+                {%- assign down_opt = option.name | downcase -%}
+                <div class="option-group" data-option-position="{{ option.position }}">
+                  <div class="option-group__head">
+                    <span class="mono-label">{{ option.name }}: <strong data-selected-option-label style="color:var(--color-text);">{{ option.selected_value }}</strong></span>
+                  </div>
+                  {%- if down_opt contains 'color' or down_opt contains 'colour' -%}
+                    <div class="swatch-list">
+                      {%- for val in option.values -%}
+                        {%- assign is_sel = false -%}
+                        {%- if val == option.selected_value -%}{%- assign is_sel = true -%}{%- endif -%}
+                        {% render 'swatch', color_name: val, option_value: val, selected: is_sel %}
+                      {%- endfor -%}
+                    </div>
+                  {%- else -%}
+                    <div class="size-list">
+                      {%- for val in option.values -%}
+                        <button type="button" class="size-button{% if val == option.selected_value %} is-selected{% endif %}" data-option-value="{{ val | escape }}" aria-pressed="{% if val == option.selected_value %}true{% else %}false{% endif %}">
+                          {{ val }}
+                        </button>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            <form action="{{ routes.cart_add_url }}" method="post" data-ajax-cart-form>
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <p class="form-status form-status--error" data-form-error hidden></p>
+              <button type="submit" class="button button--full" data-atc-button {% unless current_variant.available %}disabled{% endunless %}>
+                {%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+              </button>
+            </form>
+
+            <a href="{{ product.url }}" class="mono-label link-underline" style="color:var(--color-text);width:fit-content;">
+              {{ 'products.product.view_full_details' | t }}
+            </a>
+          </div>
+        </div>
+        <script type="application/json" data-product-variants>{{ product.variants | json }}</script>
+      </product-info>
+    {%- else -%}
+      <div class="pdp-grid">
+        <div class="pdp-stage">{{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+        <div class="pdp-info">
+          <span class="mono-label">{{ section.settings.eyebrow }}</span>
+          <h2>The Mercer Two-Ply Oxford Shirt</h2>
+          <span class="price"><span class="price__regular">{{ 14500 | money }}</span></span>
+          <p class="text-muted">Woven in Santo Tirso from 100% organic long-staple cotton with mother-of-pearl buttons, split back yoke, and clean 22-stitches-per-inch construction.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="button" style="width:fit-content;">{{ 'collections.all_products' | t }}</a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured product",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "stone",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "SIGNATURE BLOCK / 01" },
+    { "type": "product", "id": "product", "label": "Product" }
+  ],
+  "presets": [{ "name": "Featured product" }]
+}
+{% endschema %}

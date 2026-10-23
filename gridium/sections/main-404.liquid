@@ -1,0 +1,27 @@
+<section class="section-pad color-{{ section.settings.color_scheme }}">
+  <div class="container" style="max-width:640px;text-align:center;display:grid;justify-items:center;gap:18px;">
+    <span class="mono-label">{{ 'general.404.label' | t }}</span>
+    <h1 class="display-xl">{{ 'general.404.title' | t }}</h1>
+    <p class="text-muted">{{ 'general.404.subtext' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'general.404.cta' | t }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main 404",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    }
+  ]
+}
+{% endschema %}

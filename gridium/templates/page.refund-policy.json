@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "policy-content",
+      "settings": {
+        "color_scheme": "paper",
+        "policy_type": "refund",
+        "fallback_heading": "Returns & Refund Policy"
+      }
+    }
+  },
+  "order": ["main"]
+}

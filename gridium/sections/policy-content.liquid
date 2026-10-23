@@ -1,0 +1,87 @@
+{%- liquid
+  assign p_type = section.settings.policy_type
+  assign policy_html = ''
+  if p_type == 'privacy' and shop.privacy_policy.body != blank
+    assign policy_html = shop.privacy_policy.body
+  elsif p_type == 'refund' and shop.refund_policy.body != blank
+    assign policy_html = shop.refund_policy.body
+  elsif page.content != blank
+    assign policy_html = page.content
+  endif
+-%}
+
+{% render 'breadcrumbs' %}
+
+<section class="section-pad color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div style="margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--color-border);">
+      <span class="mono-label">{{ 'policy.last_updated' | t }}</span>
+      <h1 style="margin-top:8px;">{{ page.title | default: section.settings.fallback_heading }}</h1>
+    </div>
+
+    <div class="policy-layout">
+      <aside class="policy-toc" aria-label="{{ 'policy.contents' | t }}">
+        <span class="mono-label">{{ 'policy.contents' | t }}</span>
+        <ul class="policy-toc__list" data-policy-toc></ul>
+      </aside>
+
+      <article class="rte" data-policy-content>
+        {%- if policy_html != blank -%}
+          {{ policy_html }}
+        {%- elsif p_type == 'privacy' -%}
+          <h2>1. Information We Collect</h2>
+          <p>When you browse or purchase from Gridium, we collect essential contact, shipping, and payment token details necessary to fulfill your garment order, process returns, and provide concierge sizing assistance.</p>
+          <h2>2. How We Use Your Data</h2>
+          <p>Personal information is strictly used for order dispatch, fraud prevention, tax compliance, and—only where explicitly opted in—studio newsletter dispatches. We never sell or rent client records.</p>
+          <h2>3. Payment Security & Shopify Infrastructure</h2>
+          <p>Our store is hosted on Shopify Inc. All card transactions are encrypted through PCI-DSS Level 1 standards; Gridium never stores raw credit card numbers.</p>
+          <h2>4. Cookies & Local Storage</h2>
+          <p>We use minimal functional cookies and browser storage to preserve your shopping bag, currency preference, and saved wishlist items across sessions.</p>
+          <h2>5. Your Privacy Rights</h2>
+          <p>Under GDPR, UK GDPR, and CCPA, you may request access, correction, or deletion of your personal records at any time by emailing concierge@gridiumstudio.com.</p>
+        {%- else -%}
+          <h2>1. 30-Day Return & Exchange Window</h2>
+          <p>We accept returns and complimentary size exchanges within 30 days of delivery. Shirts must remain unworn, unwashed, unaltered, and returned in original archival packaging with garment tags attached.</p>
+          <h2>2. Instant Size Exchanges</h2>
+          <p>Need a closer or more relaxed fit? Request an exchange using your order number via our Contact page and we will reserve your replacement size immediately upon carrier scan.</p>
+          <h2>3. Refund Processing</h2>
+          <p>Once inspected at our studio warehouse, approved refunds are credited back to your original payment method within 3–5 business days. Original express shipping upgrades are non-refundable.</p>
+          <h2>4. International Duties & Returns</h2>
+          <p>International clients may generate a DHL or UPS return airwaybill through client care. Any import duties paid directly to local customs authorities can be reclaimed locally.</p>
+          <h2>5. Quality Guarantee</h2>
+          <p>In the rare event of a mill weave flaw or seam defect, contact our atelier team with a photograph for an immediate complimentary replacement.</p>
+        {%- endif -%}
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Policy document",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "policy_type",
+      "label": "Policy source",
+      "default": "privacy",
+      "options": [
+        { "value": "privacy", "label": "Privacy Policy (shop.privacy_policy)" },
+        { "value": "refund", "label": "Refund Policy (shop.refund_policy)" }
+      ]
+    },
+    { "type": "text", "id": "fallback_heading", "label": "Fallback heading", "default": "Legal Policy" }
+  ]
+}
+{% endschema %}

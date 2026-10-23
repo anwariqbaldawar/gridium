@@ -1,0 +1,49 @@
+Handle,Title,Body (HTML),Vendor,Product Category,Type,Tags,Published,Option1 Name,Option1 Value,Option2 Name,Option2 Value,Variant SKU,Variant Grams,Variant Inventory Tracker,Variant Inventory Qty,Variant Inventory Policy,Variant Fulfillment Service,Variant Price,Variant Compare At Price,Variant Requires Shipping,Variant Taxable,Status
+mercer-two-ply-oxford-shirt,Mercer Two-Ply Oxford Shirt,"<p>Cut in our signature Regular block from 165 GSM Portuguese organic basketweave Oxford. Finished with an unfused soft button-down collar roll, split back yoke, single-needle 22-SPI side seams, and genuine Australian mother-of-pearl buttons.</p>",Gridium Studio,Apparel & Accessories > Clothing > Shirts & Tops,Casual Shirt,"bestseller, new, fit:Regular, fabric:Oxford",TRUE,Color,Optic White,Size,S,GRD-OXF-WHT-S,320,shopify,14,deny,manual,145.00,,TRUE,TRUE,active
+mercer-two-ply-oxford-shirt,,,,,,,,Color,Optic White,Size,M,GRD-OXF-WHT-M,330,shopify,18,deny,manual,145.00,,TRUE,TRUE,active
+mercer-two-ply-oxford-shirt,,,,,,,,Color,Optic White,Size,L,GRD-OXF-WHT-L,345,shopify,3,deny,manual,145.00,,TRUE,TRUE,active
+mercer-two-ply-oxford-shirt,,,,,,,,Color,Optic White,Size,XL,GRD-OXF-WHT-XL,360,shopify,9,deny,manual,145.00,,TRUE,TRUE,active
+mercer-two-ply-oxford-shirt,,,,,,,,Color,Oxford Blue,Size,S,GRD-OXF-BLU-S,320,shopify,11,deny,manual,145.00,,TRUE,TRUE,active
+mercer-two-ply-oxford-shirt,,,,,,,,Color,Oxford Blue,Size,M,GRD-OXF-BLU-M,330,shopify,16,deny,manual,145.00,,TRUE,TRUE,active
+mercer-two-ply-oxford-shirt,,,,,,,,Color,Oxford Blue,Size,L,GRD-OXF-BLU-L,345,shopify,0,deny,manual,145.00,,TRUE,TRUE,active
+mercer-two-ply-oxford-shirt,,,,,,,,Color,Oxford Blue,Size,XL,GRD-OXF-BLU-XL,360,shopify,7,deny,manual,145.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,240 GSM Supima Heavyweight Tee,"<p>Architectural crewneck T-shirt knitted from long-staple two-ply US Supima cotton at 240 GSM for complete opacity and structure. Features a 24mm twin-stitched bound rib collar that never waves.</p>",Gridium Studio,Apparel & Accessories > Clothing > Shirts & Tops,T-Shirt,"bestseller, fit:Regular, fabric:Supima Cotton",TRUE,Color,Washed Black,Size,S,GRD-TEE-BLK-S,260,shopify,22,deny,manual,68.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,,,,,,,,Color,Washed Black,Size,M,GRD-TEE-BLK-M,270,shopify,25,deny,manual,68.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,,,,,,,,Color,Washed Black,Size,L,GRD-TEE-BLK-L,285,shopify,19,deny,manual,68.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,,,,,,,,Color,Washed Black,Size,XL,GRD-TEE-BLK-XL,295,shopify,4,deny,manual,68.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,,,,,,,,Color,White,Size,S,GRD-TEE-WHT-S,260,shopify,15,deny,manual,68.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,,,,,,,,Color,White,Size,M,GRD-TEE-WHT-M,270,shopify,30,deny,manual,68.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,,,,,,,,Color,White,Size,L,GRD-TEE-WHT-L,285,shopify,12,deny,manual,68.00,,TRUE,TRUE,active
+supima-240-heavyweight-tee,,,,,,,,Color,White,Size,XL,GRD-TEE-WHT-XL,295,shopify,0,deny,manual,68.00,,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,Belgian Flax Linen Camp Shirt,"<p>Relaxed summer shirting woven in Belgium from 100% Masters of Linen® certified flax. Features a clean one-piece camp collar, straight hem with side vents, and enzyme wash softness.</p>",Gridium Studio,Apparel & Accessories > Clothing > Shirts & Tops,Linen Shirt,"new, fit:Relaxed, fabric:Belgian Linen",TRUE,Color,Stone,Size,S,GRD-LIN-STN-S,250,shopify,8,deny,manual,138.00,165.00,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,,,,,,,,Color,Stone,Size,M,GRD-LIN-STN-M,260,shopify,14,deny,manual,138.00,165.00,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,,,,,,,,Color,Stone,Size,L,GRD-LIN-STN-L,270,shopify,2,deny,manual,138.00,165.00,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,,,,,,,,Color,Stone,Size,XL,GRD-LIN-STN-XL,285,shopify,6,deny,manual,138.00,165.00,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,,,,,,,,Color,Olive,Size,S,GRD-LIN-OLV-S,250,shopify,0,deny,manual,138.00,165.00,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,,,,,,,,Color,Olive,Size,M,GRD-LIN-OLV-M,260,shopify,10,deny,manual,138.00,165.00,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,,,,,,,,Color,Olive,Size,L,GRD-LIN-OLV-L,270,shopify,9,deny,manual,138.00,165.00,TRUE,TRUE,active
+belgian-flax-linen-camp-shirt,,,,,,,,Color,Olive,Size,XL,GRD-LIN-OLV-XL,285,shopify,5,deny,manual,138.00,165.00,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,Albini 120/2 Formal Poplin Shirt,"<p>Tailored Slim dress shirt woven in Bergamo by Cotonificio Albini from 120/2 two-ply Egyptian cotton poplin. Designed with a semi-spread collar, removable collar stays, and mitered single-button cuffs.</p>",Gridium Studio,Apparel & Accessories > Clothing > Shirts & Tops,Formal Shirt,"bestseller, fit:Slim, fabric:Poplin",TRUE,Color,Optic White,Size,S,GRD-POP-WHT-S,240,shopify,12,deny,manual,175.00,,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,,,,,,,,Color,Optic White,Size,M,GRD-POP-WHT-M,250,shopify,17,deny,manual,175.00,,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,,,,,,,,Color,Optic White,Size,L,GRD-POP-WHT-L,260,shopify,11,deny,manual,175.00,,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,,,,,,,,Color,Optic White,Size,XL,GRD-POP-WHT-XL,275,shopify,3,deny,manual,175.00,,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,,,,,,,,Color,Sky Blue,Size,S,GRD-POP-SKY-S,240,shopify,9,deny,manual,175.00,,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,,,,,,,,Color,Sky Blue,Size,M,GRD-POP-SKY-M,250,shopify,14,deny,manual,175.00,,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,,,,,,,,Color,Sky Blue,Size,L,GRD-POP-SKY-L,260,shopify,8,deny,manual,175.00,,TRUE,TRUE,active
+albini-120s-formal-poplin-shirt,,,,,,,,Color,Sky Blue,Size,XL,GRD-POP-SKY-XL,275,shopify,0,deny,manual,175.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,Mercerized Interlock Knit Polo,"<p>Refined short-sleeve polo crafted from 210 GSM mercerized organic cotton interlock for a silk-matte luster. Detailed with a concealed two-button placket and tailored shirt-style collar stand.</p>",Gridium Studio,Apparel & Accessories > Clothing > Shirts & Tops,Polo,"new, fit:Regular, fabric:Mercerized Cotton",TRUE,Color,Navy,Size,S,GRD-POL-NVY-S,270,shopify,10,deny,manual,115.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,,,,,,,,Color,Navy,Size,M,GRD-POL-NVY-M,280,shopify,16,deny,manual,115.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,,,,,,,,Color,Navy,Size,L,GRD-POL-NVY-L,290,shopify,13,deny,manual,115.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,,,,,,,,Color,Navy,Size,XL,GRD-POL-NVY-XL,305,shopify,4,deny,manual,115.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,,,,,,,,Color,Ecru,Size,S,GRD-POL-ECR-S,270,shopify,7,deny,manual,115.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,,,,,,,,Color,Ecru,Size,M,GRD-POL-ECR-M,280,shopify,12,deny,manual,115.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,,,,,,,,Color,Ecru,Size,L,GRD-POL-ECR-L,290,shopify,2,deny,manual,115.00,,TRUE,TRUE,active
+mercerized-interlock-knit-polo,,,,,,,,Color,Ecru,Size,XL,GRD-POL-ECR-XL,305,shopify,6,deny,manual,115.00,,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,Studio Grid Oversized Graphic Tee,"<p>Dropped-shoulder Oversized tee in 260 GSM dry-hand organic jersey, featuring an understated tonal Swiss typographic specification print at chest and back yoke.</p>",Gridium Studio,Apparel & Accessories > Clothing > Shirts & Tops,Graphic Tee,"new, fit:Oversized, fabric:Heavy Jersey",TRUE,Color,Oatmeal,Size,S,GRD-GFX-OAT-S,290,shopify,11,deny,manual,74.00,90.00,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,,,,,,,,Color,Oatmeal,Size,M,GRD-GFX-OAT-M,305,shopify,15,deny,manual,74.00,90.00,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,,,,,,,,Color,Oatmeal,Size,L,GRD-GFX-OAT-L,320,shopify,8,deny,manual,74.00,90.00,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,,,,,,,,Color,Oatmeal,Size,XL,GRD-GFX-OAT-XL,335,shopify,0,deny,manual,74.00,90.00,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,,,,,,,,Color,Charcoal,Size,S,GRD-GFX-CHR-S,290,shopify,6,deny,manual,74.00,90.00,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,,,,,,,,Color,Charcoal,Size,M,GRD-GFX-CHR-M,305,shopify,14,deny,manual,74.00,90.00,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,,,,,,,,Color,Charcoal,Size,L,GRD-GFX-CHR-L,320,shopify,3,deny,manual,74.00,90.00,TRUE,TRUE,active
+studio-grid-oversized-graphic-tee,,,,,,,,Color,Charcoal,Size,XL,GRD-GFX-CHR-XL,335,shopify,9,deny,manual,74.00,90.00,TRUE,TRUE,active

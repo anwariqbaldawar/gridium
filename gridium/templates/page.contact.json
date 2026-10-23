@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "contact": {
+      "type": "contact-form",
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "01 / CLIENT CONCIERGE",
+        "heading": "Contact the Studio",
+        "intro": "For garment measurement advice, fabric inquiries, press pulls, or existing order assistance, write directly to our New York shirting desk.",
+        "email": "concierge@gridiumstudio.com",
+        "address": "48 Mercer Street, Floor 3\nNew York, NY 10013",
+        "hours": "Monday – Friday, 09:00 – 18:00 EST"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose between Slim, Regular, and Oversized fits?",
+            "answer": "<p>Regular is our signature tailored block with clean chest room. Slim tapers 3 cm closer through the waist for wearing under suiting. Oversized features a dropped shoulder and relaxed drape—take your normal size in each block.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Will Gridium cotton or linen shirts shrink after washing?",
+            "answer": "<p>All fabrics undergo mill sanforization and garment pre-washing. When washed cold (30°C) and hung dry, dimensional variance remains under 1.5%.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How fast do orders ship and can I exchange sizes?",
+            "answer": "<p>In-stock orders placed before 2 PM EST dispatch the same business day. Size exchanges and returns are complimentary within 30 days of delivery.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Are your heavyweight T-shirts see-through in white?",
+            "answer": "<p>Never. Our Optic White tee is knitted at a dense 240 GSM from two-ply combed Supima cotton specifically to guarantee full opacity and collar retention.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"],
+      "settings": {
+        "color_scheme": "stone",
+        "eyebrow": "02 / FREQUENTLY ASKED",
+        "heading": "Sizing, Care & Dispatch",
+        "subtext": "Immediate answers on garment measurements, mill care, and 30-day exchanges."
+      }
+    }
+  },
+  "order": ["contact", "faq"]
+}

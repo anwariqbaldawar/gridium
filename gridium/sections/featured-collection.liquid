@@ -1,0 +1,120 @@
+<section class="section-pad section-border-bottom color-{{ section.settings.color_scheme }}" data-tabs-section>
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="section-header__titles">
+        {%- if section.settings.eyebrow != blank -%}<span class="mono-label">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+
+      {%- if section.blocks.size > 1 -%}
+        <div role="tablist" style="display:flex;flex-wrap:wrap;gap:8px;">
+          {%- for block in section.blocks -%}
+            <button
+              type="button"
+              role="tab"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              class="{% if forloop.first %}button{% else %}button button--secondary{% endif %} button--sm"
+              data-collection-tab="tab-{{ block.id }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.tab_label }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- elsif section.settings.show_view_all -%}
+        <a href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}" class="mono-label link-underline" style="color:var(--color-text);">
+          {{ 'collections.view_collection' | t }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- assign tab_col = collections[block.settings.collection] -%}
+        <div data-collection-panel="tab-{{ block.id }}" {% unless forloop.first %}hidden{% endunless %}>
+          <div class="product-grid product-grid--{{ section.settings.columns_desktop }}">
+            {%- if tab_col != blank and tab_col.products_count > 0 -%}
+              {%- for product in tab_col.products limit: section.settings.products_to_show -%}
+                {% render 'product-card', product: product %}
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign demo_titles = 'Architect Poplin Shirt — Optic White|Heavyweight 240 GSM Tee — Washed Black|Belgian Linen Camp Shirt — Raw Stone|Brushed Oxford Button-Down — Navy' | split: '|' -%}
+              {%- for i in (1..4) -%}
+                {%- capture ph -%}product-{{ i }}{%- endcapture -%}
+                {%- assign idx0 = forloop.index0 -%}
+                {% render 'product-card', product: nil, placeholder_name: ph, onboarding_title: demo_titles[idx0] %}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign main_col = collections[section.settings.collection] -%}
+      <div class="product-grid product-grid--{{ section.settings.columns_desktop }}">
+        {%- if main_col != blank and main_col.products_count > 0 -%}
+          {%- for product in main_col.products limit: section.settings.products_to_show -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        {%- elsif collections['all'].products_count > 0 -%}
+          {%- for product in collections['all'].products limit: section.settings.products_to_show -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign demo_titles = 'Architect Poplin Shirt — Optic White|Heavyweight 240 GSM Tee — Washed Black|Belgian Linen Camp Shirt — Raw Stone|Brushed Oxford Button-Down — Navy' | split: '|' -%}
+          {%- for i in (1..4) -%}
+            {%- capture ph -%}product-{{ i }}{%- endcapture -%}
+            {%- assign idx0 = forloop.index0 -%}
+            {% render 'product-card', product: nil, placeholder_name: ph, onboarding_title: demo_titles[idx0] %}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "03 / NEW ARRIVALS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Seasonal Shirting" },
+    { "type": "collection", "id": "collection", "label": "Default collection (when no tabs used)" },
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 4 },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Desktop columns",
+      "default": "4",
+      "options": [
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" }
+      ]
+    },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show collection link", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "text", "id": "tab_label", "label": "Tab label", "default": "New Arrivals" },
+        { "type": "collection", "id": "collection", "label": "Collection" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Featured collection" }]
+}
+{% endschema %}

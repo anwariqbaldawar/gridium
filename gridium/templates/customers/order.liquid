@@ -1,0 +1,64 @@
+<div class="container customer-wide">
+  <div class="section-header">
+    <div>
+      <a href="{{ routes.account_url }}" class="mono-label link-underline">&larr; {{ 'customer.account.return' | t }}</a>
+      <h1 class="h2" style="margin-top:10px;">{{ 'customer.order.title' | t: name: order.name }}</h1>
+      {%- assign order_date = order.created_at | time_tag: format: 'date_at_time' -%}
+      <p class="text-muted" style="font-size:0.875rem;margin-top:4px;">{{ 'customer.order.date_html' | t: date: order_date }}</p>
+    </div>
+  </div>
+
+  <div class="grid-12 split-4-8">
+    <aside style="display:grid;gap:20px;align-content:start;">
+      <div style="border:1px solid var(--color-border);padding:20px;">
+        <span class="mono-label">{{ 'customer.order.billing_address' | t }}</span>
+        <div class="text-muted" style="margin-top:8px;font-size:0.875rem;">{{ order.billing_address | format_address }}</div>
+      </div>
+      <div style="border:1px solid var(--color-border);padding:20px;">
+        <span class="mono-label">{{ 'customer.order.shipping_address' | t }}</span>
+        <div class="text-muted" style="margin-top:8px;font-size:0.875rem;">{{ order.shipping_address | format_address }}</div>
+      </div>
+    </aside>
+
+    <div style="overflow-x:auto;">
+      <table class="customer-table">
+        <thead>
+          <tr>
+            <th>{{ 'customer.order.product' | t }}</th>
+            <th>{{ 'customer.order.sku' | t }}</th>
+            <th>{{ 'customer.order.price' | t }}</th>
+            <th>{{ 'customer.order.quantity' | t }}</th>
+            <th>{{ 'customer.order.total' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for line_item in order.line_items -%}
+            <tr>
+              <td><a href="{{ line_item.product.url }}" class="link-underline">{{ line_item.title }}</a></td>
+              <td>{{ line_item.sku }}</td>
+              <td>{{ line_item.final_price | money }}</td>
+              <td>{{ line_item.quantity }}</td>
+              <td>{{ line_item.final_line_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">{{ 'customer.order.subtotal' | t }}</td>
+            <td>{{ order.line_items_subtotal_price | money }}</td>
+          </tr>
+          {%- for shipping_method in order.shipping_methods -%}
+            <tr>
+              <td colspan="4">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</td>
+              <td>{{ shipping_method.price | money }}</td>
+            </tr>
+          {%- endfor -%}
+          <tr>
+            <td colspan="4"><strong>{{ 'customer.order.total' | t }}</strong></td>
+            <td><strong>{{ order.total_net_amount | money_with_currency }}</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

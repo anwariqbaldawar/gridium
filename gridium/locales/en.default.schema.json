@@ -1,0 +1,125 @@
+{
+  "settings_schema": {
+    "colors": {
+      "name": "Colors & Schemes",
+      "settings": {
+        "header_paper": { "content": "Scheme 01 — Paper (Default Light)" },
+        "header_stone": { "content": "Scheme 02 — Stone (Warm Editorial)" },
+        "header_midnight": { "content": "Scheme 03 — Midnight (Dark)" },
+        "header_status": { "content": "Status & Semantic Colors" },
+        "bg": { "label": "Background" },
+        "bg_subtle": { "label": "Secondary surface" },
+        "text": { "label": "Primary text" },
+        "text_muted": { "label": "Muted / meta text" },
+        "border": { "label": "Hairline grid border" },
+        "accent": { "label": "Primary button / accent" },
+        "accent_contrast": { "label": "Accent foreground text" },
+        "sale": { "label": "Sale price & badge" },
+        "success": { "label": "In-stock / success" },
+        "warning": { "label": "Low-stock notice" }
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "settings": {
+        "heading_font": { "label": "Heading font" },
+        "heading_scale": { "label": "Heading size scale" },
+        "body_font": { "label": "Body font" },
+        "body_scale": { "label": "Body size scale" }
+      }
+    },
+    "layout": {
+      "name": "Grid, Borders & Motion",
+      "settings": {
+        "page_width": { "label": "Maximum container width" },
+        "grid_gap": { "label": "Grid gutter spacing" },
+        "corner_radius": { "label": "Card & input corner radius" },
+        "show_grid_hairlines": { "label": "Show architectural 1px grid borders" },
+        "button_radius": { "label": "Button corner radius" },
+        "button_uppercase": { "label": "Uppercase button typography" },
+        "enable_animations": { "label": "Enable subtle scroll reveal motion" }
+      }
+    },
+    "product_cards": {
+      "name": "Product Cards & Badges",
+      "settings": {
+        "show_secondary_image": { "label": "Show secondary model/back image on hover" },
+        "show_vendor": { "label": "Show mill / vendor label" },
+        "show_swatches": { "label": "Show color swatches on cards" },
+        "enable_quick_add": { "label": "Enable Quick Add size popover" },
+        "enable_wishlist": { "label": "Enable wishlist heart button" },
+        "image_fit": {
+          "label": "Image crop fit (4:5 portrait)",
+          "options": {
+            "cover": "Cover (Editorial full-bleed)",
+            "contain": "Contain"
+          }
+        },
+        "badge_new_days": { "label": "Show 'New' badge within days of publish" },
+        "badge_bestseller_tag": { "label": "Tag for 'Bestseller' badge" },
+        "low_stock_threshold": { "label": "Low stock threshold quantity" },
+        "swatch_color_map": { "label": "Color swatch hex map (Name:#HEX per line)" }
+      }
+    },
+    "size_guide": {
+      "name": "Size Guide & Fit Finder",
+      "settings": {
+        "page": { "label": "Optional custom Size Guide page override" },
+        "title": { "label": "Modal heading" },
+        "note": { "label": "Measurement guidance note" },
+        "rows": { "label": "Garment rows (Size|Chest|Length|Shoulder|Sleeve in cm)" },
+        "fit_finder_matrix": { "label": "Fit finder upper bounds (Size:MaxHeightCm:MaxWeightKg)" }
+      }
+    },
+    "cart": {
+      "name": "Cart & Free Shipping",
+      "settings": {
+        "cart_type": {
+          "label": "Cart interaction style",
+          "options": {
+            "drawer": "Slide-out AJAX Drawer",
+            "page": "Dedicated Cart Page"
+          }
+        },
+        "show_note": { "label": "Enable order note in cart" },
+        "free_shipping_threshold": { "label": "Free shipping threshold (major currency, 0 to disable)" },
+        "upsell_collection": { "label": "Cart upsell collection" }
+      }
+    },
+    "utilities": {
+      "name": "Store Utilities & Popups",
+      "settings": {
+        "enable_back_to_top": { "label": "Enable back-to-top button" },
+        "enable_whatsapp": { "label": "Enable floating WhatsApp concierge button" },
+        "whatsapp_number": { "label": "WhatsApp number (international digits, e.g. 15551234567)" },
+        "whatsapp_message": { "label": "Pre-filled WhatsApp message" },
+        "enable_cookie_notice": { "label": "Enable minimal cookie notice bar" },
+        "cookie_notice_text": { "label": "Cookie notice message" },
+        "enable_newsletter_popup": { "label": "Enable delayed newsletter modal" },
+        "newsletter_popup_delay": { "label": "Popup delay (seconds)" },
+        "newsletter_popup_heading": { "label": "Newsletter popup heading" },
+        "newsletter_popup_text": { "label": "Newsletter popup body" }
+      }
+    },
+    "social_media": {
+      "name": "Brand, Social & Localization",
+      "settings": {
+        "favicon": { "label": "Favicon image (32x32 PNG)" },
+        "enable_country_selector": { "label": "Enable country / currency selector" },
+        "enable_language_selector": { "label": "Enable language selector" }
+      }
+    }
+  },
+  "sections": {
+    "all": {
+      "color_scheme": {
+        "label": "Color scheme",
+        "options": {
+          "paper": "Paper (#FAFAF8)",
+          "stone": "Stone (Warm Neutral)",
+          "midnight": "Midnight (Dark)"
+        }
+      }
+    }
+  }
+}

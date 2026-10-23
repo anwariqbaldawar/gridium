@@ -1,0 +1,102 @@
+{%- liquid
+  assign threshold_cents = settings.cart_free_shipping_threshold | default: 150 | times: 100
+  assign remaining = threshold_cents | minus: cart.total_price
+  if threshold_cents > 0
+    assign progress = cart.total_price | times: 100.0 | divided_by: threshold_cents
+    if progress > 100
+      assign progress = 100
+    endif
+  endif
+-%}
+
+<div id="CartDrawer" class="drawer-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}">
+  <div class="drawer-panel drawer-panel--right" data-cart-drawer-inner>
+    <div class="drawer-header">
+      <span class="mono-label">{{ 'cart.title' | t }} ({{ cart.item_count }})</span>
+      <button type="button" class="icon-btn" data-overlay-close aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon', name: 'close', size: 20 %}
+      </button>
+    </div>
+
+    {%- if threshold_cents > 0 -%}
+      <div class="cart-shipping-bar">
+        {%- if remaining <= 0 -%}
+          <span>{{ 'cart.free_shipping_unlocked' | t }}</span>
+        {%- else -%}
+          {%- assign rem_money = remaining | money -%}
+          <span>{{ 'cart.free_shipping_remaining_html' | t: amount: rem_money }}</span>
+        {%- endif -%}
+        <div class="cart-shipping-bar__track">
+          <div class="cart-shipping-bar__fill" style="width: {{ progress | round }}%;"></div>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="drawer-body">
+      {%- if cart == empty -%}
+        <div class="cart-empty">
+          <p class="h4">{{ 'cart.empty_title' | t }}</p>
+          <p class="text-muted">{{ 'cart.empty_text' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'cart.continue_shopping' | t }}</a>
+        </div>
+      {%- else -%}
+        <div class="cart-items-list">
+          {%- for item in cart.items -%}
+            {% render 'cart-item', item: item, line_index: forloop.index %}
+          {%- endfor -%}
+        </div>
+
+        {%- if settings.cart_upsell_collection != blank and settings.cart_upsell_collection.products_count > 0 -%}
+          <div class="cart-upsell">
+            <span class="mono-label">{{ 'cart.upsell_heading' | t }}</span>
+            {%- for up_prod in settings.cart_upsell_collection.products limit: 2 -%}
+              {%- if up_prod.available -%}
+                <div class="cart-upsell__card">
+                  <a href="{{ up_prod.url }}" class="cart-item__media">
+                    {%- if up_prod.featured_media -%}
+                      {{ up_prod.featured_media | image_url: width: 120 | image_tag: widths: '60, 120', sizes: '56px', loading: 'lazy', alt: up_prod.title }}
+                    {%- endif -%}
+                  </a>
+                  <div>
+                    <a href="{{ up_prod.url }}" class="cart-item__title">{{ up_prod.title }}</a>
+                    <div class="text-muted" style="font-size:0.8125rem;">{{ up_prod.price | money }}</div>
+                  </div>
+                  <button type="button" class="button button--secondary button--sm" data-quick-add-variant="{{ up_prod.first_available_variant.id }}">
+                    + {{ 'products.product.quick_add' | t }}
+                  </button>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- unless cart == empty -%}
+      <div class="cart-drawer__footer">
+        {%- if settings.cart_show_note -%}
+          <details class="accordion-item">
+            <summary class="accordion-summary" style="min-height:40px;padding-block:8px;">
+              <span class="mono-label">{{ 'cart.note_label' | t }}</span>
+              {% render 'icon', name: 'plus', size: 16 %}
+            </summary>
+            <div class="accordion-content">
+              <textarea class="field__textarea" style="min-height:72px;" data-cart-note placeholder="{{ 'cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+            </div>
+          </details>
+        {%- endif -%}
+
+        <div class="cart-subtotal-row">
+          <span>{{ 'cart.subtotal' | t }}</span>
+          <span>{{ cart.total_price | money_with_currency }}</span>
+        </div>
+        <p class="text-muted" style="font-size:0.75rem;">{{ 'cart.taxes_and_shipping' | t }}</p>
+
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="button button--full">{{ 'cart.checkout' | t }}</button>
+        </form>
+        <a href="{{ routes.cart_url }}" class="button button--secondary button--full button--sm">{{ 'cart.view_cart' | t }}</a>
+      </div>
+    {%- endunless -%}
+  </div>
+</div>

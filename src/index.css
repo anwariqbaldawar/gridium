@@ -1,0 +1,140 @@
+@import "../gridium/assets/base.css";
+@import "../gridium/assets/component-header.css";
+@import "../gridium/assets/component-product.css";
+@import "../gridium/assets/component-collection.css";
+@import "../gridium/assets/component-cart.css";
+@import "../gridium/assets/component-footer.css";
+
+:root {
+  --font-heading-family: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 600;
+  --font-heading-scale: 1;
+
+  --font-body-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-body-scale: 1;
+  --font-mono-family: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+
+  --scheme-paper-bg: #FAFAF8;
+  --scheme-paper-bg-subtle: #F2F2EE;
+  --scheme-paper-text: #111111;
+  --scheme-paper-text-muted: #595955;
+  --scheme-paper-border: #E4E4DF;
+  --scheme-paper-accent: #111111;
+  --scheme-paper-accent-contrast: #FAFAF8;
+
+  --scheme-stone-bg: #EFECE6;
+  --scheme-stone-bg-subtle: #E5E0D7;
+  --scheme-stone-text: #181715;
+  --scheme-stone-text-muted: #57534C;
+  --scheme-stone-border: #D5CFC4;
+  --scheme-stone-accent: #3D4A35;
+  --scheme-stone-accent-contrast: #FAFAF8;
+
+  --scheme-midnight-bg: #111211;
+  --scheme-midnight-bg-subtle: #1A1B19;
+  --scheme-midnight-text: #F5F5F2;
+  --scheme-midnight-text-muted: #A6A69E;
+  --scheme-midnight-border: #2A2B28;
+  --scheme-midnight-accent: #F5F5F2;
+  --scheme-midnight-accent-contrast: #111211;
+
+  --color-sale: #B42318;
+  --color-success: #1E6B3B;
+  --color-warning: #9A5B13;
+
+  --page-width: 1360px;
+  --grid-gap: 24px;
+  --corner-radius: 2px;
+  --button-radius: 2px;
+  --button-transform: uppercase;
+  --card-image-fit: cover;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 200ms;
+  --duration-base: 280ms;
+  --duration-slow: 400ms;
+}
+
+/* Studio Inspector Top Utility Strip */
+.studio-dev-bar {
+  background: #181816;
+  color: #F5F5F2;
+  border-bottom: 1px solid #2D2E2B;
+  font-family: var(--font-mono-family);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  padding-block: 7px;
+}
+.studio-dev-bar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.studio-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid #3A3B37;
+  border-radius: 2px;
+  background: #232421;
+  color: #F5F5F2;
+  font-family: var(--font-mono-family);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.studio-pill-btn:hover, .studio-pill-btn.is-active {
+  border-color: #F5F5F2;
+  background: #F5F5F2;
+  color: #111211;
+}
+
+.code-explorer {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--color-border);
+  min-height: 480px;
+  max-height: 68vh;
+}
+@media (min-width: 768px) {
+  .code-explorer { grid-template-columns: 280px minmax(0, 1fr); }
+}
+.code-explorer__tree {
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+  background: var(--color-bg-subtle);
+}
+.code-explorer__file {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  font-family: var(--font-mono-family);
+  font-size: 0.72rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.code-explorer__file.is-active {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+.code-explorer__viewer {
+  overflow: auto;
+  background: #141514;
+  color: #E8E8E3;
+  padding: 16px;
+  font-family: var(--font-mono-family);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}

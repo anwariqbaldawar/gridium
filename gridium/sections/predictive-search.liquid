@@ -1,0 +1,66 @@
+{%- if predictive_search.performed -%}
+  <div class="predictive-results">
+    {%- assign total_found = predictive_search.resources.products.size | plus: predictive_search.resources.collections.size | plus: predictive_search.resources.queries.size -%}
+    {%- if total_found == 0 -%}
+      <p class="text-muted">{{ 'general.search.no_results' | t: terms: predictive_search.terms }}</p>
+    {%- else -%}
+      <div class="predictive-results__cols">
+        <div style="display:grid;gap:20px;align-content:start;">
+          {%- if predictive_search.resources.queries.size > 0 -%}
+            <div>
+              <span class="mono-label">{{ 'general.search.queries' | t }}</span>
+              <ul style="display:grid;gap:8px;margin-top:10px;">
+                {%- for query in predictive_search.resources.queries -%}
+                  <li><a href="{{ query.url }}" class="predictive-item link-underline" data-predictive-item>{{ query.styled_text }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          {%- if predictive_search.resources.collections.size > 0 -%}
+            <div>
+              <span class="mono-label">{{ 'general.search.collections' | t }}</span>
+              <ul style="display:grid;gap:8px;margin-top:10px;">
+                {%- for col in predictive_search.resources.collections -%}
+                  <li><a href="{{ col.url }}" class="predictive-item link-underline" data-predictive-item>{{ col.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if predictive_search.resources.products.size > 0 -%}
+          <div>
+            <span class="mono-label">{{ 'general.search.products' | t }}</span>
+            <div class="predictive-product-list" style="margin-top:12px;">
+              {%- for product in predictive_search.resources.products -%}
+                <a href="{{ product.url }}" class="predictive-item" data-predictive-item style="display:grid;gap:8px;padding:6px;">
+                  <div class="product-card__media-wrap">
+                    {%- if product.featured_media -%}
+                      {{ product.featured_media | image_url: width: 400 | image_tag: widths: '200, 400', sizes: '200px', loading: 'lazy', class: 'product-card__img', alt: product.title }}
+                    {%- endif -%}
+                  </div>
+                  <span style="font-size:0.875rem;font-weight:500;">{{ product.title }}</span>
+                  {% render 'price', product: product %}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div>
+        <a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&options[prefix]=last" class="button button--secondary button--sm" data-predictive-item>
+          {{ 'general.search.view_all' | t: terms: predictive_search.terms }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Predictive search",
+  "settings": []
+}
+{% endschema %}

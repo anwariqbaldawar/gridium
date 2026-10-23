@@ -1,0 +1,53 @@
+{
+  "name": "Header Group",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg_1": {
+          "type": "announcement",
+          "settings": {
+            "text": "COMPLIMENTARY EXPRESS SHIPPING ON ORDERS OVER $150 — EASY 30-DAY RETURNS",
+            "link": ""
+          }
+        },
+        "msg_2": {
+          "type": "announcement",
+          "settings": {
+            "text": "SEASON 04 SHIRTING: PORTUGUESE ORGANIC POPLIN & BELGIAN FLAX LINEN NOW LIVE",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": ["msg_1", "msg_2"],
+      "settings": {
+        "color_scheme": "midnight",
+        "rotation_speed": 5
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_1": {
+          "type": "mega_promo",
+          "settings": {
+            "trigger_title": "Shirts",
+            "eyebrow": "01 / SEASONAL MILL EDITION",
+            "heading": "220 GSM Supima & Washed Oxford",
+            "link_label": "Shop All Shirts",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": ["mega_1"],
+      "settings": {
+        "color_scheme": "paper",
+        "menu": "main-menu",
+        "enable_sticky": true,
+        "enable_transparent_home": false
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

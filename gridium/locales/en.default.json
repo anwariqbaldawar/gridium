@@ -1,0 +1,336 @@
+{
+  "accessibility": {
+    "skip_to_text": "Skip to main content",
+    "close": "Close",
+    "menu": "Open navigation menu",
+    "search": "Open search",
+    "cart": "Open shopping bag",
+    "wishlist": "Saved shirts",
+    "loading": "Loading",
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "breadcrumbs": "Breadcrumbs",
+    "home": "Home",
+    "star_rating": "{{ rating }} out of 5 stars"
+  },
+  "general": {
+    "search": {
+      "placeholder": "Search Oxford, linen, heavyweight tee, navy...",
+      "submit": "Search",
+      "title": "Search Catalogue",
+      "no_results": "No shirts or articles matched \"{{ terms }}\".",
+      "results_with_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      },
+      "products": "Shirts",
+      "collections": "Collections",
+      "queries": "Suggestions",
+      "view_all": "View all results for \"{{ terms }}\"",
+      "clear": "Clear"
+    },
+    "pagination": {
+      "previous": "Prev",
+      "next": "Next",
+      "page": "Page {{ number }}"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections"
+    },
+    "share": {
+      "copy_link": "Copy link",
+      "copied": "Link copied",
+      "share_label": "Share"
+    },
+    "newsletter": {
+      "label": "Email address",
+      "placeholder": "Enter your email address",
+      "button": "Subscribe",
+      "success": "Thank you. You are subscribed to Gridium Studio dispatches."
+    },
+    "localization": {
+      "country_label": "Country / Currency",
+      "language_label": "Language",
+      "update": "Update"
+    },
+    "cookie": {
+      "accept": "Accept",
+      "decline": "Essential only"
+    },
+    "back_to_top": "Back to top",
+    "whatsapp_label": "Chat with Studio Concierge on WhatsApp",
+    "404": {
+      "label": "404 / NOT FOUND",
+      "title": "This pattern is out of archive.",
+      "subtext": "The page you requested has moved or no longer exists in our current collection.",
+      "cta": "Explore All Shirts"
+    },
+    "password": {
+      "title": "Seasonal Archive Preparing",
+      "enter_password": "Enter using password",
+      "password_label": "Store access password",
+      "submit": "Enter Studio",
+      "owner_html": "Are you the store owner? <a href=\"/admin\">Log in here</a>",
+      "powered_by": "Architecture powered by Shopify"
+    }
+  },
+  "header": {
+    "menu": "Menu",
+    "search": "Search",
+    "account": "Account",
+    "log_in": "Sign in",
+    "wishlist": "Saved",
+    "cart": "Bag",
+    "cart_count": "{{ count }} items in bag"
+  },
+  "footer": {
+    "newsletter_heading": "Studio Dispatch",
+    "newsletter_text": "Mill editions, garment measurements, and seasonal shirt releases. No noise.",
+    "copyright": "All rights reserved.",
+    "policies": "Policies"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Bag",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "quick_add": "Quick Add",
+      "choose_size": "Select Size",
+      "quantity": "Quantity",
+      "increase_qty": "Increase quantity",
+      "decrease_qty": "Decrease quantity",
+      "sku": "SKU",
+      "vendor": "Mill / Studio",
+      "fit_label": "FIT",
+      "model_default": "Model is 6'1\" (185 cm) and wears size M",
+      "size_guide": "Size Guide",
+      "find_my_size": "Find My Size",
+      "low_stock": "Only {{ count }} left in stock",
+      "in_stock": "In stock — ships within 24 hours",
+      "sale_save": "Save {{ percent }}%",
+      "taxes_included": "Taxes included.",
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "description": "Design Notes",
+      "fabric_care": "Fabric & Care",
+      "shipping_returns": "Delivery & Returns",
+      "view_full_details": "View full garment specification",
+      "media_zoom": "Inspect fabric detail",
+      "close_zoom": "Close image zoom",
+      "complete_the_look": "Complete the Uniform",
+      "you_may_also_like": "Related Shirtings",
+      "recently_viewed": "Recently Inspected",
+      "color": "Color",
+      "size": "Size"
+    },
+    "badges": {
+      "new": "New",
+      "bestseller": "Bestseller",
+      "sale": "Sale",
+      "sold_out": "Sold Out"
+    },
+    "facets": {
+      "filter_and_sort": "Filter & Sort",
+      "filter_button": "Filter",
+      "apply": "Apply",
+      "clear": "Clear",
+      "clear_all": "Clear all",
+      "sort_by_label": "Sort by",
+      "product_count": {
+        "one": "{{ product_count }} of {{ count }} shirt",
+        "other": "{{ product_count }} of {{ count }} shirts"
+      },
+      "product_count_simple": {
+        "one": "{{ count }} shirt",
+        "other": "{{ count }} shirts"
+      },
+      "empty_title": "No shirts match your active filters.",
+      "empty_text": "Try clearing a size, color, or fabric filter to view available silhouettes.",
+      "reset_filters": "Reset All Filters",
+      "grid_density": "Grid columns",
+      "from": "From",
+      "to": "To",
+      "max_price": "Highest price is {{ price }}"
+    },
+    "size_guide": {
+      "title": "Garment Size & Fit Guide",
+      "unit_cm": "CM",
+      "unit_in": "IN",
+      "size": "Size",
+      "chest": "Chest",
+      "length": "Back Length",
+      "shoulder": "Shoulder",
+      "sleeve": "Sleeve",
+      "fit_finder_title": "Find My Size",
+      "fit_finder_subtitle": "Enter your measurements for a tailored size recommendation.",
+      "height_cm": "Height (cm)",
+      "weight_kg": "Weight (kg)",
+      "preference": "Fit Preference",
+      "pref_slim": "Closer / Tailored",
+      "pref_regular": "Signature Regular",
+      "pref_relaxed": "Relaxed / Oversized",
+      "calculate": "Suggest My Size",
+      "recommended_size": "Suggested Size:",
+      "guidance_note": "Guidance based on standard Gridium shirting blocks. Compare flat chest width against a favorite shirt for exact fit."
+    },
+    "wishlist": {
+      "add": "Save to wishlist",
+      "remove": "Remove from wishlist",
+      "title": "Saved Shirts",
+      "subtitle": "Your personal shortlist of fabrics and silhouettes stored on this device.",
+      "empty_title": "No shirts saved yet.",
+      "empty_text": "Select the heart icon on any shirt to build your personal wardrobe shortlist.",
+      "continue_shopping": "Browse All Shirts"
+    }
+  },
+  "collections": {
+    "all_products": "All Products",
+    "empty": "No shirts are currently stocked in this collection.",
+    "view_collection": "Explore Collection",
+    "items_count": {
+      "one": "{{ count }} STYLE",
+      "other": "{{ count }} STYLES"
+    }
+  },
+  "cart": {
+    "title": "Your Bag",
+    "empty_title": "Your bag is currently empty.",
+    "empty_text": "Explore crisp organic poplins, heavyweight jersey tees, and breathable European linens.",
+    "continue_shopping": "Shop All Shirts",
+    "subtotal": "Subtotal",
+    "note_label": "Order / Gift Note",
+    "note_placeholder": "Add tailoring notes or gift enclosure instructions...",
+    "taxes_and_shipping": "Shipping, duties, and applicable taxes calculated at checkout.",
+    "checkout": "Proceed to Checkout",
+    "view_cart": "View Full Bag",
+    "remove": "Remove",
+    "free_shipping_unlocked": "Complimentary express shipping unlocked.",
+    "free_shipping_remaining_html": "Add <strong>{{ amount }}</strong> more for complimentary express shipping.",
+    "upsell_heading": "Pair With",
+    "item_error": "Unable to update quantity for this item."
+  },
+  "contact": {
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number (Optional)",
+      "order_number": "Order Number (Optional)",
+      "message": "How can our studio assist you?",
+      "send": "Send Message",
+      "post_success": "Thank you for contacting Gridium Studio. Our client service team responds within one business day.",
+      "error_heading": "Please review the following fields:"
+    }
+  },
+  "policy": {
+    "contents": "On This Page",
+    "last_updated": "Effective & Reviewed: Current Season",
+    "privacy_fallback_title": "Privacy Policy",
+    "refund_fallback_title": "Returns & Refund Policy"
+  },
+  "customer": {
+    "login": {
+      "title": "Client Sign In",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot password?",
+      "sign_in": "Sign In",
+      "create_account": "Create an Account",
+      "guest_title": "Continue as Guest",
+      "guest_continue": "Continue to Checkout"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create Account",
+      "have_account": "Already registered? Sign in"
+    },
+    "account": {
+      "title": "My Account",
+      "details": "Account Profile",
+      "view_addresses": "Manage Addresses",
+      "return": "Back to Account",
+      "logout": "Sign Out",
+      "orders": "Order History",
+      "none": "You have not placed any orders yet.",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment",
+      "fulfillment_status": "Fulfillment",
+      "total": "Total"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date_html": "Placed on {{ date }}",
+      "cancelled_html": "Order cancelled on {{ date }}",
+      "billing_address": "Billing Address",
+      "shipping_address": "Shipping Address",
+      "product": "Garment",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Qty",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "tax": "Tax"
+    },
+    "addresses": {
+      "title": "Saved Addresses",
+      "default": "Default Address",
+      "add_new": "Add New Address",
+      "edit_address": "Edit Address",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address Line 1",
+      "address2": "Apartment / Suite",
+      "city": "City",
+      "country": "Country / Region",
+      "province": "State / Province",
+      "zip": "Postal / ZIP Code",
+      "phone": "Phone",
+      "set_default": "Set as default shipping address",
+      "add": "Save Address",
+      "update": "Update Address",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Remove this saved address?"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Set your password to activate your Gridium client profile.",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation"
+    },
+    "reset_password": {
+      "title": "Reset Password",
+      "subtext": "Enter a new password for {{ email }}",
+      "password": "New Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Update Password",
+      "recover_title": "Reset Your Password",
+      "recover_subtext": "Enter your account email and we will send a reset link.",
+      "recover_success": "If an account matches that address, a reset link has been sent."
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Gridium Digital Gift Card",
+      "subtext": "Present this code at checkout toward any shirt in our collection.",
+      "balance": "Available Balance: {{ balance }}",
+      "expired": "Expired",
+      "expires_on": "Valid until {{ expires }}",
+      "copy_code": "Copy Gift Code",
+      "code_copied": "Code Copied",
+      "print": "Print Card",
+      "shop_link": "Visit Storefront",
+      "add_to_apple_wallet": "Add to Apple Wallet"
+    }
+  }
+}

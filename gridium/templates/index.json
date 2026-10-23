@@ -1,0 +1,239 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "color_scheme": "midnight",
+        "overlay_opacity": 30,
+        "eyebrow": "01 / SEASON 04 SHIRTING ARCHIVE",
+        "heading": "Engineered Shirting. Exact Proportions.",
+        "subheading": "Single-needle Portuguese poplin, 240 GSM Supima jersey tees, and breathable Belgian flax linen built for calm daily uniforming.",
+        "button_label": "Shop All Shirts",
+        "button_link": "shopify://collections/all",
+        "secondary_label": "Our Philosophy",
+        "secondary_link": "/pages/about"
+      }
+    },
+    "categories": {
+      "type": "category-tiles",
+      "blocks": {
+        "cat_1": {
+          "type": "tile",
+          "settings": {
+            "meta_code": "01 / EVERYDAY TAILORING",
+            "title": "Oxford & Casual Shirts",
+            "layout_span": "wide"
+          }
+        },
+        "cat_2": {
+          "type": "tile",
+          "settings": {
+            "meta_code": "02 / 240 GSM SUPIMA",
+            "title": "Heavyweight T-Shirts",
+            "layout_span": "narrow"
+          }
+        },
+        "cat_3": {
+          "type": "tile",
+          "settings": {
+            "meta_code": "03 / BELGIAN FLAX",
+            "title": "Linen & Resort Shirts",
+            "layout_span": "third"
+          }
+        },
+        "cat_4": {
+          "type": "tile",
+          "settings": {
+            "meta_code": "04 / TWO-PLY POPLIN",
+            "title": "Formal Dress Shirts",
+            "layout_span": "third"
+          }
+        },
+        "cat_5": {
+          "type": "tile",
+          "settings": {
+            "meta_code": "05 / KNIT INTERLOCK",
+            "title": "Architectural Polos",
+            "layout_span": "third"
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "02 / SILHOUETTES",
+        "heading": "Shop by Category",
+        "view_all_label": "View All Collections"
+      }
+    },
+    "new_arrivals": {
+      "type": "featured-collection",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "All Arrivals",
+            "collection": "all"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Woven Shirts",
+            "collection": "all"
+          }
+        }
+      },
+      "block_order": ["tab_1", "tab_2"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "03 / NEW ARRIVALS",
+        "heading": "Seasonal Shirting",
+        "products_to_show": 4,
+        "columns_desktop": "4",
+        "show_view_all": true
+      }
+    },
+    "editorial": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "stone",
+        "image_position": "left",
+        "eyebrow": "04 / MILL SPECIFICATION",
+        "heading": "22 Stitches Per Inch. Zero Excess.",
+        "text": "<p>Every Gridium shirt begins at family-owned European mills. We specify long-staple organic yarns, unfused soft collars that mold naturally over wear, and genuine mother-of-pearl shanks cross-stitched for permanence.</p>",
+        "spec_line": "MILLS: SOMELOS (PT) · LIBECO (BE) · ALBINI (IT)",
+        "button_label": "Read Our Craft",
+        "button_link": "/pages/about"
+      }
+    },
+    "usp": {
+      "type": "usp-row",
+      "blocks": {
+        "u1": {
+          "type": "usp",
+          "settings": {
+            "code": "TEXTILE",
+            "icon": "shirt",
+            "title": "Mill-Certified Fabrics",
+            "text": "Two-ply organic poplin, 240 GSM Supima jersey, and breathable European flax."
+          }
+        },
+        "u2": {
+          "type": "usp",
+          "settings": {
+            "code": "EXCHANGE",
+            "icon": "return",
+            "title": "30-Day Effortless Returns",
+            "text": "Complimentary size exchanges and prepaid return labels on unworn garments."
+          }
+        },
+        "u3": {
+          "type": "usp",
+          "settings": {
+            "code": "DISPATCH",
+            "icon": "truck",
+            "title": "24-Hour Tracked Dispatch",
+            "text": "Orders placed before 2 PM ship same-day in plastic-free archival packaging."
+          }
+        },
+        "u4": {
+          "type": "usp",
+          "settings": {
+            "code": "CHECKOUT",
+            "icon": "shield",
+            "title": "Encrypted Global Payment",
+            "text": "PCI-DSS Level 1 security with Shop Pay, Apple Pay, and multi-currency duties."
+          }
+        }
+      },
+      "block_order": ["u1", "u2", "u3", "u4"],
+      "settings": {
+        "color_scheme": "paper"
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "05 / PERMANENT COLLECTION",
+        "heading": "Studio Bestsellers",
+        "collection": "all",
+        "products_to_show": 4,
+        "columns_desktop": "4",
+        "show_view_all": true
+      }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "quote": "The collar roll on the Mercer Oxford rivals bespoke shirts twice its price. Holds a crisp architectural shoulder line all day.",
+            "author": "Marcus V. — Zurich",
+            "garment": "SIZE L / OXFORD"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "quote": "Finally a heavyweight white T-shirt that is completely opaque, drapes cleanly off the chest, and never twists at the side seams.",
+            "author": "Daniel K. — London",
+            "garment": "SIZE M / 240 GSM TEE"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "quote": "Took two Belgian Linen Camp Shirts to Lisbon. Breathable in 32°C heat with an understated, tailored drape for dinner.",
+            "author": "Henrik S. — Copenhagen",
+            "garment": "SIZE L / LINEN"
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "06 / CLIENT NOTES",
+        "heading": "Worn & Reviewed"
+      }
+    },
+    "lookbook": {
+      "type": "instagram-grid",
+      "blocks": {
+        "p1": { "type": "post", "settings": { "caption": "Poplin collar architecture" } },
+        "p2": { "type": "post", "settings": { "caption": "Belgian flax summer uniform" } },
+        "p3": { "type": "post", "settings": { "caption": "240 GSM Supima knit closeup" } },
+        "p4": { "type": "post", "settings": { "caption": "Brushed Oxford cuff detail" } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "07 / UNIFORM INDEX",
+        "heading": "In Daily Rotation",
+        "handle_label": "@GRIDIUM.STUDIO"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "color_scheme": "stone",
+        "eyebrow": "08 / STUDIO DISPATCH",
+        "heading": "Seasonal Mill Releases",
+        "subtext": "Early access to small-batch Italian poplins, Japanese chambrays, and archival restocks."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "new_arrivals",
+    "editorial",
+    "usp",
+    "bestsellers",
+    "reviews",
+    "lookbook",
+    "newsletter"
+  ]
+}

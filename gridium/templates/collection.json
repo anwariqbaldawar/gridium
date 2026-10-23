@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "color_scheme": "paper",
+        "show_description": true,
+        "fallback_description": "Complete seasonal shirting index: organic two-ply poplins, brushed Oxfords, European flax linens, knit polos, and heavyweight Supima tees.",
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "products_per_page": 12,
+        "columns_desktop": "4"
+      }
+    }
+  },
+  "order": ["main"]
+}

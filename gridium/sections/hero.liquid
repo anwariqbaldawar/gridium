@@ -1,0 +1,79 @@
+<section class="hero color-{{ section.settings.color_scheme }}" style="--hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
+  <div class="hero__media">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, image_size: '1600x' }}
+    {%- elsif section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2200
+        | image_tag:
+          widths: '640, 960, 1280, 1600, 2200',
+          sizes: '100vw',
+          fetchpriority: 'high',
+          loading: 'eager',
+          alt: section.settings.heading
+      }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+    <div class="hero__scrim"></div>
+  </div>
+
+  <div class="container hero__content">
+    <div class="hero__grid" data-reveal>
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="mono-label" style="color:inherit;opacity:0.85;margin-bottom:16px;">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        <h1 class="display-xl" style="color:inherit;">{{ section.settings.heading }}</h1>
+      </div>
+      <div>
+        {%- if section.settings.subheading != blank -%}
+          <p style="font-size:1.0625rem;line-height:1.55;opacity:0.9;">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        <div class="hero__actions">
+          {%- if section.settings.button_label != blank -%}
+            <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="button">
+              {{ section.settings.button_label }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a href="{{ section.settings.secondary_link | default: routes.collections_url }}" class="button button--secondary" style="color:inherit;border-color:currentColor;">
+              {{ section.settings.secondary_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero banner",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "midnight",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "video", "id": "video", "label": "Optional background video (overrides image)" },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 70, "step": 5, "unit": "%", "label": "Scrim contrast", "default": 30 },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "01 / SEASON 04 SHIRTING ARCHIVE" },
+    { "type": "text", "id": "heading", "label": "Headline", "default": "Engineered Shirting. Exact Proportions." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Single-needle Portuguese poplin, 240 GSM Supima jersey tees, and breathable Belgian flax linen built for calm daily uniforming." },
+    { "type": "text", "id": "button_label", "label": "Primary CTA label", "default": "Shop All Shirts" },
+    { "type": "url", "id": "button_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary CTA label", "default": "Explore Fabrics" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary CTA link" }
+  ],
+  "presets": [{ "name": "Hero banner" }]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+<div class="container customer-box">
+  <span class="mono-label">01 / NEW PROFILE</span>
+  <h1 class="h2" style="margin-block:8px 24px;">{{ 'customer.register.title' | t }}</h1>
+
+  {%- form 'create_customer' -%}
+    {%- if form.errors -%}
+      <div class="form-status form-status--error">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <div style="display:grid;gap:16px;">
+      <label class="field">
+        <span class="field__label">{{ 'customer.register.first_name' | t }}</span>
+        <input type="text" name="customer[first_name]" class="field__input" autocomplete="given-name">
+      </label>
+      <label class="field">
+        <span class="field__label">{{ 'customer.register.last_name' | t }}</span>
+        <input type="text" name="customer[last_name]" class="field__input" autocomplete="family-name">
+      </label>
+      <label class="field">
+        <span class="field__label">{{ 'customer.register.email' | t }} *</span>
+        <input type="email" name="customer[email]" class="field__input" required autocomplete="email">
+      </label>
+      <label class="field">
+        <span class="field__label">{{ 'customer.register.password' | t }} *</span>
+        <input type="password" name="customer[password]" class="field__input" required autocomplete="new-password">
+      </label>
+      <button type="submit" class="button button--full">{{ 'customer.register.submit' | t }}</button>
+      <a href="{{ routes.account_login_url }}" class="mono-label link-underline" style="justify-self:center;">{{ 'customer.register.have_account' | t }}</a>
+    </div>
+  {%- endform -%}
+</div>

@@ -1,0 +1,135 @@
+{
+  "sections": {
+    "statement": {
+      "type": "about-story",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "label": "SEAM PRECISION",
+            "number": "22 SPI",
+            "caption": "Single-needle French lockstitch across every side seam."
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "label": "EUROPEAN MILLS",
+            "number": "100%",
+            "caption": "Partnered exclusively with certified weavers in Portugal, Belgium & Italy."
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "label": "JERSEY WEIGHT",
+            "number": "240 GSM",
+            "caption": "Long-staple combed Supima cotton engineered for opaque drape."
+          }
+        },
+        "s4": {
+          "type": "stat",
+          "settings": {
+            "label": "PLASTIC PACKAGING",
+            "number": "0%",
+            "caption": "Delivered in FSC-certified archival board and glassine."
+          }
+        },
+        "v1": {
+          "type": "value",
+          "settings": {
+            "title": "Architectural Pattern Discipline",
+            "text": "Every shirt block is drafted in-house with high, pitched armholes for clean chest lines and unrestricted reach."
+          }
+        },
+        "v2": {
+          "type": "value",
+          "settings": {
+            "title": "Unfused Soft Collar Roll",
+            "text": "We avoid rigid synthetic fusing so collars frame the neck naturally whether buttoned with tailoring or worn open."
+          }
+        },
+        "v3": {
+          "type": "value",
+          "settings": {
+            "title": "Permanent Archive Over Trends",
+            "text": "Core silhouettes stay in production year-round so you can reorder your exact block in seasonal fabrics."
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3", "s4", "v1", "v2", "v3"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "01 / ABOUT GRIDIUM STUDIO",
+        "heading": "One Garment Category. Perfected Without Noise.",
+        "lead": "Founded on the conviction that a shirt is the architectural anchor of modern dress, Gridium develops permanent shirting blocks in partnership with family-owned European mills.",
+        "values_eyebrow": "02 / DESIGN PRINCIPLES"
+      }
+    },
+    "story_split": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "stone",
+        "image_position": "left",
+        "eyebrow": "03 / BRAND ORIGIN",
+        "heading": "Born Between Tailoring & Daily Utility.",
+        "text": "<p>We started Gridium after years of searching for shirts that bridged formal shirtmaking rigor and relaxed modern proportions. Rather than expanding into dozens of categories, our studio dedicates every pattern revision to tees, polos, Oxfords, linens, and dress shirts.</p>",
+        "spec_line": "ATELIER EST. NEW YORK & PORTO",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "craft_split": {
+      "type": "image-with-text",
+      "settings": {
+        "color_scheme": "paper",
+        "image_position": "right",
+        "eyebrow": "04 / MILL CRAFTSMANSHIP",
+        "heading": "Single-Origin Yarns & Mother-of-Pearl.",
+        "text": "<p>Our two-ply poplins are woven by Somelos in northern Portugal; our summer linens carry the Masters of Linen® mark from Belgian flax; and every woven shirt is finished with 3.2mm Australian mother-of-pearl buttons whipped on thermally locked shanks.</p>",
+        "spec_line": "CERTIFICATIONS: GOTS ORGANIC · OEKO-TEX® 100 · MASTERS OF LINEN",
+        "button_label": "Shop the Archive",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "team": {
+      "type": "about-team",
+      "blocks": {
+        "m1": {
+          "type": "member",
+          "settings": {
+            "role": "HEAD OF PATTERN ARCHITECTURE",
+            "name": "Lukas Lindqvist",
+            "bio": "18 years drafting bespoke and ready-to-wear shirting blocks across Stockholm and Porto."
+          }
+        },
+        "m2": {
+          "type": "member",
+          "settings": {
+            "role": "DIRECTOR OF TEXTILES",
+            "name": "Clara Monteiro",
+            "bio": "Textile engineer specializing in high-twist organic poplins, mercerized knits, and enzyme washes."
+          }
+        },
+        "m3": {
+          "type": "member",
+          "settings": {
+            "role": "CREATIVE & STUDIO LEAD",
+            "name": "Julian Vance",
+            "bio": "Industrial designer focused on calm wardrobe systems and zero-excess garment detailing."
+          }
+        }
+      },
+      "block_order": ["m1", "m2", "m3"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "05 / ATELIER LEADERSHIP",
+        "heading": "Patternmakers & Textile Leads",
+        "cta_heading": "Inspect the Current Shirting Collection",
+        "cta_label": "Explore All Shirts",
+        "cta_link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": ["statement", "story_split", "craft_split", "team"]
+}

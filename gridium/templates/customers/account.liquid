@@ -1,0 +1,54 @@
+<div class="container customer-wide">
+  <div class="section-header">
+    <div>
+      <span class="mono-label">01 / CLIENT PROFILE</span>
+      <h1 class="h2" style="margin-top:6px;">{{ 'customer.account.title' | t }}</h1>
+    </div>
+    <a href="{{ routes.account_logout_url }}" class="button button--secondary button--sm">{{ 'customer.account.logout' | t }}</a>
+  </div>
+
+  <div class="grid-12 split-4-8">
+    <aside style="border:1px solid var(--color-border);padding:24px;display:grid;gap:14px;align-content:start;">
+      <span class="mono-label">{{ 'customer.account.details' | t }}</span>
+      <div class="text-muted" style="font-size:0.9375rem;">{{ customer.default_address | format_address }}</div>
+      <a href="{{ routes.account_addresses_url }}" class="button button--secondary button--sm" style="width:fit-content;">
+        {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
+      </a>
+    </aside>
+
+    <div>
+      <h2 class="h4" style="margin-bottom:16px;">{{ 'customer.account.orders' | t }}</h2>
+      {%- paginate customer.orders by 10 -%}
+        {%- if customer.orders.size == 0 -%}
+          <p class="text-muted">{{ 'customer.account.none' | t }}</p>
+        {%- else -%}
+          <div style="overflow-x:auto;">
+            <table class="customer-table">
+              <thead>
+                <tr>
+                  <th>{{ 'customer.account.order_number' | t }}</th>
+                  <th>{{ 'customer.account.date' | t }}</th>
+                  <th>{{ 'customer.account.payment_status' | t }}</th>
+                  <th>{{ 'customer.account.fulfillment_status' | t }}</th>
+                  <th>{{ 'customer.account.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for order in customer.orders -%}
+                  <tr>
+                    <td><a href="{{ order.customer_url }}" class="link-underline">{{ order.name }}</a></td>
+                    <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+                    <td>{{ order.financial_status_label }}</td>
+                    <td>{{ order.fulfillment_status_label }}</td>
+                    <td>{{ order.total_net_amount | money_with_currency }}</td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          </div>
+          {% render 'pagination', paginate: paginate %}
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+  </div>
+</div>

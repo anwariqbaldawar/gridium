@@ -1,0 +1,91 @@
+{%- liquid
+  assign sg_page = settings.size_guide_page
+  assign raw_rows = settings.size_guide_rows | default: "XS|98|70|43|61\nS|104|72|45|62.5\nM|110|74|47|64\nL|116|76|49|65.5\nXL|122|78|51|67\nXXL|128|80|53|68.5"
+  assign table_rows = raw_rows | newline_to_br | split: '<br />'
+-%}
+
+<div id="SizeGuideModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="SizeGuideHeading">
+  <div class="modal-panel" data-size-guide-root>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;">
+      <div>
+        <span class="mono-label">01 / GARMENT SPECIFICATION</span>
+        <h2 id="SizeGuideHeading" class="h3">{{ settings.size_guide_title | default: 'Shirt Size & Measurement Guide' }}</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="unit-toggle" role="group" aria-label="Measurement units">
+          <button type="button" class="is-active" data-size-unit="cm">{{ 'products.size_guide.unit_cm' | t }}</button>
+          <button type="button" data-size-unit="in">{{ 'products.size_guide.unit_in' | t }}</button>
+        </div>
+        <button type="button" class="icon-btn" data-overlay-close aria-label="{{ 'accessibility.close' | t }}">
+          {% render 'icon', name: 'close', size: 20 %}
+        </button>
+      </div>
+    </div>
+
+    {%- if sg_page != blank and sg_page.content != blank -%}
+      <div class="rte" style="margin-bottom:20px;">{{ sg_page.content }}</div>
+    {%- endif -%}
+
+    <p class="text-muted" style="font-size:0.875rem;margin-bottom:16px;">{{ settings.size_guide_note }}</p>
+
+    <div style="overflow-x:auto;">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>{{ 'products.size_guide.size' | t }}</th>
+            <th>{{ 'products.size_guide.chest' | t }}</th>
+            <th>{{ 'products.size_guide.length' | t }}</th>
+            <th>{{ 'products.size_guide.shoulder' | t }}</th>
+            <th>{{ 'products.size_guide.sleeve' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for row in table_rows -%}
+            {%- assign cols = row | strip | split: '|' -%}
+            {%- if cols.size >= 5 -%}
+              <tr>
+                <td><strong>{{ cols[0] }}</strong></td>
+                <td data-cm="{{ cols[1] }}">{{ cols[1] }}</td>
+                <td data-cm="{{ cols[2] }}">{{ cols[2] }}</td>
+                <td data-cm="{{ cols[3] }}">{{ cols[3] }}</td>
+                <td data-cm="{{ cols[4] }}">{{ cols[4] }}</td>
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fit-finder" data-fit-finder>
+      <div>
+        <span class="mono-label">02 / {{ 'products.size_guide.fit_finder_title' | t }}</span>
+        <p class="text-muted" style="font-size:0.875rem;">{{ 'products.size_guide.fit_finder_subtitle' | t }}</p>
+      </div>
+      <div class="fit-finder__grid">
+        <label class="field">
+          <span class="field__label">{{ 'products.size_guide.height_cm' | t }}</span>
+          <input type="number" name="fit_height" class="field__input" value="180" min="145" max="215">
+        </label>
+        <label class="field">
+          <span class="field__label">{{ 'products.size_guide.weight_kg' | t }}</span>
+          <input type="number" name="fit_weight" class="field__input" value="75" min="42" max="140">
+        </label>
+        <label class="field">
+          <span class="field__label">{{ 'products.size_guide.preference' | t }}</span>
+          <select name="fit_pref" class="field__select">
+            <option value="slim">{{ 'products.size_guide.pref_slim' | t }}</option>
+            <option value="regular" selected>{{ 'products.size_guide.pref_regular' | t }}</option>
+            <option value="relaxed">{{ 'products.size_guide.pref_relaxed' | t }}</option>
+          </select>
+        </label>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+        <button type="button" class="button button--sm" data-fit-calculate>{{ 'products.size_guide.calculate' | t }}</button>
+        <p class="mono-label" data-fit-result hidden>
+          {{ 'products.size_guide.recommended_size' | t }} <strong style="font-size:1rem;color:var(--color-text);">M</strong>
+        </p>
+      </div>
+      <p class="text-muted" style="font-size:0.75rem;">{{ 'products.size_guide.guidance_note' | t }}</p>
+    </div>
+  </div>
+</div>

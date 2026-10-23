@@ -1,0 +1,533 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Gridium",
+    "theme_version": "1.0.0",
+    "theme_author": "Gridium Studio",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "t:settings_schema.colors.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.settings.header_paper.content"
+      },
+      {
+        "type": "color",
+        "id": "paper_bg",
+        "label": "t:settings_schema.colors.settings.bg.label",
+        "default": "#FAFAF8"
+      },
+      {
+        "type": "color",
+        "id": "paper_bg_subtle",
+        "label": "t:settings_schema.colors.settings.bg_subtle.label",
+        "default": "#F2F2EE"
+      },
+      {
+        "type": "color",
+        "id": "paper_text",
+        "label": "t:settings_schema.colors.settings.text.label",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "paper_text_muted",
+        "label": "t:settings_schema.colors.settings.text_muted.label",
+        "default": "#595955"
+      },
+      {
+        "type": "color",
+        "id": "paper_border",
+        "label": "t:settings_schema.colors.settings.border.label",
+        "default": "#E4E4DF"
+      },
+      {
+        "type": "color",
+        "id": "paper_accent",
+        "label": "t:settings_schema.colors.settings.accent.label",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "paper_accent_contrast",
+        "label": "t:settings_schema.colors.settings.accent_contrast.label",
+        "default": "#FAFAF8"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.settings.header_stone.content"
+      },
+      {
+        "type": "color",
+        "id": "stone_bg",
+        "label": "t:settings_schema.colors.settings.bg.label",
+        "default": "#EFECE6"
+      },
+      {
+        "type": "color",
+        "id": "stone_bg_subtle",
+        "label": "t:settings_schema.colors.settings.bg_subtle.label",
+        "default": "#E5E0D7"
+      },
+      {
+        "type": "color",
+        "id": "stone_text",
+        "label": "t:settings_schema.colors.settings.text.label",
+        "default": "#181715"
+      },
+      {
+        "type": "color",
+        "id": "stone_text_muted",
+        "label": "t:settings_schema.colors.settings.text_muted.label",
+        "default": "#57534C"
+      },
+      {
+        "type": "color",
+        "id": "stone_border",
+        "label": "t:settings_schema.colors.settings.border.label",
+        "default": "#D5CFC4"
+      },
+      {
+        "type": "color",
+        "id": "stone_accent",
+        "label": "t:settings_schema.colors.settings.accent.label",
+        "default": "#3D4A35"
+      },
+      {
+        "type": "color",
+        "id": "stone_accent_contrast",
+        "label": "t:settings_schema.colors.settings.accent_contrast.label",
+        "default": "#FAFAF8"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.settings.header_midnight.content"
+      },
+      {
+        "type": "color",
+        "id": "midnight_bg",
+        "label": "t:settings_schema.colors.settings.bg.label",
+        "default": "#111211"
+      },
+      {
+        "type": "color",
+        "id": "midnight_bg_subtle",
+        "label": "t:settings_schema.colors.settings.bg_subtle.label",
+        "default": "#1A1B19"
+      },
+      {
+        "type": "color",
+        "id": "midnight_text",
+        "label": "t:settings_schema.colors.settings.text.label",
+        "default": "#F5F5F2"
+      },
+      {
+        "type": "color",
+        "id": "midnight_text_muted",
+        "label": "t:settings_schema.colors.settings.text_muted.label",
+        "default": "#A6A69E"
+      },
+      {
+        "type": "color",
+        "id": "midnight_border",
+        "label": "t:settings_schema.colors.settings.border.label",
+        "default": "#2A2B28"
+      },
+      {
+        "type": "color",
+        "id": "midnight_accent",
+        "label": "t:settings_schema.colors.settings.accent.label",
+        "default": "#F5F5F2"
+      },
+      {
+        "type": "color",
+        "id": "midnight_accent_contrast",
+        "label": "t:settings_schema.colors.settings.accent_contrast.label",
+        "default": "#111211"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.settings.header_status.content"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "label": "t:settings_schema.colors.settings.sale.label",
+        "default": "#B42318"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "label": "t:settings_schema.colors.settings.success.label",
+        "default": "#1E6B3B"
+      },
+      {
+        "type": "color",
+        "id": "color_warning",
+        "label": "t:settings_schema.colors.settings.warning.label",
+        "default": "#9A5B13"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.typography.name",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "t:settings_schema.typography.settings.heading_font.label",
+        "default": "inter_n6"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "unit": "%",
+        "label": "t:settings_schema.typography.settings.heading_scale.label",
+        "default": 100
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "t:settings_schema.typography.settings.body_font.label",
+        "default": "inter_n4"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 90,
+        "max": 115,
+        "step": 5,
+        "unit": "%",
+        "label": "t:settings_schema.typography.settings.body_scale.label",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.layout.name",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1200,
+        "max": 1520,
+        "step": 40,
+        "unit": "px",
+        "label": "t:settings_schema.layout.settings.page_width.label",
+        "default": 1360
+      },
+      {
+        "type": "range",
+        "id": "grid_gap",
+        "min": 12,
+        "max": 32,
+        "step": 4,
+        "unit": "px",
+        "label": "t:settings_schema.layout.settings.grid_gap.label",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "corner_radius",
+        "min": 0,
+        "max": 4,
+        "step": 1,
+        "unit": "px",
+        "label": "t:settings_schema.layout.settings.corner_radius.label",
+        "default": 2
+      },
+      {
+        "type": "checkbox",
+        "id": "show_grid_hairlines",
+        "label": "t:settings_schema.layout.settings.show_grid_hairlines.label",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "button_radius",
+        "min": 0,
+        "max": 4,
+        "step": 1,
+        "unit": "px",
+        "label": "t:settings_schema.layout.settings.button_radius.label",
+        "default": 2
+      },
+      {
+        "type": "checkbox",
+        "id": "button_uppercase",
+        "label": "t:settings_schema.layout.settings.button_uppercase.label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_animations",
+        "label": "t:settings_schema.layout.settings.enable_animations.label",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.product_cards.name",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "card_show_secondary_image",
+        "label": "t:settings_schema.product_cards.settings.show_secondary_image.label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_vendor",
+        "label": "t:settings_schema.product_cards.settings.show_vendor.label",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_swatches",
+        "label": "t:settings_schema.product_cards.settings.show_swatches.label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_enable_quick_add",
+        "label": "t:settings_schema.product_cards.settings.enable_quick_add.label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_enable_wishlist",
+        "label": "t:settings_schema.product_cards.settings.enable_wishlist.label",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "card_image_fit",
+        "label": "t:settings_schema.product_cards.settings.image_fit.label",
+        "default": "cover",
+        "options": [
+          { "value": "cover", "label": "t:settings_schema.product_cards.settings.image_fit.options.cover" },
+          { "value": "contain", "label": "t:settings_schema.product_cards.settings.image_fit.options.contain" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "badge_new_days",
+        "min": 0,
+        "max": 90,
+        "step": 5,
+        "unit": "d",
+        "label": "t:settings_schema.product_cards.settings.badge_new_days.label",
+        "default": 30
+      },
+      {
+        "type": "text",
+        "id": "badge_bestseller_tag",
+        "label": "t:settings_schema.product_cards.settings.badge_bestseller_tag.label",
+        "default": "bestseller"
+      },
+      {
+        "type": "range",
+        "id": "low_stock_threshold",
+        "min": 1,
+        "max": 15,
+        "step": 1,
+        "label": "t:settings_schema.product_cards.settings.low_stock_threshold.label",
+        "default": 5
+      },
+      {
+        "type": "textarea",
+        "id": "swatch_color_map",
+        "label": "t:settings_schema.product_cards.settings.swatch_color_map.label",
+        "default": "White:#F7F7F5\nOptic White:#FAFAFA\nOff-White:#EFECE6\nEcru:#E8E2D5\nOatmeal:#DDD5C7\nStone:#C8C2B6\nSand:#D6C7B2\nBlack:#141414\nWashed Black:#2B2B2B\nCharcoal:#3A3B3C\nSlate:#5A646E\nHeather Grey:#B6B8BA\nNavy:#1F2A44\nSky Blue:#A9C6DE\nOxford Blue:#7CA1C4\nCobalt:#204A87\nSage:#8A9A86\nOlive:#4B533E\nForest:#22382C\nClay:#A45A49\nBurgundy:#582128\nEspresso:#3B2B24"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.size_guide.name",
+    "settings": [
+      {
+        "type": "page",
+        "id": "size_guide_page",
+        "label": "t:settings_schema.size_guide.settings.page.label"
+      },
+      {
+        "type": "text",
+        "id": "size_guide_title",
+        "label": "t:settings_schema.size_guide.settings.title.label",
+        "default": "Shirt Size & Measurement Guide"
+      },
+      {
+        "type": "textarea",
+        "id": "size_guide_note",
+        "label": "t:settings_schema.size_guide.settings.note.label",
+        "default": "Measurements refer to garment dimensions laid flat in centimeters (toggle inches above). Take your normal size for intended drape."
+      },
+      {
+        "type": "textarea",
+        "id": "size_guide_rows",
+        "label": "t:settings_schema.size_guide.settings.rows.label",
+        "default": "XS|98|70|43|61\nS|104|72|45|62.5\nM|110|74|47|64\nL|116|76|49|65.5\nXL|122|78|51|67\nXXL|128|80|53|68.5"
+      },
+      {
+        "type": "textarea",
+        "id": "fit_finder_matrix",
+        "label": "t:settings_schema.size_guide.settings.fit_finder_matrix.label",
+        "default": "XS:170:62\nS:176:70\nM:181:79\nL:186:88\nXL:191:98\nXXL:210:130"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.cart.name",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "t:settings_schema.cart.settings.cart_type.label",
+        "default": "drawer",
+        "options": [
+          { "value": "drawer", "label": "t:settings_schema.cart.settings.cart_type.options.drawer" },
+          { "value": "page", "label": "t:settings_schema.cart.settings.cart_type.options.page" }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_note",
+        "label": "t:settings_schema.cart.settings.show_note.label",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "cart_free_shipping_threshold",
+        "label": "t:settings_schema.cart.settings.free_shipping_threshold.label",
+        "default": 150
+      },
+      {
+        "type": "collection",
+        "id": "cart_upsell_collection",
+        "label": "t:settings_schema.cart.settings.upsell_collection.label"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.utilities.name",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_back_to_top",
+        "label": "t:settings_schema.utilities.settings.enable_back_to_top.label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_whatsapp",
+        "label": "t:settings_schema.utilities.settings.enable_whatsapp.label",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "t:settings_schema.utilities.settings.whatsapp_number.label",
+        "default": ""
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "t:settings_schema.utilities.settings.whatsapp_message.label",
+        "default": "Hello Gridium Studio, I have a question regarding shirt sizing."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cookie_notice",
+        "label": "t:settings_schema.utilities.settings.enable_cookie_notice.label",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "cookie_notice_text",
+        "label": "t:settings_schema.utilities.settings.cookie_notice_text.label",
+        "default": "We use essential cookies to ensure reliable cart sessions and remember your currency preferences."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_newsletter_popup",
+        "label": "t:settings_schema.utilities.settings.enable_newsletter_popup.label",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "newsletter_popup_delay",
+        "min": 3,
+        "max": 30,
+        "step": 1,
+        "unit": "s",
+        "label": "t:settings_schema.utilities.settings.newsletter_popup_delay.label",
+        "default": 8
+      },
+      {
+        "type": "text",
+        "id": "newsletter_popup_heading",
+        "label": "t:settings_schema.utilities.settings.newsletter_popup_heading.label",
+        "default": "10% Off Your First Shirt"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_popup_text",
+        "label": "t:settings_schema.utilities.settings.newsletter_popup_text.label",
+        "default": "Receive mill notes, seasonal linen & oxford releases, and private archive access."
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.social_media.name",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "t:settings_schema.social_media.settings.favicon.label"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest_link",
+        "label": "Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube_link",
+        "label": "YouTube"
+      },
+      {
+        "type": "url",
+        "id": "social_x_link",
+        "label": "X (Twitter)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_country_selector",
+        "label": "t:settings_schema.social_media.settings.enable_country_selector.label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_language_selector",
+        "label": "t:settings_schema.social_media.settings.enable_language_selector.label",
+        "default": true
+      }
+    ]
+  }
+]

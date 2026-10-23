@@ -1,0 +1,37 @@
+{%- comment -%}Resolves swatch color via OS 2.0 swatch object, settings.swatch_color_map, or CSS color name{%- endcomment -%}
+{%- liquid
+  assign resolved_hex = ''
+  if option_value.swatch.color
+    assign resolved_hex = option_value.swatch.color
+  else
+    assign needle = color_name | strip | downcase
+    assign lines = settings.swatch_color_map | newline_to_br | split: '<br />'
+    for line in lines
+      assign parts = line | strip | split: ':'
+      if parts.size == 2
+        assign k = parts[0] | strip | downcase
+        if k == needle
+          assign resolved_hex = parts[1] | strip
+          break
+        endif
+      endif
+    endfor
+  endif
+  if resolved_hex == ''
+    assign resolved_hex = color_name | handleize
+  endif
+-%}
+{%- if mode == 'dot' -%}
+  <span class="swatch-dot" style="--swatch-color: {{ resolved_hex }};" title="{{ color_name | escape }}"></span>
+{%- else -%}
+  <button
+    type="button"
+    class="swatch-button{% if selected %} is-selected{% endif %}"
+    data-option-value="{{ color_name | escape }}"
+    aria-pressed="{% if selected %}true{% else %}false{% endif %}"
+    aria-label="{{ color_name | escape }}"
+    title="{{ color_name | escape }}"
+  >
+    <span class="swatch-button__fill" style="--swatch-color: {{ resolved_hex }};{% if option_value.swatch.image %} background-image: url({{ option_value.swatch.image | image_url: width: 64 }}); background-size: cover;{% endif %}"></span>
+  </button>
+{%- endif -%}

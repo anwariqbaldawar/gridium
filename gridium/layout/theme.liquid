@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.paper_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_heading_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags' %}
+    {% render 'color-scheme-vars' %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'component-header.css' | asset_url | stylesheet_tag }}
+    {{ 'component-footer.css' | asset_url | stylesheet_tag }}
+    {{ 'component-product.css' | asset_url | stylesheet_tag }}
+    {{ 'component-collection.css' | asset_url | stylesheet_tag }}
+    {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+
+    {{ content_for_header }}
+
+    <script>
+      document.documentElement.classList.replace('no-js', 'js');
+      window.GridiumRoutes = {
+        root_url: '{{ routes.root_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+        product_recommendations_url: '{{ routes.product_recommendations_url }}'
+      };
+      window.GridiumStrings = {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }},
+        lowStock: {{ 'products.product.low_stock' | t | json }},
+        inStock: {{ 'products.product.in_stock' | t | json }},
+        copied: {{ 'general.share.copied' | t | json }},
+        wishlistAdd: {{ 'products.wishlist.add' | t | json }},
+        wishlistRemove: {{ 'products.wishlist.remove' | t | json }},
+        cartError: {{ 'cart.item_error' | t | json }}
+      };
+      window.GridiumSettings = {
+        cartType: {{ settings.cart_type | json }},
+        lowStockThreshold: {{ settings.low_stock_threshold | default: 5 | json }},
+        enableAnimations: {{ settings.enable_animations | json }},
+        fitFinderMatrix: {{ settings.fit_finder_matrix | json }}
+      };
+    </script>
+
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'collection-filters.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+
+    <script type="application/ld+json">
+      {{ shop | structured_data }}
+    </script>
+  </head>
+
+  <body class="gridium-body color-paper{% if settings.show_grid_hairlines %} has-grid-hairlines{% endif %}{% if settings.enable_animations %} has-motion{% endif %} template-{{ template.name | handle }}">
+    <a class="skip-to-content-link button" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="main-content" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- if settings.cart_type == 'drawer' -%}
+      {% section 'cart-drawer' %}
+    {%- endif -%}
+
+    {% render 'size-guide-modal' %}
+    {% render 'store-utilities' %}
+  </body>
+</html>

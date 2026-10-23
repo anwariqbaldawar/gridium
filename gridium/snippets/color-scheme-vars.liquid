@@ -1,0 +1,63 @@
+{%- liquid
+  assign heading_font = settings.type_heading_font
+  assign body_font = settings.type_body_font
+  assign body_bold = body_font | font_modify: 'weight', 'bold'
+-%}
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+  {%- if body_bold -%}{{ body_bold | font_face: font_display: 'swap' }}{%- endif -%}
+
+  :root {
+    --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading-style: {{ heading_font.style }};
+    --font-heading-weight: {{ heading_font.weight }};
+    --font-heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+
+    --font-body-family: {{ body_font.family }}, {{ body_font.fallback_families }}, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body-style: {{ body_font.style }};
+    --font-body-weight: {{ body_font.weight }};
+    --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+    --font-mono-family: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+
+    --scheme-paper-bg: {{ settings.paper_bg | default: '#FAFAF8' }};
+    --scheme-paper-bg-subtle: {{ settings.paper_bg_subtle | default: '#F2F2EE' }};
+    --scheme-paper-text: {{ settings.paper_text | default: '#111111' }};
+    --scheme-paper-text-muted: {{ settings.paper_text_muted | default: '#595955' }};
+    --scheme-paper-border: {{ settings.paper_border | default: '#E4E4DF' }};
+    --scheme-paper-accent: {{ settings.paper_accent | default: '#111111' }};
+    --scheme-paper-accent-contrast: {{ settings.paper_accent_contrast | default: '#FAFAF8' }};
+
+    --scheme-stone-bg: {{ settings.stone_bg | default: '#EFECE6' }};
+    --scheme-stone-bg-subtle: {{ settings.stone_bg_subtle | default: '#E5E0D7' }};
+    --scheme-stone-text: {{ settings.stone_text | default: '#181715' }};
+    --scheme-stone-text-muted: {{ settings.stone_text_muted | default: '#57534C' }};
+    --scheme-stone-border: {{ settings.stone_border | default: '#D5CFC4' }};
+    --scheme-stone-accent: {{ settings.stone_accent | default: '#3D4A35' }};
+    --scheme-stone-accent-contrast: {{ settings.stone_accent_contrast | default: '#FAFAF8' }};
+
+    --scheme-midnight-bg: {{ settings.midnight_bg | default: '#111211' }};
+    --scheme-midnight-bg-subtle: {{ settings.midnight_bg_subtle | default: '#1A1B19' }};
+    --scheme-midnight-text: {{ settings.midnight_text | default: '#F5F5F2' }};
+    --scheme-midnight-text-muted: {{ settings.midnight_text_muted | default: '#A6A69E' }};
+    --scheme-midnight-border: {{ settings.midnight_border | default: '#2A2B28' }};
+    --scheme-midnight-accent: {{ settings.midnight_accent | default: '#F5F5F2' }};
+    --scheme-midnight-accent-contrast: {{ settings.midnight_accent_contrast | default: '#111211' }};
+
+    --color-sale: {{ settings.color_sale | default: '#B42318' }};
+    --color-success: {{ settings.color_success | default: '#1E6B3B' }};
+    --color-warning: {{ settings.color_warning | default: '#9A5B13' }};
+
+    --page-width: {{ settings.page_width | default: 1360 }}px;
+    --grid-gap: {{ settings.grid_gap | default: 24 }}px;
+    --corner-radius: {{ settings.corner_radius | default: 2 }}px;
+    --button-radius: {{ settings.button_radius | default: 2 }}px;
+    --button-transform: {% if settings.button_uppercase %}uppercase{% else %}none{% endif %};
+    --card-image-fit: {{ settings.card_image_fit | default: 'cover' }};
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --duration-fast: 200ms;
+    --duration-base: 280ms;
+    --duration-slow: 400ms;
+  }
+</style>

@@ -1,0 +1,156 @@
+{%- liquid
+  assign has_second = false
+  if settings.card_show_secondary_image and product.media[1] != nil
+    assign has_second = true
+  endif
+  assign fit_meta = product.metafields.custom.fit.value | default: product.metafields.custom.fit
+-%}
+
+{%- if product and product != empty -%}
+  <article class="product-card{% if has_second %} has-secondary{% endif %}" data-reveal>
+    <div class="product-card__media-wrap">
+      {% render 'badges', product: product %}
+
+      {%- if settings.card_enable_wishlist -%}
+        <button type="button" class="wishlist-btn" data-wishlist-toggle="{{ product.handle }}" aria-pressed="false" aria-label="{{ 'products.wishlist.add' | t }}">
+          {% render 'icon', name: 'heart', size: 18 %}
+        </button>
+      {%- endif -%}
+
+      <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+        {%- if product.featured_media -%}
+          {{
+            product.featured_media
+            | image_url: width: 1000
+            | image_tag:
+              widths: '320, 480, 640, 840, 1000',
+              sizes: '(min-width: 1280px) 310px, (min-width: 768px) 33vw, 50vw',
+              loading: 'lazy',
+              class: 'product-card__img product-card__img--primary',
+              alt: product.featured_media.alt | default: product.title
+          }}
+          {%- if has_second -%}
+            {{
+              product.media[1]
+              | image_url: width: 1000
+              | image_tag:
+                widths: '320, 480, 640, 840, 1000',
+                sizes: '(min-width: 1280px) 310px, (min-width: 768px) 33vw, 50vw',
+                loading: 'lazy',
+                class: 'product-card__img product-card__img--secondary',
+                alt: product.media[1].alt | default: product.title
+            }}
+          {%- endif -%}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg product-card__img' }}
+        {%- endif -%}
+      </a>
+
+      {%- if settings.card_enable_quick_add and product.available -%}
+        <div class="quick-add">
+          {%- if product.has_only_default_variant -%}
+            <button type="button" class="button button--sm button--full" data-quick-add-variant="{{ product.first_available_variant.id }}">
+              {{ 'products.product.quick_add' | t }}
+            </button>
+          {%- else -%}
+            <span class="mono-label">{{ 'products.product.choose_size' | t }}</span>
+            <div class="quick-add__sizes">
+              {%- liquid
+                assign size_idx = 0
+                for opt in product.options_with_values
+                  assign opt_down = opt.name | downcase
+                  if opt_down contains 'size'
+                    assign size_idx = forloop.index0
+                  endif
+                endfor
+                assign first_color = product.selected_or_first_available_variant.options[0]
+              -%}
+              {%- if product.options.size == 1 -%}
+                {%- for v in product.variants -%}
+                  <button type="button" class="quick-add__size-btn" data-quick-add-variant="{{ v.id }}" {% unless v.available %}disabled{% endunless %}>
+                    {{ v.title }}
+                  </button>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for sz in product.options_with_values[size_idx].values -%}
+                  {%- liquid
+                    assign matched_v = nil
+                    for v in product.variants
+                      if v.options[size_idx] == sz and v.options[0] == first_color
+                        assign matched_v = v
+                        break
+                      endif
+                    endfor
+                    if matched_v == nil
+                      for v in product.variants
+                        if v.options[size_idx] == sz and v.available
+                          assign matched_v = v
+                          break
+                        endif
+                      endfor
+                    endif
+                  -%}
+                  <button
+                    type="button"
+                    class="quick-add__size-btn"
+                    {% if matched_v and matched_v.available %}data-quick-add-variant="{{ matched_v.id }}"{% else %}disabled{% endif %}
+                  >
+                    {{ sz }}
+                  </button>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-card__info">
+      <div class="product-card__meta-row mono-label">
+        <span>
+          {%- if settings.card_show_vendor and product.vendor != blank -%}
+            {{ product.vendor }}
+          {%- else -%}
+            {{ product.type | default: 'SHIRTING' }}
+          {%- endif -%}
+        </span>
+        {%- if fit_meta != blank -%}
+          <span>{{ 'products.product.fit_label' | t }}: {{ fit_meta }}</span>
+        {%- endif -%}
+      </div>
+
+      <a href="{{ product.url }}" class="product-card__title">{{ product.title }}</a>
+      {% render 'price', product: product %}
+
+      {%- if settings.card_show_swatches -%}
+        {%- for option in product.options_with_values -%}
+          {%- assign opt_name = option.name | downcase -%}
+          {%- if opt_name contains 'color' or opt_name contains 'colour' -%}
+            <div class="card-swatches" aria-label="{{ 'products.product.color' | t }}">
+              {%- for val in option.values limit: 5 -%}
+                {% render 'swatch', color_name: val, option_value: val, mode: 'dot' %}
+              {%- endfor -%}
+              {%- if option.values.size > 5 -%}
+                <span class="mono-label">+{{ option.values.size | minus: 5 }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </article>
+{%- else -%}
+  <article class="product-card">
+    <div class="product-card__media-wrap">
+      {{ placeholder_name | default: 'product-1' | placeholder_svg_tag: 'placeholder-svg product-card__img' }}
+    </div>
+    <div class="product-card__info">
+      <div class="product-card__meta-row mono-label">
+        <span>POPLIN SHIRT</span>
+        <span>FIT: REGULAR</span>
+      </div>
+      <span class="product-card__title">{{ onboarding_title | default: 'Architect Poplin Shirt — Optic White' }}</span>
+      <span class="price"><span class="price__regular">{{ 12800 | money }}</span></span>
+    </div>
+  </article>
+{%- endif -%}

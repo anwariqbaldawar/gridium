@@ -1,0 +1,245 @@
+{%- liquid
+  assign transparent_active = false
+  if template.name == 'index' and section.settings.enable_transparent_home
+    assign transparent_active = true
+  endif
+  assign nav_menu = linklists[section.settings.menu]
+-%}
+
+<div class="{% if section.settings.enable_sticky %}site-header-wrapper{% endif %}">
+  <header class="site-header color-{{ section.settings.color_scheme }}{% if transparent_active %} site-header--transparent{% endif %}" data-site-header>
+    <div class="container site-header__bar">
+      <div class="site-header__mobile-trigger">
+        <button type="button" class="icon-btn" data-overlay-open="MobileMenuDrawer" aria-label="{{ 'accessibility.menu' | t }}">
+          {% render 'icon', name: 'menu', size: 22 %}
+        </button>
+      </div>
+
+      <a href="{{ routes.root_url }}" class="site-header__logo">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 280 | image_tag: widths: '140, 280', alt: shop.name, style: 'max-height:32px;width:auto;' }}
+        {%- else -%}
+          {{ shop.name | default: 'GRIDIUM' }}
+        {%- endif -%}
+      </a>
+
+      <nav class="site-header__nav" aria-label="Primary">
+        {%- if nav_menu != blank and nav_menu.links.size > 0 -%}
+          {%- for link in nav_menu.links -%}
+            {%- liquid
+              assign matched_promo = nil
+              assign link_low = link.title | strip | downcase
+              for block in section.blocks
+                assign trig_low = block.settings.trigger_title | strip | downcase
+                if trig_low == link_low
+                  assign matched_promo = block
+                  break
+                endif
+              endfor
+            -%}
+            {%- if link.links.size > 0 or matched_promo != nil -%}
+              <div class="nav-item--has-mega">
+                <a href="{{ link.url }}" class="site-header__link">
+                  <span>{{ link.title }}</span>
+                  {% render 'icon', name: 'chevron-down', size: 14 %}
+                </a>
+                <div class="mega-menu">
+                  <div class="container mega-menu__grid">
+                    <div class="mega-menu__links">
+                      {%- if link.links.size > 0 -%}
+                        {%- for child in link.links -%}
+                          <div>
+                            <a href="{{ child.url }}" class="mono-label mega-menu__col-title" style="color:var(--color-text);">{{ child.title }}</a>
+                            {%- if child.links.size > 0 -%}
+                              <ul class="mega-menu__sublist">
+                                {%- for grandchild in child.links -%}
+                                  <li><a href="{{ grandchild.url }}" class="link-underline">{{ grandchild.title }}</a></li>
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                          </div>
+                        {%- endfor -%}
+                      {%- else -%}
+                        <div>
+                          <span class="mono-label mega-menu__col-title">BY SILHOUETTE</span>
+                          <ul class="mega-menu__sublist">
+                            <li><a href="{{ routes.all_products_collection_url }}">{{ 'collections.all_products' | t }}</a></li>
+                            <li><a href="{{ routes.collections_url }}">All Collections</a></li>
+                          </ul>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                    {%- if matched_promo -%}
+                      <div class="mega-menu__promo" {{ matched_promo.shopify_attributes }}>
+                        <div class="mega-menu__promo-media">
+                          {%- if matched_promo.settings.image != blank -%}
+                            {{ matched_promo.settings.image | image_url: width: 640 | image_tag: widths: '320, 640', sizes: '360px', loading: 'lazy', alt: matched_promo.settings.heading }}
+                          {%- else -%}
+                            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {%- endif -%}
+                        </div>
+                        <span class="mono-label">{{ matched_promo.settings.eyebrow }}</span>
+                        <p class="h4">{{ matched_promo.settings.heading }}</p>
+                        {%- if matched_promo.settings.link != blank -%}
+                          <a href="{{ matched_promo.settings.link }}" class="mono-label link-underline" style="color:var(--color-text);width:fit-content;">{{ matched_promo.settings.link_label }}</a>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- else -%}
+              <a href="{{ link.url }}" class="site-header__link">{{ link.title }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          <a href="{{ routes.all_products_collection_url }}" class="site-header__link">{{ 'collections.all_products' | t }}</a>
+          <a href="{{ routes.collections_url }}" class="site-header__link">{{ 'general.breadcrumbs.collections' | t }}</a>
+          <a href="/pages/about" class="site-header__link">About</a>
+          <a href="/pages/contact" class="site-header__link">Contact</a>
+        {%- endif -%}
+      </nav>
+
+      <div class="site-header__actions">
+        <button type="button" class="icon-btn" data-overlay-open="SearchOverlay" aria-label="{{ 'accessibility.search' | t }}">
+          {% render 'icon', name: 'search', size: 20 %}
+        </button>
+
+        {%- if settings.card_enable_wishlist -%}
+          <a href="/pages/wishlist" class="icon-btn" aria-label="{{ 'accessibility.wishlist' | t }}">
+            {% render 'icon', name: 'heart', size: 20 %}
+            <span class="header-count-badge" data-wishlist-count>0</span>
+          </a>
+        {%- endif -%}
+
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-btn" aria-label="{{ 'header.account' | t }}">
+            {% render 'icon', name: 'user', size: 20 %}
+          </a>
+        {%- endif -%}
+
+        {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+          <button type="button" class="icon-btn" data-overlay-open="CartDrawer" aria-label="{{ 'accessibility.cart' | t }}">
+            {% render 'icon', name: 'bag', size: 20 %}
+            <span class="header-count-badge" data-cart-count>{{ cart.item_count }}</span>
+          </button>
+        {%- else -%}
+          <a href="{{ routes.cart_url }}" class="icon-btn" aria-label="{{ 'accessibility.cart' | t }}">
+            {% render 'icon', name: 'bag', size: 20 %}
+            <span class="header-count-badge" data-cart-count>{{ cart.item_count }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- Mobile Navigation Drawer -->
+<div id="MobileMenuDrawer" class="drawer-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'header.menu' | t }}">
+  <div class="drawer-panel drawer-panel--left">
+    <div class="drawer-header">
+      <span class="mono-label">{{ 'header.menu' | t }}</span>
+      <button type="button" class="icon-btn" data-overlay-close aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon', name: 'close', size: 20 %}
+      </button>
+    </div>
+    <div class="drawer-body">
+      <ul>
+        {%- if nav_menu != blank and nav_menu.links.size > 0 -%}
+          {%- for link in nav_menu.links -%}
+            <li class="mobile-nav__item">
+              {%- if link.links.size > 0 -%}
+                <details>
+                  <summary class="mobile-nav__link" style="list-style:none;cursor:pointer;">
+                    <span>{{ link.title }}</span>
+                    {% render 'icon', name: 'chevron-down', size: 16 %}
+                  </summary>
+                  <ul style="display:grid;gap:10px;padding:12px 0 4px 12px;">
+                    {%- for child in link.links -%}
+                      <li><a href="{{ child.url }}" class="text-muted">{{ child.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </details>
+              {%- else -%}
+                <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          <li class="mobile-nav__item"><a href="{{ routes.all_products_collection_url }}" class="mobile-nav__link">{{ 'collections.all_products' | t }}</a></li>
+          <li class="mobile-nav__item"><a href="{{ routes.collections_url }}" class="mobile-nav__link">{{ 'general.breadcrumbs.collections' | t }}</a></li>
+          <li class="mobile-nav__item"><a href="/pages/about" class="mobile-nav__link">About Studio</a></li>
+          <li class="mobile-nav__item"><a href="/pages/contact" class="mobile-nav__link">Contact</a></li>
+          <li class="mobile-nav__item"><a href="/pages/wishlist" class="mobile-nav__link">{{ 'products.wishlist.title' | t }}</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Predictive Search Overlay -->
+<div id="SearchOverlay" class="search-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'general.search.title' | t }}">
+  <div class="search-overlay__panel">
+    <div class="container">
+      <predictive-search>
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search-bar-form">
+          {% render 'icon', name: 'search', size: 20 %}
+          <input
+            type="search"
+            name="q"
+            class="search-bar-form__input"
+            placeholder="{{ 'general.search.placeholder' | t }}"
+            aria-label="{{ 'general.search.title' | t }}"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+          >
+          <input type="hidden" name="options[prefix]" value="last">
+          <button type="button" class="mono-label" style="background:none;border:0;cursor:pointer;" data-search-clear hidden>{{ 'general.search.clear' | t }}</button>
+          <button type="button" class="icon-btn" data-overlay-close aria-label="{{ 'accessibility.close' | t }}">
+            {% render 'icon', name: 'close', size: 20 %}
+          </button>
+        </form>
+        <div data-predictive-results aria-live="polite"></div>
+      </predictive-search>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "link_list", "id": "menu", "label": "Main navigation menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "enable_sticky", "label": "Enable sticky header", "default": true },
+    { "type": "checkbox", "id": "enable_transparent_home", "label": "Transparent over homepage hero", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "mega_promo",
+      "name": "Mega menu feature",
+      "settings": [
+        { "type": "text", "id": "trigger_title", "label": "Menu item title to attach to", "default": "Shirts" },
+        { "type": "image_picker", "id": "image", "label": "Feature image" },
+        { "type": "text", "id": "eyebrow", "label": "Mono label", "default": "01 / SEASONAL MILL EDITION" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "220 GSM Supima & Washed Oxford" },
+        { "type": "text", "id": "link_label", "label": "Link text", "default": "Shop All Shirts" },
+        { "type": "url", "id": "link", "label": "Link URL" }
+      ]
+    }
+  ]
+}
+{% endschema %}

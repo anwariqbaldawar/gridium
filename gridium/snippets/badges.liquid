@@ -1,0 +1,42 @@
+{%- liquid
+  assign now_ts = 'now' | date: '%s' | plus: 0
+  assign pub_ts = product.published_at | date: '%s' | plus: 0
+  assign age_days = now_ts | minus: pub_ts | divided_by: 86400
+  assign new_limit = settings.badge_new_days | default: 30
+  assign best_tag = settings.badge_bestseller_tag | default: 'bestseller' | downcase
+
+  assign is_new = false
+  if pub_ts > 0 and age_days <= new_limit
+    assign is_new = true
+  endif
+  for tag in product.tags
+    assign t_low = tag | downcase
+    if t_low == 'new'
+      assign is_new = true
+    endif
+    if t_low == best_tag
+      assign is_best = true
+    endif
+  endfor
+
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+    assign pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+  endif
+-%}
+<div class="badge-stack">
+  {%- unless product.available -%}
+    <span class="badge badge--soldout">{{ 'products.badges.sold_out' | t }}</span>
+  {%- else -%}
+    {%- if on_sale -%}
+      <span class="badge badge--sale">-{{ pct }}%</span>
+    {%- endif -%}
+    {%- if is_new -%}
+      <span class="badge">{{ 'products.badges.new' | t }}</span>
+    {%- endif -%}
+    {%- if is_best -%}
+      <span class="badge">{{ 'products.badges.bestseller' | t }}</span>
+    {%- endif -%}
+  {%- endunless -%}
+</div>

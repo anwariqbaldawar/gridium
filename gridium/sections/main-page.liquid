@@ -1,0 +1,30 @@
+{% render 'breadcrumbs' %}
+
+<section class="section-pad color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div style="max-width:68ch;">
+      <span class="mono-label">01 / DOCUMENT</span>
+      <h1 style="margin-block:8px 28px;">{{ page.title }}</h1>
+      <div class="rte text-muted">{{ page.content }}</div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main page",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    }
+  ]
+}
+{% endschema %}

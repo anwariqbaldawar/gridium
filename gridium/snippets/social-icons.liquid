@@ -1,0 +1,17 @@
+<ul class="social-list">
+  {%- if settings.social_instagram_link != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', name: 'instagram', size: 18 %}</a></li>
+  {%- endif -%}
+  {%- if settings.social_tiktok_link != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'icon', name: 'tiktok', size: 18 %}</a></li>
+  {%- endif -%}
+  {%- if settings.social_pinterest_link != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" aria-label="Pinterest">{% render 'icon', name: 'pinterest', size: 18 %}</a></li>
+  {%- endif -%}
+  {%- if settings.social_youtube_link != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">{% render 'icon', name: 'youtube', size: 18 %}</a></li>
+  {%- endif -%}
+  {%- if settings.social_x_link != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_x_link }}" target="_blank" rel="noopener" aria-label="X">{% render 'icon', name: 'x', size: 18 %}</a></li>
+  {%- endif -%}
+</ul>

@@ -1,0 +1,67 @@
+{%- liquid
+  assign raw_rows = settings.size_guide_rows | default: "XS|98|70|43|61\nS|104|72|45|62.5\nM|110|74|47|64\nL|116|76|49|65.5\nXL|122|78|51|67\nXXL|128|80|53|68.5"
+  assign table_rows = raw_rows | newline_to_br | split: '<br />'
+-%}
+<section class="section-pad section-border-bottom color-{{ section.settings.color_scheme }}" data-size-guide-root>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header__titles">
+        <span class="mono-label">GARMENT DIMENSIONS</span>
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+      <div class="unit-toggle" role="group" aria-label="Units">
+        <button type="button" class="is-active" data-size-unit="cm">{{ 'products.size_guide.unit_cm' | t }}</button>
+        <button type="button" data-size-unit="in">{{ 'products.size_guide.unit_in' | t }}</button>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>{{ 'products.size_guide.size' | t }}</th>
+            <th>{{ 'products.size_guide.chest' | t }}</th>
+            <th>{{ 'products.size_guide.length' | t }}</th>
+            <th>{{ 'products.size_guide.shoulder' | t }}</th>
+            <th>{{ 'products.size_guide.sleeve' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for row in table_rows -%}
+            {%- assign cols = row | strip | split: '|' -%}
+            {%- if cols.size >= 5 -%}
+              <tr>
+                <td><strong>{{ cols[0] }}</strong></td>
+                <td data-cm="{{ cols[1] }}">{{ cols[1] }}</td>
+                <td data-cm="{{ cols[2] }}">{{ cols[2] }}</td>
+                <td data-cm="{{ cols[3] }}">{{ cols[3] }}</td>
+                <td data-cm="{{ cols[4] }}">{{ cols[4] }}</td>
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Size guide table",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shirting Measurement Chart" }
+  ],
+  "presets": [{ "name": "Size guide table" }]
+}
+{% endschema %}

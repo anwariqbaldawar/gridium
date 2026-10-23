@@ -1,0 +1,37 @@
+{
+  "name": "Footer Group",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "col_1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "01 / SHIRTING",
+            "menu": "main-menu"
+          }
+        },
+        "col_2": {
+          "type": "studio_links",
+          "settings": {
+            "heading": "02 / CLIENT CARE"
+          }
+        },
+        "col_3": {
+          "type": "text",
+          "settings": {
+            "heading": "03 / ATELIER",
+            "body": "Gridium Shirting Studio\n48 Mercer Street, Floor 3\nNew York, NY 10013\nMon–Fri 09:00–18:00 EST"
+          }
+        }
+      },
+      "block_order": ["col_1", "col_2", "col_3"],
+      "settings": {
+        "color_scheme": "paper",
+        "brand_tagline": "Architectural shirting engineered for order, longevity, and daily precision. Cut from single-origin organic cottons and European flax."
+      }
+    }
+  },
+  "order": ["footer"]
+}

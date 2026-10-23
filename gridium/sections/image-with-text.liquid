@@ -1,0 +1,76 @@
+<section class="section-pad section-border-bottom color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div class="grid-12 split-5-7" data-reveal>
+      {%- if section.settings.image_position == 'left' -%}
+        <div class="editorial-media">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 1200 | image_tag: widths: '480, 800, 1200', sizes: '(min-width: 1024px) 45vw, 100vw', loading: 'lazy', alt: section.settings.heading }}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="editorial-copy">
+        {%- if section.settings.eyebrow != blank -%}<span class="mono-label">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+        <div class="rte text-muted">{{ section.settings.text }}</div>
+        {%- if section.settings.spec_line != blank -%}
+          <p class="mono-label" style="padding-top:12px;border-top:1px solid var(--color-border);color:var(--color-text);">{{ section.settings.spec_line }}</p>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <div style="margin-top:8px;">
+            <a href="{{ section.settings.button_link | default: '/pages/about' }}" class="button button--secondary">{{ section.settings.button_label }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.image_position == 'right' -%}
+        <div class="editorial-media">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 1200 | image_tag: widths: '480, 800, 1200', sizes: '(min-width: 1024px) 55vw, 100vw', loading: 'lazy', alt: section.settings.heading }}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial image with text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "stone",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop image placement",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left (5 / 7 split)" },
+        { "value": "right", "label": "Right (5 / 7 split)" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "04 / MILL SPECIFICATION" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "22 Stitches Per Inch. Zero Excess." },
+    { "type": "richtext", "id": "text", "label": "Body text", "default": "<p>Every Gridium shirt begins at family-owned European mills. We specify long-staple organic yarns, unfused soft collars that mold naturally over wear, and genuine mother-of-pearl shanks cross-stitched for permanence.</p>" },
+    { "type": "text", "id": "spec_line", "label": "Specification footer", "default": "MILLS: SOMELOS (PT) · LIBECO (BE) · ALBINI (IT)" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Read Our Craft" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Editorial image with text" }]
+}
+{% endschema %}

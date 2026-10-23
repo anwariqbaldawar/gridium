@@ -1,0 +1,23 @@
+<div class="container customer-box">
+  <span class="mono-label">01 / ACCOUNT ACTIVATION</span>
+  <h1 class="h2" style="margin-block:8px 12px;">{{ 'customer.activate_account.title' | t }}</h1>
+  <p class="text-muted" style="margin-bottom:24px;">{{ 'customer.activate_account.subtext' | t }}</p>
+
+  {%- form 'activate_customer_password' -%}
+    {%- if form.errors -%}
+      <div class="form-status form-status--error">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <div style="display:grid;gap:16px;">
+      <label class="field">
+        <span class="field__label">{{ 'customer.activate_account.password' | t }}</span>
+        <input type="password" name="customer[password]" class="field__input" required>
+      </label>
+      <label class="field">
+        <span class="field__label">{{ 'customer.activate_account.password_confirm' | t }}</span>
+        <input type="password" name="customer[password_confirmation]" class="field__input" required>
+      </label>
+      <button type="submit" class="button button--full">{{ 'customer.activate_account.submit' | t }}</button>
+      <button type="submit" name="decline" class="button button--secondary button--full">{{ 'customer.activate_account.cancel' | t }}</button>
+    </div>
+  {%- endform -%}
+</div>

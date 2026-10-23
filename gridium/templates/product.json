@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": { "type": "title" },
+        "price": { "type": "price" },
+        "fit": {
+          "type": "fit_meta",
+          "settings": {
+            "fallback_model_info": "Model is 6'1\" (185 cm) and wears size M"
+          }
+        },
+        "picker": { "type": "variant_picker" },
+        "stock": { "type": "inventory" },
+        "buy": { "type": "buy_buttons" },
+        "desc": { "type": "description" },
+        "acc_fabric": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Fabric & Care",
+            "use_fabric_metafield": true,
+            "content": "<p>Woven from certified long-staple natural fibers with 22-SPI single-needle construction and mother-of-pearl buttons. Machine wash cold gentle, hang dry, warm steam.</p>"
+          }
+        },
+        "acc_ship": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Shipping & 30-Day Returns",
+            "use_fabric_metafield": false,
+            "content": "<p>Complimentary express shipping on orders over $150. Same-day dispatch before 2 PM EST. Free size exchanges and returns within 30 days.</p>"
+          }
+        },
+        "trust": {
+          "type": "trust_badges",
+          "settings": {
+            "badge_1": "Organic Mill Fibers",
+            "badge_2": "30-Day Free Exchanges",
+            "badge_3": "24h Express Dispatch"
+          }
+        },
+        "share": { "type": "share" }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "fit",
+        "picker",
+        "stock",
+        "buy",
+        "desc",
+        "acc_fabric",
+        "acc_ship",
+        "trust",
+        "share"
+      ],
+      "settings": {
+        "color_scheme": "paper"
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "color_scheme": "paper",
+        "heading": "Related Shirtings",
+        "products_to_show": 4
+      }
+    },
+    "recent": {
+      "type": "recently-viewed",
+      "settings": {
+        "color_scheme": "stone",
+        "heading": "Recently Inspected"
+      }
+    }
+  },
+  "order": ["main", "recommendations", "recent"]
+}

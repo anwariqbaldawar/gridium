@@ -1,0 +1,20 @@
+root: .
+extends: theme-check:recommended
+
+MissingTemplate:
+  enabled: true
+
+TranslationKeyExists:
+  enabled: true
+
+UnusedAssign:
+  enabled: true
+
+ImgWidthAndHeight:
+  enabled: true
+
+RemoteAsset:
+  enabled: true
+
+ParserBlockingScript:
+  enabled: true
