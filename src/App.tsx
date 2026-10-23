@@ -160,7 +160,9 @@ export function App() {
 
   // Scroll reveal for every [data-reveal] block, refreshed per route
   useEffect(() => {
-    const targets = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-visible)'));
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-visible), [data-reveal-media]:not(.is-visible)')
+    );
     if (!targets.length) return;
     if (!('IntersectionObserver' in window)) {
       targets.forEach((el) => el.classList.add('is-visible'));
@@ -806,7 +808,7 @@ export function App() {
                         navigate(`collection:${col.handle}`);
                       }}
                     >
-                      <div className="category-tile__media" data-reveal-media>
+                      <div className="category-tile__media" data-reveal data-reveal-media>
                         <span className="category-tile__index">0{idx + 1}</span>
                         <img src={col.image} alt={col.title} width={900} height={675} loading="lazy" />
                       </div>

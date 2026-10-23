@@ -75,7 +75,9 @@ export function AboutPage({ navigate }: AboutPageProps) {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const targets = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
+    const targets = Array.from(
+      root.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-visible), [data-reveal-media]:not(.is-visible)')
+    );
     if (!('IntersectionObserver' in window)) {
       targets.forEach((el) => el.classList.add('is-visible'));
       return;

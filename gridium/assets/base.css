@@ -18,14 +18,47 @@ img, picture, video, svg { display: block; max-width: 100%; height: auto; }
 button, input, select, textarea { font: inherit; color: inherit; }
 a { color: inherit; text-decoration: none; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
+/* Universal Caret & Cursor Control — prevent blinking text caret and accidental text I-beam on headings and cards */
+html, body {
+  caret-color: transparent;
+}
+input, textarea, [contenteditable="true"] {
+  caret-color: auto;
+}
+
+h1, h2, h3, h4, h5, h6,
+.eyebrow,
+.mono-label,
+.display-xl,
+.hero__title,
+.about-hero__title,
+.category-tile,
+.category-tile__meta,
+.logo-lockup,
+.badge,
+.usp-card {
+  cursor: default;
+  caret-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+a, button, [role="button"], label, select, summary {
+  cursor: pointer;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-family: var(--font-heading-family);
   font-style: var(--font-heading-style);
   font-weight: var(--font-heading-weight);
-  letter-spacing: -0.03em;
-  line-height: 1.08;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  text-wrap: balance;
   color: var(--color-text);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "kern";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 p { margin: 0; }
 table { border-collapse: collapse; width: 100%; }
@@ -861,7 +894,9 @@ html[data-heading-weight="light"] .display-xl { font-weight: 400; }
   transition: clip-path 1100ms var(--ease-out), transform 1400ms var(--ease-out);
 }
 .has-motion [data-reveal-media].is-visible img,
-.has-motion [data-reveal-media].is-visible svg {
+.has-motion [data-reveal-media].is-visible svg,
+.has-motion [data-reveal].is-visible [data-reveal-media] img,
+.has-motion [data-reveal].is-visible [data-reveal-media] svg {
   clip-path: inset(0 0 0 0);
   transform: scale(1);
 }

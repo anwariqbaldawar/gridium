@@ -25,6 +25,8 @@
 .site-header {
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
+}
+.site-header.is-scrolled {
   transition: background-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
 }
 .site-header--transparent:not(.is-scrolled):not(:hover):not(:focus-within) {
@@ -212,7 +214,7 @@
 /* ==========================================================================
    Header refinement — sticky compression, nav underline, badge & menu motion
    ========================================================================== */
-.site-header {
+.site-header.is-scrolled {
   transition: background-color var(--duration-base) var(--ease-out),
               border-color var(--duration-base) var(--ease-out),
               box-shadow var(--duration-base) var(--ease-out),
@@ -307,12 +309,8 @@
   transform: none;
 }
 
-/* Announcement bar cross-fade */
-.announcement-bar__slide { animation: gridium-fade-in 420ms var(--ease-out) both; }
-@keyframes gridium-fade-in {
-  from { opacity: 0; transform: translateY(3px); }
-  to { opacity: 1; transform: none; }
-}
+/* Announcement bar display — instant visibility on initial load */
+.announcement-bar__slide { opacity: 1; transform: none; }
 
 /* Mobile drawer polish */
 .drawer-header { padding-block: 14px; }

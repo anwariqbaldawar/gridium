@@ -203,3 +203,40 @@
 @media (max-width: 1023px) {
   .studio-fab { left: 12px; bottom: 78px; padding: 8px 12px; }
 }
+
+/* Universal Caret & Selection Protection */
+html, body, #root {
+  caret-color: transparent;
+}
+input, textarea, [contenteditable="true"] {
+  caret-color: auto;
+}
+
+h1, h2, h3, h4, h5, h6,
+.eyebrow,
+.mono-label,
+.display-xl,
+.hero__title,
+.about-hero__title,
+.category-tile,
+.category-tile__meta,
+.logo-lockup,
+.badge,
+.usp-card {
+  cursor: default;
+  caret-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Professional Heading Typography Tuning */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "kern";
+  -webkit-font-smoothing: antialiased;
+}
+.display-xl, .hero__title, .about-hero__title {
+  text-wrap: balance;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+}
