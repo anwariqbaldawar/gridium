@@ -1014,7 +1014,8 @@ h3, .h3, h4, .h4 { letter-spacing: -0.012em; font-weight: 500; }
   background:
     linear-gradient(180deg, rgba(17, 17, 17, 0.34) 0%, rgba(17, 17, 17, 0.06) 34%, rgba(17, 17, 17, 0.58) 78%, rgba(17, 17, 17, 0.82) 100%),
     radial-gradient(120% 90% at 8% 100%, rgba(17, 17, 17, 0.5), transparent 62%);
-  opacity: 1;
+  /* The section's "scrim contrast" setting scales the whole gradient stack. */
+  opacity: calc(0.62 + var(--hero-overlay, 0.3) * 0.38);
 }
 .hero__content { padding-block: clamp(40px, 6vw, 80px) clamp(24px, 4vw, 48px); }
 .hero__grid { gap: clamp(24px, 4vw, 56px); align-items: end; }
