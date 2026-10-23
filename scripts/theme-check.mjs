@@ -3,9 +3,10 @@
  * Runs Shopify's own Theme Check over the gridium/ theme and prints offenses.
  * Usage: npm run theme:check
  */
+import { fileURLToPath } from 'node:url';
 import { check } from '@shopify/theme-check-node';
 
-const root = new URL('../gridium', import.meta.url).pathname;
+const root = fileURLToPath(new URL('../gridium', import.meta.url));
 const offenses = await check(root);
 
 const counts = new Map();
