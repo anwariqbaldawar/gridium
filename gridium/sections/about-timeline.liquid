@@ -1,0 +1,102 @@
+{%- liquid
+  assign chapter_blocks = section.blocks | where: 'type', 'chapter'
+-%}
+
+<section class="about-timeline color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div class="about-timeline__layout">
+      <div class="about-timeline__aside">
+        <div class="about-timeline__sticky" data-reveal>
+          <span class="mono-label">{{ section.settings.eyebrow }}</span>
+          <h2>{{ section.settings.heading }}</h2>
+          {%- if section.settings.intro != blank -%}
+            <p class="text-muted text-small">{{ section.settings.intro }}</p>
+          {%- endif -%}
+          {%- if section.settings.footnote != blank -%}
+            <p class="spec-row__item about-timeline__footnote">{{ section.settings.footnote }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <ol class="about-timeline__list">
+        {%- for block in chapter_blocks -%}
+          <li class="about-chapter" data-reveal data-reveal-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <span class="about-chapter__dot" aria-hidden="true"></span>
+            <div class="about-chapter__meta">
+              <span class="about-chapter__year">{{ block.settings.year }}</span>
+              {%- if block.settings.place != blank -%}
+                <span class="about-chapter__place">{{ block.settings.place }}</span>
+              {%- endif -%}
+            </div>
+            <div class="about-chapter__body">
+              <h3 class="h4">{{ block.settings.title }}</h3>
+              <p>{{ block.settings.text }}</p>
+              {%- if block.settings.image != blank -%}
+                <div class="about-chapter__media" data-reveal-media>
+                  {{
+                    block.settings.image
+                    | image_url: width: 900
+                    | image_tag:
+                      widths: '360, 600, 900',
+                      sizes: '(min-width: 1024px) 32vw, 100vw',
+                      loading: 'lazy',
+                      alt: block.settings.title
+                  }}
+                </div>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About — Timeline",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "stone",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "03 / HOUSE HISTORY" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Ten years, six blocks, one standard." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "We grew slowly on purpose. Each chapter below marks a decision that narrowed the catalogue rather than widened it." },
+    { "type": "text", "id": "footnote", "label": "Footnote", "default": "ARCHIVE: EVERY SAMPLE SINCE 2016 IS KEPT ON SITE." }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Chapter",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "year", "label": "Year", "default": "2016" },
+        { "type": "text", "id": "place", "label": "Place", "default": "BROOKLYN, NY" },
+        { "type": "text", "id": "title", "label": "Title", "default": "The first Oxford block" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Built from a tailor's reference shirt and re-graded eleven times until the shoulder stopped pulling forward." },
+        { "type": "image_picker", "id": "image", "label": "Optional image" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About — Timeline",
+      "blocks": [
+        { "type": "chapter", "settings": { "year": "2016", "place": "BROOKLYN, NY", "title": "The first Oxford block", "text": "Built from a tailor's reference shirt and re-graded eleven times until the shoulder stopped pulling forward." } },
+        { "type": "chapter", "settings": { "year": "2018", "place": "PORTO, PT", "title": "The first mill partnership", "text": "Somelos wove our two-ply poplin at a volume small enough that we could reject a whole run for one crooked placket." } },
+        { "type": "chapter", "settings": { "year": "2020", "place": "GHENT, BE", "title": "Belgian flax, traced", "text": "Masters of Linen® certification arrived with a paper trail we could publish — so we did." } },
+        { "type": "chapter", "settings": { "year": "2023", "place": "PORTO, PT", "title": "The atelier opens", "text": "We moved cutting and finishing under one roof to control the seams that customers actually feel." } },
+        { "type": "chapter", "settings": { "year": "2026", "place": "NEW YORK, NY", "title": "Repairs, in perpetuity", "text": "Buttons, interlinings and collar stock are held for a decade. A shirt should not become waste because a stitch failed." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

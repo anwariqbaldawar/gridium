@@ -1,94 +1,163 @@
-# Gridium — Online Store 2.0 Shopify Theme (v1.0.0)
+# Gridium — Shopify Online Store 2.0 Theme · v1.1.0
 
-**Gridium** is a Theme Store–grade Online Store 2.0 Shopify theme engineered specifically for premium shirts brands (Oxford button-downs, formal poplins, Belgian flax linens, knit polos, oversized shirts, and heavyweight Supima T-shirts).
+A premium, editorial shirting theme built for real client hand-off: clone it, upload the ZIP,
+and the storefront renders a complete brand experience with **zero theme-editor setup**.
 
 ---
 
-## 1. Local Development & Preview in VS Code
+## 1. Install in three clicks (the ZIP your client drops in)
 
-### Prerequisites
-1. Install **Node.js** (LTS v20+): [https://nodejs.org](https://nodejs.org)
-2. Install **Shopify CLI** globally in your terminal:
-   ```bash
-   npm install -g @shopify/cli @shopify/theme
-   ```
-3. Create a free **Shopify Partner account** ([partners.shopify.com](https://partners.shopify.com)) and click **Stores -> Add store -> Create development store**.
+1. Shopify Admin → **Online Store → Themes → Add theme → Upload zip file**
+2. Select `gridium-shopify-theme-v1.1.0.zip` (build it with `npm run theme:zip`)
+3. Click **Publish** (or **Preview** first)
 
-### Run Live Hot-Reload Preview
-Open the `gridium/` folder in VS Code and run:
+That is the whole install. Shopify uploads the theme, reads `templates/index.json`, applies the
+bundled colour schemes, fonts and section settings, and the homepage is live immediately.
+
+> **Why one click is not possible:** Shopify has no API that lets a ZIP "self-publish" or
+> auto-create products, menus or pages on upload — publishing is a deliberate merchant action
+> and product/menu data lives outside the theme. Gridium removes every step that *can* be
+> automated, and the remaining ones are listed in §3 as a 5-minute checklist.
+
+### What works with zero configuration
+
+| Feature | Behaviour on a fresh install |
+| --- | --- |
+| Brand mark | Falls back to the bundled `assets/logo.png` monogram (`{% render 'logo' %}`) |
+| Dark mode logo | Pure-black PNG is auto-inverted to white over Midnight / transparent headers |
+| Typography | Jost (headings) + Inter (body), fluid scale, mono micro-labels |
+| Homepage | Hero, category tiles, tabs, editorial, USP row, bestsellers, reviews, lookbook, newsletter |
+| About page | Full editorial story: hero, manifesto, principles, timeline, process, materials, team, FAQ, CTA |
+| Header | Sticky/shrinking, mega menu, predictive search, wishlist, cart drawer with free-shipping meter |
+| Collections | Filters, sort, density toggle, swatches, quick add, badges, low-stock indicators |
+| Journal | Blog index with featured story + topic filters, article layout, comments, related stories |
+| Product page | Variant picker, media gallery + zoom, fit bar, size guide, sticky add-to-cart, recommendations |
+| Cart | AJAX drawer **or** page, order notes, upsell collection |
+| Policies | Sticky auto-built table of contents |
+
+---
+
+## 2. Build / package the theme
+
 ```bash
-cd gridium
-shopify theme dev --store your-store.myshopify.com
+npm install
+npm run theme:zip      # → release/gridium-shopify-theme-v1.1.0.zip  (theme dirs at root)
+npm run theme:audit    # static checks: JSON, section/snippet refs, settings, translations
+npm run theme:check    # Shopify Theme Check (0 offenses on v1.1.0)
+npm run theme:zip      # package only when every check passes
 ```
-- Log in via the browser prompt once.
-- Open `http://127.0.0.1:9292` to preview with instant hot-reload for Liquid, CSS, and JSON changes.
 
-### Run Theme Check (Linter)
+`theme:zip` refuses to package if any JSON is invalid, and the archive contains only
+`assets/ config/ layout/ locales/ sections/ snippets/ templates/` — exactly what the Shopify
+uploader expects. `README.md`, `demo/` and dotfiles are excluded.
+
+---
+
+## 3. The 5-minute post-install checklist
+
+1. **Products** — Products → Import → `demo/products_import.csv` (6 shirts, 48 variants,
+   sale prices, `new`/`bestseller` tags, low-stock and sold-out sizes so every UI state is visible).
+2. **Pages** — Online Store → Pages → Add page, then pick the template on the right:
+
+   | Page | Handle | Template |
+   | --- | --- | --- |
+   | About Us | `about` | `page.about` |
+   | Contact | `contact` | `page.contact` |
+   | Privacy Policy | `privacy-policy` | `page.privacy-policy` |
+   | Refund Policy | `refund-policy` | `page.refund-policy` |
+   | Wishlist | `wishlist` | `page.wishlist` |
+
+3. **Navigation** — Online Store → Navigation → `main-menu`: `Shirts`, `New Arrivals`,
+   `Collections`, `About`, `Contact`. Then Header → *Add block → Mega menu feature* → set
+   *Menu item title to attach to* = `Shirts`.
+4. **Logo** — Header → Logo image (optional; the monogram shows until you upload).
+5. **Collections** — Settings → Search & Discovery → Filters → Availability, Price, Color, Size.
+
+Optional product metafields (graceful fallbacks when blank): `custom.fit`, `custom.model_info`,
+`custom.fabric`, `custom.denim_weight`.
+
+---
+
+## 4. About page — the brand story system
+
+`templates/page.about.json` ships a nine-section narrative, each section reusable and editable:
+
+| Section | Purpose |
+| --- | --- |
+| `about-hero` | Split editorial hero, outlined display accent, atelier note card, 4 metrics |
+| `about-manifesto` | Oversized statement, founder signature, two-column reasoning, ticker |
+| `about-story` | "Why we exist" statement + principle grid |
+| `about-timeline` | Sticky year rail, chapters, optional per-chapter imagery |
+| `about-craft` | Four-stage process accordion + sticky figure |
+| `about-materials` | Fabric library cards with real swatches, mill, weight, certification |
+| `about-team` | Grayscale→colour portraits, roles, bios, closing CTA |
+| `faq` | Accordion (also usable as a standalone section) |
+| `about-cta` | Midnight closing statement + studio contact grid |
+
+All copy is real, specific and editable — no lorem ipsum.
+
+---
+
+## 5. Design system
+
+- **Type** — Jost 500 headings (geometric, fashion-editorial), Inter 400 body, system mono labels.
+  Fluid scale custom properties: `--fs-display … --fs-micro`.
+- **Colour** — three schemes: Paper `#FAFAF8`, Stone `#EFECE6` / olive accent `#3D4A35`, Midnight `#111211`.
+- **Grid** — 12-column architectural grid, 1px hairlines, `1360px` max width, optional faint column guides.
+- **Motion** — one shared language: 22px reveal, 80ms stagger, `cubic-bezier(.22,1,.36,1)`,
+  clip-path image wipes, marquee, badge pop, button sweep fill. Fully disabled under
+  `prefers-reduced-motion`.
+- **Accessibility** — skip link, focus traps in drawers/modals, `aria-pressed` on swatches,
+  visible focus rings, 44px touch targets, contrast-checked schemes.
+
+---
+
+## 6. Local development
+
 ```bash
-shopify theme check
+npm install -g @shopify/cli @shopify/theme
+cd gridium && shopify theme dev --store your-store.myshopify.com   # http://127.0.0.1:9292
+shopify theme check                                                # linter
+shopify theme push --unpublished --store your-store.myshopify.com
 ```
 
-### Push or Package `.zip` for Upload
-- Push directly to your store as an unpublished theme:
-  ```bash
-  shopify theme push --unpublished --store your-store.myshopify.com
-  ```
-- Or create a clean `.zip` archive (respecting `.shopifyignore`) to upload in **Shopify Admin -> Online Store -> Themes -> Add theme -> Upload zip file**:
-  ```bash
-  shopify theme package
-  ```
+Each section is self-contained (Liquid + `{% schema %}` + optional `{% stylesheet %}`),
+so the theme editor previews changes instantly.
 
 ---
 
-## 2. Import the 6 Demo Shirt Products (`demo/products_import.csv`)
+## 7. Theme settings map
 
-1. In Shopify Admin, go to **Products -> Import**.
-2. Upload `demo/products_import.csv`.
-3. Click **Import products**.
-   - Imports **6 realistic shirt styles** (48 total variants across 2 colors × S/M/L/XL) including sale pricing, `new` & `bestseller` tags, low-stock variants (`Qty = 2`), and sold-out sizes (`Qty = 0`) so swatches, badges, quick-add, and filters work immediately.
-
----
-
-## 3. Create Required Store Pages & Assign Templates
-
-Go to **Online Store -> Pages -> Add page** and create these 5 pages with the exact **Theme template** dropdown on the right:
-
-| Page Title | URL Handle | Theme Template |
-| :--- | :--- | :--- |
-| **About Us** | `/pages/about` | `about` (`page.about.json`) |
-| **Contact** | `/pages/contact` | `contact` (`page.contact.json`) |
-| **Privacy Policy** | `/pages/privacy-policy` | `privacy-policy` (`page.privacy-policy.json`) |
-| **Refund Policy** | `/pages/refund-policy` | `refund-policy` (`page.refund-policy.json`) |
-| **Wishlist** | `/pages/wishlist` | `wishlist` (`page.wishlist.json`) |
-
-*(Note: Privacy & Refund pages automatically display `Settings -> Policies` when populated, or `page.content`, or Gridium's built-in legal copy with an auto-generated sticky Table of Contents.)*
+| Group | Controls |
+| --- | --- |
+| Colours | Paper / Stone / Midnight tokens, sale/success/warning |
+| Typography | Heading & body font pickers, heading/body scale |
+| Layout | Page width, grid gap, corner radii, uppercase buttons, motion toggle, hairline grid |
+| Product cards | Secondary image, vendor, swatches, quick add, wishlist, image fit, badges, low-stock |
+| Size guide | Page override, garment table rows, fit-finder matrix |
+| Cart | Drawer or page, order notes, free-shipping threshold, upsell collection |
+| Utilities | Logo invert on dark, scroll progress, back-to-top, WhatsApp, cookie notice, newsletter popup, market/language selectors |
+| Social | Instagram, TikTok, Pinterest, YouTube, X, Facebook, WhatsApp |
 
 ---
 
-## 4. Configure Collections, Storefront Filters, Menus & Metafields
+## 8. Troubleshooting
 
-### Collections & Storefront Filtering
-1. Visit `/collections/all` — automatically titled **All Products** with sticky filter/sort bar and 2/3/4 column density toggle.
-2. Install Shopify's free **Search & Discovery** app (**Apps -> Search & Discovery -> Filters**) to enable facets for **Availability**, **Price**, **Color** (`Option1`), **Size** (`Option2`), **Product type**, and custom metafields (`Fit`, `Fabric`).
-
-### Menus (**Online Store -> Navigation**)
-- Edit `main-menu` and add top-level items (`Shirts`, `New Arrivals`, `Collections`, `About`, `Contact`).
-- In the Theme Editor (**Header -> Add block -> Mega menu feature**), set **Menu item title to attach to** = `Shirts` to display the 3-column mega menu + editorial feature card.
-
-### Product Metafields (**Settings -> Custom data -> Products -> Add definition**)
-Create these 3 optional Single-line text metafields (Gridium includes graceful fallbacks when left blank):
-1. `custom.fit` — e.g. `Regular`, `Slim`, `Oversized` (shown on Product Cards & PDP Fit Bar)
-2. `custom.model_info` — e.g. `Model is 6'1" (185 cm) and wears size M`
-3. `custom.fabric` — e.g. `100% Organic Two-Ply Portuguese Poplin (135 GSM)`
+| Symptom | Fix |
+| --- | --- |
+| Header shows "GRIDIUM" text only | `assets/logo.png` missing from the ZIP, or Header logo not uploaded — check **Header → Logo height** |
+| Logo invisible on dark hero | Enable **Brand mark & scroll affordances → Invert logo on dark schemes** |
+| Collections look empty | Import `demo/products_import.csv`, or point sections at an existing collection |
+| Mega menu does not open | A header block's *Menu item title* must match a top-level menu link exactly |
+| Fonts not applying | Theme settings → Typography → re-pick the fonts, then Save |
 
 ---
 
-## 5. Theme Editor Settings Reference (**Online Store -> Themes -> Customize**)
+## 9. Version history
 
-- **Colors & Schemes**: Customize **Paper** (`#FAFAF8`), **Stone** (`#EFECE6` + olive accent), and **Midnight** (`#111211`), selectable per section.
-- **Typography**: Heading & body `font_picker` + fluid scale sliders.
-- **Grid, Borders & Motion**: Max container width (`1360px`), gutter spacing, corner radius (`0–4px`), architectural `1px` hairlines, scroll motion toggle.
-- **Product Cards & Badges**: Secondary hover image, Quick Add size popover, Wishlist heart, `New` days window, `Bestseller` tag, Low-stock threshold, and `Color:#HEX` swatch map.
-- **Size Guide & Fit Finder**: Flat garment table (`XS–XXL`), custom page override, and `Find My Size` height/weight matrix.
-- **Cart & Free Shipping**: Slide-out AJAX Drawer vs. Page, Order notes, Free-shipping progress threshold (`$150`), and Cart Upsell collection.
-- **Store Utilities & Popups**: Back-to-top, optional floating WhatsApp concierge button, cookie notice bar, and delayed newsletter modal.
+- **v1.1.0** — About story system (8 new/rewritten sections), journal templates (blog + article),
+  brand lockup with auto-inverting monogram,
+  Jost typography, refinement motion layer, scroll progress, footer grid fix, OG/favicon fallbacks,
+  packaging + audit scripts, spec-compliant `settings_data.json` presets.
+- **v1.0.0** — Initial Online Store 2.0 release: 33 sections, cart drawer, predictive search,
+  wishlist, size guide, policies, customer templates.

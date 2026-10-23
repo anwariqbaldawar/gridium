@@ -1,0 +1,109 @@
+{%- liquid
+  assign contact_blocks = section.blocks | where: 'type', 'contact'
+-%}
+
+<section class="about-cta color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div class="about-cta__head">
+      <div class="about-cta__copy" data-reveal>
+        <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+        <h2 class="display-xl">{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}
+          <p class="text-lead">{{ section.settings.text }}</p>
+        {%- endif -%}
+        <div class="about-cta__actions">
+          {%- if section.settings.button_label != blank -%}
+            <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="button">
+              {{ section.settings.button_label }}
+              {% render 'icon', name: 'arrow-right', size: 15 %}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a href="{{ section.settings.secondary_link | default: '/pages/contact' }}" class="button button--secondary">
+              {{ section.settings.secondary_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if section.settings.image != blank -%}
+        <div class="about-cta__media" data-reveal-media data-reveal>
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag: widths: '480, 800, 1200', sizes: '(min-width: 1024px) 38vw, 100vw', loading: 'lazy', alt: section.settings.heading
+          }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if contact_blocks.size > 0 -%}
+      <div class="about-cta__contacts">
+        {%- for block in contact_blocks -%}
+          <div class="about-cta__contact" data-reveal data-reveal-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <span class="mono-label">{{ block.settings.label }}</span>
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="about-cta__value link-underline">{{ block.settings.value }}</a>
+            {%- else -%}
+              <span class="about-cta__value">{{ block.settings.value }}</span>
+            {%- endif -%}
+            {%- if block.settings.note != blank -%}
+              <span class="about-cta__note">{{ block.settings.note }}</span>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About — Closing CTA",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "midnight",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "06 / VISIT THE STUDIO" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Come see the seam allowance." },
+    { "type": "textarea", "id": "text", "label": "Supporting text", "default": "Our New York studio keeps every sample since 2016 on the wall. Appointments are free, unhurried, and include a fitting against three adjacent sizes." },
+    { "type": "text", "id": "button_label", "label": "Primary button label", "default": "Shop the Collection" },
+    { "type": "url", "id": "button_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Book a fitting" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "blocks": [
+    {
+      "type": "contact",
+      "name": "Contact detail",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "STUDIO" },
+        { "type": "text", "id": "value", "label": "Value", "default": "48 Mercer Street, Floor 3" },
+        { "type": "text", "id": "note", "label": "Note", "default": "New York, NY 10013" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About — Closing CTA",
+      "blocks": [
+        { "type": "contact", "settings": { "label": "STUDIO", "value": "48 Mercer Street, Floor 3", "note": "New York, NY 10013" } },
+        { "type": "contact", "settings": { "label": "HOURS", "value": "Mon–Fri · 09:00–18:00 EST", "note": "Saturday by appointment" } },
+        { "type": "contact", "settings": { "label": "CONCIERGE", "value": "studio@gridium.com", "note": "Replies within one business day", "link": "mailto:studio@gridium.com" } },
+        { "type": "contact", "settings": { "label": "CARE & REPAIRS", "value": "Repair form", "note": "Free within the first year", "link": "/pages/contact" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

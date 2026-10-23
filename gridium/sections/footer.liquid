@@ -2,7 +2,9 @@
   <div class="container">
     <div class="site-footer__top">
       <div class="site-footer__brand">
-        <a href="{{ routes.root_url }}" class="site-header__logo">{{ shop.name | default: 'GRIDIUM' }}</a>
+        <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name | escape }}">
+          {% render 'logo', logo: section.settings.logo, size: 34 %}
+        </a>
         <p class="text-muted" style="font-size:0.9375rem;max-width:34ch;">{{ section.settings.brand_tagline }}</p>
         {% render 'social-icons' %}
       </div>
@@ -88,6 +90,12 @@
         { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
         { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
       ]
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo (optional)",
+      "info": "Defaults to the header mark."
     },
     {
       "type": "textarea",

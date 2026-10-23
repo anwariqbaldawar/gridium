@@ -1,135 +1,180 @@
 {
   "sections": {
-    "statement": {
+    "hero": {
+      "type": "about-hero",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "number": "22", "label": "STITCHES PER INCH", "caption": "Single-needle lockstitch across every side seam." } },
+        "s2": { "type": "stat", "settings": { "number": "04", "label": "MILL PARTNERS", "caption": "Portugal, Belgium, Italy and Japan — visited twice yearly." } },
+        "s3": { "type": "stat", "settings": { "number": "2016", "label": "FOUNDED IN", "caption": "One Oxford block, drafted in a Brooklyn studio." } },
+        "s4": { "type": "stat", "settings": { "number": "0%", "label": "PLASTIC PACKAGING", "caption": "FSC-certified board, glassine and paper tape only." } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "01 / THE HOUSE OF GRIDIUM",
+        "heading": "A shirting house built on",
+        "heading_accent": "measurement, not mood.",
+        "lead": "Gridium is an independent shirting atelier. We design and manufacture a deliberately small catalogue of Oxfords, poplins, linens and knits — each pattern revised over years, not seasons, with family-owned European mills we visit in person.",
+        "button_label": "Shop the Collection",
+        "button_link": "shopify://collections/all",
+        "secondary_label": "Read the manifesto",
+        "secondary_link": "#about-manifesto",
+        "card_eyebrow": "ATELIER NOTE 001",
+        "card_heading": "Pattern table, Porto — 07:40",
+        "card_meta": "38 BLOCKS · 6 FITS · 1 STANDARD"
+      }
+    },
+    "manifesto": {
+      "type": "about-manifesto",
+      "blocks": {
+        "p1": { "type": "principle", "settings": { "title": "Proportion before decoration", "text": "Silhouette is resolved on the pattern table. Trims come last, and only if they earn their place." } },
+        "p2": { "type": "principle", "settings": { "title": "Materials with a paper trail", "text": "Every yarn has a mill, a batch number and a certification we can name out loud." } },
+        "p3": { "type": "principle", "settings": { "title": "Repair before replace", "text": "Buttons, interlinings and collar stock are held for a decade so a shirt can outlive a trend cycle." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "02 / MANIFESTO",
+        "side_note": "WRITTEN IN PORTO · REVISED 2026",
+        "statement": "We are not interested in reinventing the shirt every season. We are interested in the eleventh revision of the same collar.",
+        "signature": "Lukas Lindqvist & Clara Monteiro",
+        "signature_role": "Founders, Gridium",
+        "left_heading": "Why so few styles",
+        "left_text": "<p>A wardrobe is a system, not a feed. When a shape is right — the shoulder sits where your arm actually pivots, the hem clears the hip at the correct angle — newness stops being the point. So we keep one shirt block per silhouette and spend the year improving it instead of replacing it.</p><p>The catalogue grows only when a fabric demands a new block. That is why there are six shirts here and not sixty.</p>",
+        "right_heading": "How we manufacture",
+        "right_text": "<p>Our weaving partners are family-run mills in Portugal, Belgium and Italy that we pay directly, on time, at volumes small enough to keep quality accountable. Every run is cut in a single atelier, checked by hand, and released only when the collar rolls the way the sample did.</p><p>Nothing is outsourced to an agent we have not met. If a lot fails inspection, it does not become a sale — it becomes a note on the wall.</p>",
+        "marquee": "MEASURE TWICE|CUT ONCE|22 STITCHES PER INCH|NO SEASONAL NOISE|REPAIR BEFORE REPLACE|MILL-FIRST SOURCING|MADE TO BE REWORN"
+      }
+    },
+    "story": {
       "type": "about-story",
       "blocks": {
-        "s1": {
-          "type": "stat",
-          "settings": {
-            "label": "SEAM PRECISION",
-            "number": "22 SPI",
-            "caption": "Single-needle French lockstitch across every side seam."
-          }
-        },
-        "s2": {
-          "type": "stat",
-          "settings": {
-            "label": "EUROPEAN MILLS",
-            "number": "100%",
-            "caption": "Partnered exclusively with certified weavers in Portugal, Belgium & Italy."
-          }
-        },
-        "s3": {
-          "type": "stat",
-          "settings": {
-            "label": "JERSEY WEIGHT",
-            "number": "240 GSM",
-            "caption": "Long-staple combed Supima cotton engineered for opaque drape."
-          }
-        },
-        "s4": {
-          "type": "stat",
-          "settings": {
-            "label": "PLASTIC PACKAGING",
-            "number": "0%",
-            "caption": "Delivered in FSC-certified archival board and glassine."
-          }
-        },
-        "v1": {
-          "type": "value",
-          "settings": {
-            "title": "Architectural Pattern Discipline",
-            "text": "Every shirt block is drafted in-house with high, pitched armholes for clean chest lines and unrestricted reach."
-          }
-        },
-        "v2": {
-          "type": "value",
-          "settings": {
-            "title": "Unfused Soft Collar Roll",
-            "text": "We avoid rigid synthetic fusing so collars frame the neck naturally whether buttoned with tailoring or worn open."
-          }
-        },
-        "v3": {
-          "type": "value",
-          "settings": {
-            "title": "Permanent Archive Over Trends",
-            "text": "Core silhouettes stay in production year-round so you can reorder your exact block in seasonal fabrics."
-          }
-        }
+        "v1": { "type": "value", "settings": { "title": "Architectural pattern discipline", "text": "Every block is drafted in-house with high, pitched armholes for clean chest lines and unrestricted reach — graded across six sizes, never scaled from a medium." } },
+        "v2": { "type": "value", "settings": { "title": "Unfused soft collar roll", "text": "We avoid rigid synthetic fusing so collars frame the neck naturally, whether buttoned under tailoring or worn open on a Saturday." } },
+        "v3": { "type": "value", "settings": { "title": "Permanent archive over trends", "text": "Core silhouettes stay in production year-round, so you can reorder your exact block in a new seasonal fabric without re-learning your size." } }
       },
-      "block_order": ["s1", "s2", "s3", "s4", "v1", "v2", "v3"],
-      "settings": {
-        "color_scheme": "paper",
-        "eyebrow": "01 / ABOUT GRIDIUM STUDIO",
-        "heading": "One Garment Category. Perfected Without Noise.",
-        "lead": "Founded on the conviction that a shirt is the architectural anchor of modern dress, Gridium develops permanent shirting blocks in partnership with family-owned European mills.",
-        "values_eyebrow": "02 / DESIGN PRINCIPLES"
-      }
-    },
-    "story_split": {
-      "type": "image-with-text",
+      "block_order": ["v1", "v2", "v3"],
       "settings": {
         "color_scheme": "stone",
-        "image_position": "left",
-        "eyebrow": "03 / BRAND ORIGIN",
-        "heading": "Born Between Tailoring & Daily Utility.",
-        "text": "<p>We started Gridium after years of searching for shirts that bridged formal shirtmaking rigor and relaxed modern proportions. Rather than expanding into dozens of categories, our studio dedicates every pattern revision to tees, polos, Oxfords, linens, and dress shirts.</p>",
-        "spec_line": "ATELIER EST. NEW YORK & PORTO",
-        "button_label": "",
-        "button_link": ""
+        "eyebrow": "03 / WHY WE EXIST",
+        "heading": "One garment category. Perfected without noise.",
+        "lead": "Gridium began with a frustration: shirts that photographed well and behaved badly after the fourth wash. So we built a studio around the parts nobody sees — seam allowance, interlining, button shank.",
+        "lead_secondary": "Ten years later the method has not changed. Fewer styles, better patterns, and a mill relationship that survives a bad season.",
+        "values_eyebrow": "DESIGN PRINCIPLES",
+        "values_note": "APPLIED TO EVERY BLOCK SINCE 2016"
       }
     },
-    "craft_split": {
-      "type": "image-with-text",
+    "timeline": {
+      "type": "about-timeline",
+      "blocks": {
+        "c1": { "type": "chapter", "settings": { "year": "2016", "place": "BROOKLYN, NY", "title": "The first Oxford block", "text": "Built from a tailor's reference shirt and re-graded eleven times until the shoulder stopped pulling forward." } },
+        "c2": { "type": "chapter", "settings": { "year": "2018", "place": "PORTO, PT", "title": "The first mill partnership", "text": "Somelos wove our two-ply poplin at a volume small enough that we could reject an entire run over one crooked placket." } },
+        "c3": { "type": "chapter", "settings": { "year": "2020", "place": "GHENT, BE", "title": "Belgian flax, traced", "text": "Masters of Linen® certification arrived with a paper trail we could publish — so we published it, lot by lot." } },
+        "c4": { "type": "chapter", "settings": { "year": "2023", "place": "PORTO, PT", "title": "The atelier opens", "text": "Cutting and finishing moved under one roof so we could control the seams customers actually feel." } },
+        "c5": { "type": "chapter", "settings": { "year": "2026", "place": "NEW YORK, NY", "title": "Repairs, in perpetuity", "text": "Buttons, interlinings and collar stock are now held for ten years. A shirt should never become waste because one stitch failed." } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5"],
       "settings": {
         "color_scheme": "paper",
-        "image_position": "right",
-        "eyebrow": "04 / MILL CRAFTSMANSHIP",
-        "heading": "Single-Origin Yarns & Mother-of-Pearl.",
-        "text": "<p>Our two-ply poplins are woven by Somelos in northern Portugal; our summer linens carry the Masters of Linen® mark from Belgian flax; and every woven shirt is finished with 3.2mm Australian mother-of-pearl buttons whipped on thermally locked shanks.</p>",
-        "spec_line": "CERTIFICATIONS: GOTS ORGANIC · OEKO-TEX® 100 · MASTERS OF LINEN",
-        "button_label": "Shop the Archive",
-        "button_link": "shopify://collections/all"
+        "eyebrow": "04 / HOUSE HISTORY",
+        "heading": "Ten years, six blocks, one standard.",
+        "intro": "We grew slowly on purpose. Each chapter below marks a decision that narrowed the catalogue rather than widened it.",
+        "footnote": "ARCHIVE: EVERY SAMPLE SINCE 2016 IS KEPT ON SITE."
+      }
+    },
+    "craft": {
+      "type": "about-craft",
+      "blocks": {
+        "st1": { "type": "step", "settings": { "title": "Yarn & weaving", "meta": "PT · 21 DAYS", "spec": "130 GSM · TWO-PLY · OEKO-TEX® 100", "text": "Long-staple cotton is spun and woven in a single mill so the lot can be traced from bale to bolt. We test shrinkage after five washes before any fabric is approved." } },
+        "st2": { "type": "step", "settings": { "title": "Pattern & cutting", "meta": "ATELIER · 9 DAYS", "spec": "38 BLOCKS · 6 FITS", "text": "Every block is drafted in-house and graded across six sizes. Cutters work in short runs so a crooked panel is caught in the room, not in the warehouse." } },
+        "st3": { "type": "step", "settings": { "title": "Sewing & finishing", "meta": "ATELIER · 41 DAYS", "spec": "22 SPI · 3.2MM MOTHER-OF-PEARL", "text": "Collars are single-needle set and left unfused. Buttons are whipped onto thermally locked shanks so they flex instead of cracking." } },
+        "st4": { "type": "step", "settings": { "title": "Inspection & archive", "meta": "NY · 23 DAYS", "spec": "100% HAND-CHECKED · 10-YEAR REPAIR STOCK", "text": "Two people check each shirt against the master sample. Pattern, fabric lot and machine operator are logged into the archive." } }
+      },
+      "block_order": ["st1", "st2", "st3", "st4"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "05 / THE PROCESS",
+        "heading": "Four stages between yarn and wardrobe.",
+        "note": "AVG. LEAD TIME: 94 DAYS",
+        "caption": "FIG. 05 — SINGLE-NEEDLE COLLAR CONSTRUCTION, PORTO",
+        "open_first": true
+      }
+    },
+    "materials": {
+      "type": "about-materials",
+      "blocks": {
+        "m1": { "type": "material", "settings": { "title": "Two-ply Portuguese poplin", "description": "High-twist long-staple cotton with a dry, quiet hand. Holds a crease through a full day of meetings.", "mill": "Somelos · PT", "weight": "130 GSM", "care": "Cold wash · warm iron", "tag": "OEKO-TEX® 100", "swatch": "#EDEAE3" } },
+        "m2": { "type": "material", "settings": { "title": "Washed Oxford cloth", "description": "Basket-woven and garment-washed until the collar rolls unfused and soft. Our most reordered shirt.", "mill": "Albini · IT", "weight": "145 GSM", "care": "Machine wash · hang dry", "tag": "ORGANIC COTTON", "swatch": "#DCD9D1" } },
+        "m3": { "type": "material", "settings": { "title": "Belgian flax linen", "description": "Rain-fed flax, wet-spun for a dry touch that softens with wear instead of thinning out.", "mill": "Libeco · BE", "weight": "165 GSM", "care": "Cold wash · line dry", "tag": "MASTERS OF LINEN®", "swatch": "#C9C6B9" } },
+        "m4": { "type": "material", "settings": { "title": "240 GSM Supima jersey", "description": "Long-staple American Supima, compact-spun for opacity and a dense, structured drape.", "mill": "Kurabo · JP", "weight": "240 GSM", "care": "Cold wash · tumble low", "tag": "SUPIMA®", "swatch": "#F4F3EF" } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4"],
+      "settings": {
+        "color_scheme": "stone",
+        "eyebrow": "06 / THE MATERIAL LIBRARY",
+        "heading": "Four fabrics. Chosen for how they age.",
+        "view_all_label": "Shop by fabric",
+        "footnote": "ALL FABRICS ARE CERTIFIED GOTS ORGANIC OR MASTERS OF LINEN® · MILL ORIGIN LISTED PER LOT"
       }
     },
     "team": {
       "type": "about-team",
       "blocks": {
-        "m1": {
-          "type": "member",
-          "settings": {
-            "role": "HEAD OF PATTERN ARCHITECTURE",
-            "name": "Lukas Lindqvist",
-            "bio": "18 years drafting bespoke and ready-to-wear shirting blocks across Stockholm and Porto."
-          }
-        },
-        "m2": {
-          "type": "member",
-          "settings": {
-            "role": "DIRECTOR OF TEXTILES",
-            "name": "Clara Monteiro",
-            "bio": "Textile engineer specializing in high-twist organic poplins, mercerized knits, and enzyme washes."
-          }
-        },
-        "m3": {
-          "type": "member",
-          "settings": {
-            "role": "CREATIVE & STUDIO LEAD",
-            "name": "Julian Vance",
-            "bio": "Industrial designer focused on calm wardrobe systems and zero-excess garment detailing."
-          }
-        }
+        "t1": { "type": "member", "settings": { "role": "HEAD OF PATTERN ARCHITECTURE", "name": "Lukas Lindqvist", "bio": "18 years drafting bespoke and ready-to-wear shirting blocks across Stockholm and Porto. Signs off every collar roll." } },
+        "t2": { "type": "member", "settings": { "role": "DIRECTOR OF TEXTILES", "name": "Clara Monteiro", "bio": "Textile engineer specialising in high-twist organic poplins, mercerised knits and enzyme washes. Owns the mill relationships." } },
+        "t3": { "type": "member", "settings": { "role": "CREATIVE & STUDIO LEAD", "name": "Julian Vance", "bio": "Industrial designer focused on calm wardrobe systems and zero-excess garment detailing. Runs the New York studio." } }
       },
-      "block_order": ["m1", "m2", "m3"],
+      "block_order": ["t1", "t2", "t3"],
       "settings": {
         "color_scheme": "paper",
-        "eyebrow": "05 / ATELIER LEADERSHIP",
-        "heading": "Patternmakers & Textile Leads",
-        "cta_heading": "Inspect the Current Shirting Collection",
-        "cta_label": "Explore All Shirts",
-        "cta_link": "shopify://collections/all"
+        "eyebrow": "07 / THE PEOPLE",
+        "heading": "Patternmakers, weavers, and one very patient machinist.",
+        "intro": "Eleven people work on the Gridium catalogue. These are the three who sign off on a shirt before it ships.",
+        "note": "TEAM: 11 · ATELIER: PORTO + NEW YORK",
+        "cta_eyebrow": "NEXT STEP",
+        "cta_heading": "Inspect the current shirting collection.",
+        "cta_label": "Explore all shirts",
+        "cta_link": "shopify://collections/all",
+        "cta_secondary_label": "Talk to the studio",
+        "cta_secondary_link": "/pages/contact"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": { "type": "question", "settings": { "question": "Why do you only make shirts?", "answer": "<p>Because a category is a craft. Splitting attention across trousers, knitwear and outerwear would mean abandoning the pattern revisions that make our collars sit correctly. One category, held to one standard.</p>" } },
+        "q2": { "type": "question", "settings": { "question": "Where is a Gridium shirt made?", "answer": "<p>Fabric is woven by our partner mills in Portugal, Belgium, Italy and Japan. Cutting, sewing and finishing happen in our own atelier in Porto, with final inspection in New York.</p>" } },
+        "q3": { "type": "question", "settings": { "question": "Do you repair shirts after purchase?", "answer": "<p>Yes. Repairs are free within the first year and at cost afterwards, for as long as we hold stock of the component. Send a note to the studio with your order number.</p>" } },
+        "q4": { "type": "question", "settings": { "question": "Can I visit the studio?", "answer": "<p>The New York studio is open by appointment, Monday to Friday. Fittings include a comparison against three adjacent sizes so you leave knowing your block, not guessing at it.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"],
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "08 / QUESTIONS",
+        "heading": "What people ask before their first order",
+        "subtext": "Sizing, provenance and care — answered plainly."
+      }
+    },
+    "cta": {
+      "type": "about-cta",
+      "blocks": {
+        "d1": { "type": "contact", "settings": { "label": "STUDIO", "value": "48 Mercer Street, Floor 3", "note": "New York, NY 10013" } },
+        "d2": { "type": "contact", "settings": { "label": "HOURS", "value": "Mon–Fri · 09:00–18:00 EST", "note": "Saturday by appointment" } },
+        "d3": { "type": "contact", "settings": { "label": "CONCIERGE", "value": "studio@gridium.com", "note": "Replies within one business day", "link": "mailto:studio@gridium.com" } },
+        "d4": { "type": "contact", "settings": { "label": "CARE & REPAIRS", "value": "Repair form", "note": "Free within the first year", "link": "/pages/contact" } }
+      },
+      "block_order": ["d1", "d2", "d3", "d4"],
+      "settings": {
+        "color_scheme": "midnight",
+        "eyebrow": "09 / VISIT THE STUDIO",
+        "heading": "Come see the seam allowance.",
+        "text": "Our New York studio keeps every sample since 2016 on the wall. Appointments are free, unhurried, and include a fitting against three adjacent sizes.",
+        "button_label": "Shop the Collection",
+        "button_link": "shopify://collections/all",
+        "secondary_label": "Book a fitting",
+        "secondary_link": "/pages/contact"
       }
     }
   },
-  "order": ["statement", "story_split", "craft_split", "team"]
+  "order": ["hero", "manifesto", "story", "timeline", "craft", "materials", "team", "faq", "cta"]
 }

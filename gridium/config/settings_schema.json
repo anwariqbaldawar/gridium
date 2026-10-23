@@ -2,9 +2,9 @@
   {
     "name": "theme_info",
     "theme_name": "Gridium",
-    "theme_version": "1.0.0",
+    "theme_version": "1.1.0",
     "theme_author": "Gridium Studio",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_documentation_url": "https://github.com/anwariqbaldawar/gridium",
     "theme_support_url": "https://help.shopify.com"
   },
   {
@@ -311,8 +311,14 @@
         "label": "t:settings_schema.product_cards.settings.image_fit.label",
         "default": "cover",
         "options": [
-          { "value": "cover", "label": "t:settings_schema.product_cards.settings.image_fit.options.cover" },
-          { "value": "contain", "label": "t:settings_schema.product_cards.settings.image_fit.options.contain" }
+          {
+            "value": "cover",
+            "label": "t:settings_schema.product_cards.settings.image_fit.options.cover"
+          },
+          {
+            "value": "contain",
+            "label": "t:settings_schema.product_cards.settings.image_fit.options.contain"
+          }
         ]
       },
       {
@@ -391,8 +397,14 @@
         "label": "t:settings_schema.cart.settings.cart_type.label",
         "default": "drawer",
         "options": [
-          { "value": "drawer", "label": "t:settings_schema.cart.settings.cart_type.options.drawer" },
-          { "value": "page", "label": "t:settings_schema.cart.settings.cart_type.options.page" }
+          {
+            "value": "drawer",
+            "label": "t:settings_schema.cart.settings.cart_type.options.drawer"
+          },
+          {
+            "value": "page",
+            "label": "t:settings_schema.cart.settings.cart_type.options.page"
+          }
         ]
       },
       {
@@ -417,6 +429,23 @@
   {
     "name": "t:settings_schema.utilities.name",
     "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.utilities.settings.header_brand.content"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_invert_on_dark",
+        "label": "t:settings_schema.utilities.settings.logo_invert.label",
+        "info": "t:settings_schema.utilities.settings.logo_invert.info",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_scroll_progress",
+        "label": "t:settings_schema.utilities.settings.scroll_progress.label",
+        "default": true
+      },
       {
         "type": "checkbox",
         "id": "enable_back_to_top",

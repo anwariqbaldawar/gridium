@@ -15,12 +15,8 @@
         </button>
       </div>
 
-      <a href="{{ routes.root_url }}" class="site-header__logo">
-        {%- if section.settings.logo != blank -%}
-          {{ section.settings.logo | image_url: width: 280 | image_tag: widths: '140, 280', alt: shop.name, style: 'max-height:32px;width:auto;' }}
-        {%- else -%}
-          {{ shop.name | default: 'GRIDIUM' }}
-        {%- endif -%}
+      <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name | escape }}">
+        {% render 'logo', logo: section.settings.logo, size: section.settings.logo_size, show_wordmark: section.settings.show_wordmark %}
       </a>
 
       <nav class="site-header__nav" aria-label="Primary">
@@ -138,7 +134,9 @@
 <div id="MobileMenuDrawer" class="drawer-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'header.menu' | t }}">
   <div class="drawer-panel drawer-panel--left">
     <div class="drawer-header">
-      <span class="mono-label">{{ 'header.menu' | t }}</span>
+      <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name | escape }}">
+        {% render 'logo', logo: section.settings.logo, size: 24, show_wordmark: section.settings.show_wordmark %}
+      </a>
       <button type="button" class="icon-btn" data-overlay-close aria-label="{{ 'accessibility.close' | t }}">
         {% render 'icon', name: 'close', size: 20 %}
       </button>
@@ -222,7 +220,9 @@
         { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
       ]
     },
-    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Leave empty to use the bundled Gridium monogram." },
+    { "type": "range", "id": "logo_size", "min": 16, "max": 56, "step": 2, "unit": "px", "label": "Logo height", "default": 28 },
+    { "type": "checkbox", "id": "show_wordmark", "label": "Show brand wordmark beside logo", "default": true },
     { "type": "link_list", "id": "menu", "label": "Main navigation menu", "default": "main-menu" },
     { "type": "checkbox", "id": "enable_sticky", "label": "Enable sticky header", "default": true },
     { "type": "checkbox", "id": "enable_transparent_home", "label": "Transparent over homepage hero", "default": false }

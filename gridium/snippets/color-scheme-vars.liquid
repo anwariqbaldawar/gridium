@@ -9,7 +9,7 @@
   {%- if body_bold -%}{{ body_bold | font_face: font_display: 'swap' }}{%- endif -%}
 
   :root {
-    --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }}, 'Jost', 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-heading-style: {{ heading_font.style }};
     --font-heading-weight: {{ heading_font.weight }};
     --font-heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
@@ -55,9 +55,42 @@
     --button-transform: {% if settings.button_uppercase %}uppercase{% else %}none{% endif %};
     --card-image-fit: {{ settings.card_image_fit | default: 'cover' }};
 
+    /* Motion system */
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --duration-fast: 200ms;
     --duration-base: 280ms;
     --duration-slow: 400ms;
+    --duration-reveal: 760ms;
+
+    /* Fluid type scale (single source of truth) */
+    --fs-display: clamp(2.75rem, 7.2vw, 6.5rem);
+    --fs-h1: clamp(2.125rem, 4.4vw, 3.75rem);
+    --fs-h2: clamp(1.75rem, 3.1vw, 2.75rem);
+    --fs-h3: clamp(1.25rem, 1.9vw, 1.625rem);
+    --fs-lead: clamp(1.0625rem, 1.35vw, 1.25rem);
+    --fs-body: calc(1rem * var(--font-body-scale, 1));
+    --fs-small: 0.875rem;
+    --fs-micro: 0.6875rem;
+
+    /* Spacing rhythm */
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 20px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-2xl: clamp(64px, 8vw, 112px);
+    --space-3xl: clamp(88px, 11vw, 168px);
+
+    /* Surface + elevation */
+    --header-height: 72px;
+    --hairline: 1px solid var(--color-border);
+    --shadow-xs: 0 1px 2px rgba(17, 17, 17, 0.04);
+    --shadow-sm: 0 6px 18px -8px rgba(17, 17, 17, 0.14);
+    --shadow-md: 0 24px 60px -28px rgba(17, 17, 17, 0.24);
+    --shadow-lg: 0 48px 120px -48px rgba(17, 17, 17, 0.32);
+    --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-text);
   }
 </style>

@@ -1,0 +1,58 @@
+{%- comment -%}
+  Journal card.
+  Usage: {% render 'article-card', article: article, featured: false %}
+{%- endcomment -%}
+
+{%- liquid
+  assign card_media = article.image
+  assign words = article.excerpt_or_content | strip_html | strip | split: ' '
+  assign read_minutes = words.size | divided_by: 200 | plus: 1
+-%}
+
+<article class="article-card{% if featured %} article-card--featured{% endif %}" data-reveal>
+  <a href="{{ article.url }}" class="article-card__media" aria-label="{{ article.title | escape }}">
+    {%- if card_media != blank -%}
+      {{
+        card_media
+        | image_url: width: 1400
+        | image_tag:
+          widths: '400, 640, 900, 1400',
+          sizes: '(min-width: 1024px) 50vw, 100vw',
+          loading: 'lazy',
+          class: 'article-card__img',
+          alt: card_media.alt | default: article.title
+      }}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg article-card__img' }}
+    {%- endif -%}
+  </a>
+
+  <div class="article-card__body">
+    <div class="article-card__meta">
+      {%- if article.tags.size > 0 -%}
+        <span class="mono-label">{{ article.tags.first }}</span>
+      {%- else -%}
+        <span class="mono-label">{{ 'blogs.eyebrow' | t }}</span>
+      {%- endif -%}
+      <span class="section-index">
+        {{ article.published_at | date: '%d %b %Y' }}
+        &nbsp;·&nbsp;
+        {{ 'blogs.read_time' | t: minutes: read_minutes }}
+      </span>
+    </div>
+
+    <h3 class="article-card__title">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h3>
+
+    {%- assign card_excerpt = article.excerpt | default: article.content | strip_html | strip -%}
+    {%- if card_excerpt != blank -%}
+      <p class="article-card__excerpt">{{ card_excerpt | truncate: 170 }}</p>
+    {%- endif -%}
+
+    <a href="{{ article.url }}" class="link-arrow article-card__link">
+      {{ 'blogs.read_article' | t }}
+      {% render 'icon', name: 'arrow-right', size: 13 %}
+    </a>
+  </div>
+</article>

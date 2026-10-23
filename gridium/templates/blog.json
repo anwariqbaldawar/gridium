@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "color_scheme": "paper",
+        "eyebrow": "01 / THE GRIDIUM JOURNAL",
+        "intro": "Mill notes, pattern revisions and the occasional argument about collar roll. Written by the people who make the shirts.",
+        "show_featured": true,
+        "show_tags": true,
+        "articles_per_page": 10
+      }
+    }
+  },
+  "order": ["main"]
+}

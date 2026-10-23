@@ -9,6 +9,8 @@
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- else -%}
+      <link rel="icon" type="image/png" href="{{ 'logo.png' | asset_url }}">
     {%- endif -%}
 
     {%- unless settings.type_heading_font.system? and settings.type_body_font.system? -%}
@@ -35,6 +37,8 @@
     {{ 'component-product.css' | asset_url | stylesheet_tag }}
     {{ 'component-collection.css' | asset_url | stylesheet_tag }}
     {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+    {{ 'component-about.css' | asset_url | stylesheet_tag }}
+    {{ 'component-blog.css' | asset_url | stylesheet_tag }}
 
     {{ content_for_header }}
 
@@ -85,9 +89,13 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
+    {%- if settings.enable_scroll_progress -%}
+      <div class="scroll-progress" data-scroll-progress aria-hidden="true"><span class="scroll-progress__fill"></span></div>
+    {%- endif -%}
+
     {% sections 'header-group' %}
 
-    <main id="MainContent" class="main-content" role="main" tabindex="-1">
+    <main id="MainContent" class="main-content" role="main" tabindex="-1" data-page-main>
       {{ content_for_layout }}
     </main>
 

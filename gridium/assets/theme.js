@@ -187,3 +187,125 @@
     }, delay);
   }
 })();
+
+/* Gridium v1.1 — Motion & layout refinements */
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Measure the live header so sticky offsets and anchors stay accurate */
+  const header = document.querySelector('[data-site-header]');
+  const syncHeaderHeight = () => {
+    if (!header) return;
+    document.documentElement.style.setProperty('--header-height', `${Math.round(header.getBoundingClientRect().height)}px`);
+  };
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight, { passive: true });
+  header?.addEventListener('transitionend', syncHeaderHeight);
+
+  /* Reading progress */
+  const progress = document.querySelector('[data-scroll-progress] .scroll-progress__fill');
+  if (progress) {
+    let frame = null;
+    const paint = () => {
+      frame = null;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      progress.style.transform = `scaleX(${ratio.toFixed(4)})`;
+    };
+    const schedule = () => {
+      if (frame !== null) return;
+      frame = window.requestAnimationFrame(paint);
+    };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    paint();
+  }
+
+  /* Reveal observer: elements, image reveals and staggered children */
+  if ('IntersectionObserver' in window && document.body.classList.contains('has-motion')) {
+    const targets = document.querySelectorAll('[data-reveal]:not(.is-visible), [data-reveal-media]:not(.is-visible)');
+    if (targets.length) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
+      );
+      targets.forEach((el) => io.observe(el));
+    }
+  }
+
+  /* Badge bump whenever the cart or wishlist count changes */
+  const bump = (el) => {
+    const value = (el.textContent || '').trim();
+    el.dataset.count = value;
+    el.classList.remove('is-bumped');
+    void el.offsetWidth;
+    el.classList.add('is-bumped');
+    window.setTimeout(() => el.classList.remove('is-bumped'), 620);
+  };
+  const watchCounts = () => {
+    document.querySelectorAll('[data-cart-count], [data-wishlist-count]').forEach((el) => {
+      bump(el);
+      new MutationObserver(() => bump(el)).observe(el, { childList: true, characterData: true, subtree: true });
+    });
+  };
+  watchCounts();
+
+  /* Subtle parallax on flagged media (opt-in via data-parallax) */
+  const parallaxEls = document.querySelectorAll('[data-parallax]');
+  if (parallaxEls.length && !reduceMotion) {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      parallaxEls.forEach((el) => {
+        const speed = parseFloat(el.getAttribute('data-parallax')) || 0.12;
+        const rect = el.getBoundingClientRect();
+        const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * -speed;
+        el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+      });
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+
+  /* Close <details> siblings in the craft accordion for a cleaner read */
+  document.querySelectorAll('.about-step').forEach((step) => {
+    step.addEventListener('toggle', () => {
+      if (!step.open) return;
+      step.closest('.about-craft__steps')
+        ?.querySelectorAll('.about-step[open]')
+        .forEach((other) => {
+          if (other !== step) other.open = false;
+        });
+    });
+  });
+
+  /* Smooth in-page anchors that respect the sticky header */
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    const id = link.getAttribute('href');
+    if (!id || id === '#' || id.length < 2) return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    event.preventDefault();
+    const offset = (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'), 10) || 72) + 20;
+    window.scrollTo({
+      top: target.getBoundingClientRect().top + window.scrollY - offset,
+      behavior: reduceMotion ? 'auto' : 'smooth'
+    });
+    history.replaceState(null, '', id);
+  });
+})();

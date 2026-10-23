@@ -18,6 +18,7 @@ import {
   SizeGuideModal,
 } from './components/StoreComponents';
 import { ThemeStudioModal } from './components/ThemeStudioModal';
+import { AboutPage } from './components/AboutPage';
 
 type SchemeName = 'paper' | 'stone' | 'midnight';
 
@@ -199,7 +200,7 @@ export function App() {
       <div className="studio-dev-bar">
         <div className="container studio-dev-bar__inner">
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
-            <span>GRIDIUM v1.0.0 · ONLINE STORE 2.0 SHOPIFY THEME</span>
+            <span>GRIDIUM v1.1.0 · ONLINE STORE 2.0 SHOPIFY THEME</span>
             <span style={{ opacity: 0.4 }}>|</span>
             <span style={{ opacity: 0.8 }}>SCHEME:</span>
             {(['paper', 'stone', 'midnight'] as SchemeName[]).map((sc) => (
@@ -216,7 +217,7 @@ export function App() {
 
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
             <button type="button" className="studio-pill-btn is-active" onClick={() => setStudioOpen(true)}>
-              Inspect 91 Theme Files &amp; Download .ZIP
+              Inspect Theme Files &amp; Download .ZIP
             </button>
           </div>
         </div>
@@ -260,12 +261,21 @@ export function App() {
             <a
               href="#home"
               className="site-header__logo"
+              aria-label="Gridium — home"
               onClick={(e) => {
                 e.preventDefault();
                 navigate('home');
               }}
             >
-              GRIDIUM
+              <span
+                className="logo-lockup logo-lockup--auto-invert"
+                style={{ ['--logo-height' as string]: '28px' }}
+              >
+                <span className="logo-lockup__mark">
+                  <img className="logo-lockup__img" src="/logo.png" alt="" width={120} height={120} />
+                </span>
+                <span className="logo-lockup__word">GRIDIUM</span>
+              </span>
             </a>
 
             <nav className="site-header__nav" aria-label="Primary">
@@ -1370,160 +1380,8 @@ export function App() {
           />
         )}
 
-        {/* 5. ABOUT US PAGE */}
-        {route === 'about' && (
-          <>
-            <nav className="breadcrumbs" aria-label="Breadcrumbs">
-              <div className="container">
-                <ol className="breadcrumbs__list mono-label">
-                  <li><a href="#home" onClick={(e) => { e.preventDefault(); navigate('home'); }}>Home</a></li>
-                  <li className="breadcrumbs__sep">/</li>
-                  <li aria-current="page">About Us</li>
-                </ol>
-              </div>
-            </nav>
-
-            <section className="section-pad section-border-bottom">
-              <div className="container">
-                <div style={{ maxWidth: 860, display: 'grid', gap: 20 }}>
-                  <span className="mono-label">01 / ABOUT GRIDIUM STUDIO</span>
-                  <h1 className="display-xl">One Garment Category. Perfected Without Noise.</h1>
-                  <p className="text-lead">
-                    Founded on the conviction that a shirt is the architectural anchor of modern dress, Gridium develops permanent shirting blocks in partnership with family-owned European mills.
-                  </p>
-                </div>
-
-                <div className="usp-grid" style={{ marginTop: 56 }}>
-                  {[
-                    { label: 'SEAM PRECISION', num: '22 SPI', cap: 'Single-needle French lockstitch across every side seam.' },
-                    { label: 'EUROPEAN MILLS', num: '100%', cap: 'Partnered exclusively with weavers in Portugal, Belgium & Italy.' },
-                    { label: 'JERSEY WEIGHT', num: '240 GSM', cap: 'Long-staple combed Supima cotton engineered for opaque drape.' },
-                    { label: 'PLASTIC PACKAGING', num: '0%', cap: 'Delivered in FSC-certified archival board and glassine.' },
-                  ].map((st) => (
-                    <div key={st.label} className="usp-card">
-                      <span className="mono-label">{st.label}</span>
-                      <p className="h1">{st.num}</p>
-                      <p className="text-muted" style={{ fontSize: '0.875rem' }}>{st.cap}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div style={{ marginTop: 64 }}>
-                  <span className="mono-label" style={{ display: 'block', marginBottom: 24 }}>02 / DESIGN PRINCIPLES</span>
-                  <div className="testimonials-grid">
-                    {[
-                      {
-                        title: 'Architectural Pattern Discipline',
-                        text: 'Every shirt block is drafted in-house with high, pitched armholes for clean chest lines and unrestricted reach.',
-                      },
-                      {
-                        title: 'Unfused Soft Collar Roll',
-                        text: 'We avoid rigid synthetic fusing so collars frame the neck naturally whether buttoned with tailoring or worn open.',
-                      },
-                      {
-                        title: 'Permanent Archive Over Trends',
-                        text: 'Core silhouettes stay in production year-round so you can reorder your exact block in seasonal fabrics.',
-                      },
-                    ].map((v, idx) => (
-                      <div key={v.title} className="testimonial-card">
-                        <span className="mono-label">0{idx + 1} / PRINCIPLE</span>
-                        <div style={{ display: 'grid', gap: 10 }}>
-                          <h2 className="h4">{v.title}</h2>
-                          <p className="text-muted" style={{ fontSize: '0.9375rem' }}>{v.text}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className={`section-pad section-border-bottom ${globalScheme === 'midnight' ? 'color-midnight' : 'color-stone'}`}>
-              <div className="container">
-                <div className="grid-12 split-5-7">
-                  <div className="editorial-media">
-                    <img src={STUDIO_MEDIA.textileRolls} alt="European shirting textile archive" width={800} height={1000} loading="lazy" />
-                  </div>
-                  <div className="editorial-copy">
-                    <span className="mono-label">03 / MILL CRAFTSMANSHIP</span>
-                    <h2>Single-Origin Yarns &amp; Mother-of-Pearl.</h2>
-                    <p className="text-muted">
-                      Our two-ply poplins are woven by Somelos in northern Portugal; our summer linens carry the Masters of Linen® mark from Belgian flax; and every woven shirt is finished with 3.2mm Australian mother-of-pearl buttons whipped on thermally locked shanks.
-                    </p>
-                    <p className="mono-label" style={{ paddingTop: 12, borderTop: '1px solid var(--color-border)', color: 'var(--color-text)' }}>
-                      CERTIFICATIONS: GOTS ORGANIC · OEKO-TEX® 100 · MASTERS OF LINEN
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="section-pad">
-              <div className="container">
-                <div className="section-header">
-                  <div className="section-header__titles">
-                    <span className="mono-label">04 / ATELIER LEADERSHIP</span>
-                    <h2>Patternmakers &amp; Textile Leads</h2>
-                  </div>
-                </div>
-                <div className="testimonials-grid">
-                  {[
-                    {
-                      role: 'HEAD OF PATTERN ARCHITECTURE',
-                      name: 'Lukas Lindqvist',
-                      bio: '18 years drafting bespoke and ready-to-wear shirting blocks across Stockholm and Porto.',
-                      img: STUDIO_MEDIA.modelMonoShirt,
-                    },
-                    {
-                      role: 'DIRECTOR OF TEXTILES',
-                      name: 'Clara Monteiro',
-                      bio: 'Textile engineer specializing in high-twist organic poplins, mercerized knits, and enzyme washes.',
-                      img: STUDIO_MEDIA.modelPoisedBW,
-                    },
-                    {
-                      role: 'CREATIVE & STUDIO LEAD',
-                      name: 'Julian Vance',
-                      bio: 'Industrial designer focused on calm wardrobe systems and zero-excess garment detailing.',
-                      img: STUDIO_MEDIA.modelStudioCasual,
-                    },
-                  ].map((m) => (
-                    <article key={m.name} className="product-card">
-                      <div className="product-card__media-wrap">
-                        <img src={m.img} alt={m.name} className="product-card__img" width={500} height={625} loading="lazy" />
-                      </div>
-                      <div style={{ display: 'grid', gap: 4 }}>
-                        <span className="mono-label">{m.role}</span>
-                        <h3 className="h4">{m.name}</h3>
-                        <p className="text-muted" style={{ fontSize: '0.875rem' }}>{m.bio}</p>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 64,
-                    padding: 'clamp(28px, 4vw, 48px)',
-                    border: '1px solid var(--color-border)',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: 20,
-                  }}
-                >
-                  <div>
-                    <span className="mono-label">ARCHIVE ACCESS</span>
-                    <h3 className="h2" style={{ marginTop: 6 }}>Inspect the Current Shirting Collection</h3>
-                  </div>
-                  <button type="button" className="button" onClick={() => navigate('collection:all')}>
-                    Explore All Shirts
-                  </button>
-                </div>
-              </div>
-            </section>
-          </>
-        )}
+        {/* 5. ABOUT US PAGE — editorial brand story */}
+        {route === 'about' && <AboutPage navigate={navigate} />}
 
         {/* 6. CONTACT US PAGE */}
         {route === 'contact' && (
@@ -1832,12 +1690,21 @@ export function App() {
               <a
                 href="#home"
                 className="site-header__logo"
+                aria-label="Gridium — home"
                 onClick={(e) => {
                   e.preventDefault();
                   navigate('home');
                 }}
               >
-                GRIDIUM
+                <span
+                  className="logo-lockup logo-lockup--auto-invert"
+                  style={{ ['--logo-height' as string]: '34px' }}
+                >
+                  <span className="logo-lockup__mark">
+                    <img className="logo-lockup__img" src="/logo.png" alt="" width={120} height={120} />
+                  </span>
+                  <span className="logo-lockup__word">GRIDIUM</span>
+                </span>
               </a>
               <p className="text-muted" style={{ fontSize: '0.9375rem', maxWidth: '34ch' }}>
                 Architectural shirting engineered for order, longevity, and daily precision. Cut from single-origin organic cottons and European flax.

@@ -310,7 +310,7 @@
     },
     "reset_password": {
       "title": "Reset Password",
-      "subtext": "Enter a new password for {{ email }}",
+      "subtext": "Choose a new password for your Gridium account.",
       "password": "New Password",
       "password_confirm": "Confirm Password",
       "submit": "Update Password",
@@ -331,6 +331,33 @@
       "print": "Print Card",
       "shop_link": "Visit Storefront",
       "add_to_apple_wallet": "Add to Apple Wallet"
+    }
+  },
+  "blogs": {
+    "title": "Journal",
+    "eyebrow": "THE GRIDIUM JOURNAL",
+    "no_articles": "No journal entries have been published yet.",
+    "read_article": "Read the story",
+    "read_time": "{{ minutes }} min read",
+    "by_author": "Words by",
+    "featured": "Featured story",
+    "all_tags": "All topics",
+    "related": "Related stories",
+    "back_to_journal": "Back to the journal",
+    "prev_article": "Previous story",
+    "next_article": "Next story",
+    "share_label": "Share this story",
+    "comments": {
+      "title": "Comments",
+      "with_count": "{{ count }} comments",
+      "none": "No comments yet. Start the conversation.",
+      "name": "Name",
+      "email": "Email",
+      "message": "Comment",
+      "submit": "Post comment",
+      "success": "Thank you — your comment has been posted.",
+      "moderated": "Thank you — your comment will appear after moderation.",
+      "label": "Leave a comment"
     }
   }
 }

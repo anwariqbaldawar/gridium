@@ -1,0 +1,55 @@
+{%- comment -%}
+  Brand lockup — works with zero configuration.
+
+  Renders the merchant-uploaded logo when available, otherwise falls back to the
+  bundled monogram asset (assets/logo.png), so a freshly installed theme never
+  shows an empty header. On Midnight / transparent-over-hero surfaces the mark is
+  flipped to white automatically (pure black PNG -> pure white via invert).
+
+  Usage:
+    {% render 'logo', logo: section.settings.logo, size: 30, show_wordmark: true %}
+{%- endcomment -%}
+
+{%- liquid
+  assign lockup_size = size | default: 30
+  assign lockup_wordmark = show_wordmark
+  if lockup_wordmark == nil
+    assign lockup_wordmark = true
+  endif
+
+  assign lockup_invert = settings.logo_invert_on_dark
+  if invert == false
+    assign lockup_invert = false
+  endif
+
+  assign lockup_name = shop.name | default: 'GRIDIUM'
+-%}
+
+<span class="logo-lockup{% if class != blank %} {{ class }}{% endif %}{% if lockup_invert %} logo-lockup--auto-invert{% endif %}" style="--logo-height: {{ lockup_size }}px;">
+  <span class="logo-lockup__mark">
+    {%- if logo != blank -%}
+      {{
+        logo
+        | image_url: width: 320
+        | image_tag:
+          widths: '80, 120, 160, 240, 320',
+          sizes: '80px',
+          loading: 'eager',
+          class: 'logo-lockup__img',
+          alt: lockup_name
+      }}
+    {%- else -%}
+      <img
+        class="logo-lockup__img"
+        src="{{ 'logo.png' | asset_url }}"
+        width="120"
+        height="120"
+        alt="{{ lockup_name | escape }}"
+        loading="eager"
+      >
+    {%- endif -%}
+  </span>
+  {%- if lockup_wordmark -%}
+    <span class="logo-lockup__word">{{ lockup_name }}</span>
+  {%- endif -%}
+</span>

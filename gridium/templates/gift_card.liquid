@@ -10,7 +10,7 @@
   </head>
   <body class="gridium-body color-paper">
     <main class="container section-pad" style="max-width:600px;text-align:center;display:grid;gap:24px;">
-      <span class="site-header__logo" style="justify-self:center;">{{ shop.name }}</span>
+      <span style="justify-self:center;">{% render 'logo', size: 34 %}</span>
       <span class="mono-label">DIGITAL ARCHIVE CREDIT</span>
       <h1 class="h2">{{ 'gift_cards.issued.title' | t }}</h1>
       <p class="text-muted">{{ 'gift_cards.issued.subtext' | t }}</p>

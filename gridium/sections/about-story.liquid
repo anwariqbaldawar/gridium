@@ -1,45 +1,82 @@
-{% render 'breadcrumbs' %}
+{%- liquid
+  assign stat_blocks = section.blocks | where: 'type', 'stat'
+  assign value_blocks = section.blocks | where: 'type', 'value'
+%}
 
-<section class="section-pad section-border-bottom color-{{ section.settings.color_scheme }}">
+<section class="about-story color-{{ section.settings.color_scheme }} section-pad section-border-bottom">
   <div class="container">
-    <div style="max-width:860px;display:grid;gap:20px;" data-reveal>
-      <span class="mono-label">{{ section.settings.eyebrow }}</span>
-      <h1 class="display-xl">{{ section.settings.heading }}</h1>
-      <p class="text-lead">{{ section.settings.lead }}</p>
+    <div class="about-story__head">
+      <div class="about-story__statement" data-reveal>
+        <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+        <h2 class="display-xl">{{ section.settings.heading }}</h2>
+      </div>
+      <div class="about-story__lead" data-reveal data-reveal-delay="1">
+        <p class="text-lead">{{ section.settings.lead }}</p>
+        {%- if section.settings.lead_secondary != blank -%}
+          <p class="text-muted text-small">{{ section.settings.lead_secondary }}</p>
+        {%- endif -%}
+      </div>
     </div>
 
-    {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
     {%- if stat_blocks.size > 0 -%}
-      <div class="usp-grid" style="margin-top:56px;" data-reveal>
+      <div class="about-stats">
         {%- for block in stat_blocks -%}
-          <div class="usp-card" {{ block.shopify_attributes }}>
-            <span class="mono-label">{{ block.settings.label }}</span>
-            <p class="h1">{{ block.settings.number }}</p>
-            <p class="text-muted" style="font-size:0.875rem;">{{ block.settings.caption }}</p>
+          <div class="about-stat" data-reveal data-reveal-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <span class="about-stat__value">{{ block.settings.number }}</span>
+            <span class="about-stat__label">{{ block.settings.label }}</span>
+            {%- if block.settings.caption != blank -%}
+              <p class="about-stat__caption">{{ block.settings.caption }}</p>
+            {%- endif -%}
           </div>
         {%- endfor -%}
       </div>
     {%- endif -%}
 
-    {%- assign value_blocks = section.blocks | where: 'type', 'value' -%}
     {%- if value_blocks.size > 0 -%}
-      <div style="margin-top:64px;">
-        <span class="mono-label" style="display:block;margin-bottom:24px;">{{ section.settings.values_eyebrow }}</span>
-        <div class="testimonials-grid">
-          {%- for block in value_blocks -%}
-            <div class="testimonial-card" {{ block.shopify_attributes }} data-reveal>
-              <span class="mono-label">0{{ forloop.index }} / PRINCIPLE</span>
-              <div style="display:grid;gap:10px;">
-                <h2 class="h4">{{ block.settings.title }}</h2>
-                <p class="text-muted" style="font-size:0.9375rem;">{{ block.settings.text }}</p>
-              </div>
-            </div>
-          {%- endfor -%}
+      <div class="about-story__values">
+        <div class="about-story__values-head" data-reveal>
+          <span class="mono-label">{{ section.settings.values_eyebrow }}</span>
+          <span class="section-index">{{ section.settings.values_note }}</span>
         </div>
+        <ul class="about-principles">
+          {%- for block in value_blocks -%}
+            <li class="about-principle" data-reveal data-reveal-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+              <span class="about-principle__index">0{{ forloop.index }}</span>
+              <h3 class="about-principle__title">{{ block.settings.title }}</h3>
+              <p class="about-principle__text">{{ block.settings.text }}</p>
+            </li>
+          {%- endfor -%}
+        </ul>
       </div>
     {%- endif -%}
   </div>
 </section>
+
+{% stylesheet %}
+.about-story { overflow: hidden; }
+.about-story__head {
+  display: grid;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: end;
+}
+.about-story__statement { display: grid; gap: 18px; }
+.about-story__statement h2 { max-width: 15ch; }
+.about-story__lead { display: grid; gap: 14px; max-width: 50ch; }
+.about-story__values { margin-top: clamp(48px, 7vw, 96px); }
+.about-story__values-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+.about-story__values .about-principles { margin-top: 0; border-top: 0; }
+@media (min-width: 1024px) {
+  .about-story__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+}
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -56,10 +93,12 @@
         { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
       ]
     },
-    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "01 / ABOUT GRIDIUM STUDIO" },
-    { "type": "text", "id": "heading", "label": "Statement headline", "default": "One Garment Category. Perfected Without Noise." },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "02 / WHY WE EXIST" },
+    { "type": "text", "id": "heading", "label": "Statement headline", "default": "One garment category. Perfected without noise." },
     { "type": "textarea", "id": "lead", "label": "Lead paragraph", "default": "Founded on the conviction that a shirt is the architectural anchor of modern dress, Gridium develops permanent shirting blocks in partnership with family-owned European mills." },
-    { "type": "text", "id": "values_eyebrow", "label": "Values heading", "default": "02 / DESIGN PRINCIPLES" }
+    { "type": "textarea", "id": "lead_secondary", "label": "Secondary paragraph", "default": "We do not chase drops. We reorder the fabrics that earned their place, retire the ones that did not, and keep the pattern table honest." },
+    { "type": "text", "id": "values_eyebrow", "label": "Values heading", "default": "DESIGN PRINCIPLES" },
+    { "type": "text", "id": "values_note", "label": "Values meta note", "default": "APPLIED TO EVERY BLOCK SINCE 2016" }
   ],
   "blocks": [
     {
@@ -75,7 +114,7 @@
       "type": "value",
       "name": "Numbered value",
       "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Pattern Discipline" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Pattern discipline" },
         { "type": "textarea", "id": "text", "label": "Description", "default": "Graded across 6 sizes with pitched armholes for natural movement without excess volume." }
       ]
     }

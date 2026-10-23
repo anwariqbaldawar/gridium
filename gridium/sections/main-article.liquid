@@ -1,0 +1,186 @@
+{% render 'breadcrumbs' %}
+
+<article class="article-page color-{{ section.settings.color_scheme }}">
+  <header class="article-page__head container">
+    <div class="article-page__meta" data-reveal>
+      <span class="eyebrow">{{ blog.title }}</span>
+      <span class="section-index">
+        {{ article.published_at | date: '%d %b %Y' }}
+        {%- if article.author != blank %} · {{ article.author }}{% endif %}
+      </span>
+    </div>
+
+    <h1 class="article-page__title" data-reveal data-reveal-delay="1">{{ article.title }}</h1>
+
+    {%- if article.excerpt != blank -%}
+      <p class="text-lead article-page__excerpt" data-reveal data-reveal-delay="2">{{ article.excerpt | strip_html }}</p>
+    {%- endif -%}
+
+    <div class="article-page__tools" data-reveal data-reveal-delay="3">
+      {%- if article.tags.size > 0 -%}
+        <div class="article-page__tags">
+          {%- for tag in article.tags limit: 4 -%}
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="chip">{{ tag }}</a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <button type="button" class="link-arrow article-page__share" data-copy-url="{{ shop.url }}{{ article.url }}">
+        {% render 'icon', name: 'share', size: 14 %}
+        <span data-copy-label>{{ 'blogs.share_label' | t }}</span>
+      </button>
+    </div>
+  </header>
+
+  {%- if article.image != blank and section.settings.show_image -%}
+    <figure class="article-page__hero container" data-reveal data-reveal-media>
+      {{
+        article.image
+        | image_url: width: 2000
+        | image_tag:
+          widths: '640, 960, 1400, 2000',
+          sizes: '(min-width: 1024px) 1100px, 100vw',
+          loading: 'eager',
+          alt: article.image.alt | default: article.title
+      }}
+      {%- if article.image.alt != blank -%}
+        <figcaption class="mono-label">{{ article.image.alt }}</figcaption>
+      {%- endif -%}
+    </figure>
+  {%- endif -%}
+
+  <div class="container article-page__layout">
+    <aside class="article-page__aside" aria-label="{{ 'blogs.share_label' | t }}">
+      <span class="mono-label">{{ 'blogs.share_label' | t }}</span>
+      <ul class="article-page__aside-list">
+        <li>
+          <a class="article-page__aside-link" href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url | url_encode }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener">
+            {% render 'icon', name: 'x', size: 15 %}<span>X</span>
+          </a>
+        </li>
+        <li>
+          <a class="article-page__aside-link" href="https://pinterest.com/pin/create/button/?url={{ shop.url }}{{ article.url | url_encode }}&description={{ article.title | url_encode }}" target="_blank" rel="noopener">
+            {% render 'icon', name: 'pinterest', size: 15 %}<span>Pinterest</span>
+          </a>
+        </li>
+        <li>
+          <a class="article-page__aside-link" href="mailto:?subject={{ article.title | url_encode }}&body={{ shop.url }}{{ article.url | url_encode }}">
+            {% render 'icon', name: 'share', size: 15 %}<span>Email</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <div class="article-page__content">
+      <div class="rte article-page__rte">{{ article.content }}</div>
+
+      {%- if blog.comments_enabled? -%}
+        <section class="article-comments" id="comments">
+          <div class="article-comments__head">
+            <h2 class="h3">{{ 'blogs.comments.title' | t }}</h2>
+            {%- if article.comments_count > 0 -%}
+              <span class="section-index">{{ 'blogs.comments.with_count' | t: count: article.comments_count }}</span>
+            {%- endif -%}
+          </div>
+
+          {%- if article.comments_count == 0 -%}
+            <p class="text-muted text-small">{{ 'blogs.comments.none' | t }}</p>
+          {%- endif -%}
+
+          {%- for comment in article.comments -%}
+            <article class="article-comment" id="{{ comment.id }}">
+              <div class="article-comment__meta">
+                <strong>{{ comment.author }}</strong>
+                <span class="section-index">{{ comment.created_at | date: '%d %b %Y' }}</span>
+              </div>
+              <div class="rte">{{ comment.content }}</div>
+            </article>
+          {%- endfor -%}
+
+          {%- form 'new_comment', article, class: 'article-comment-form' -%}
+            <h3 class="h4">{{ 'blogs.comments.label' | t }}</h3>
+            {%- if form.posted_successfully? -%}
+              <p class="form-status form-status--success" role="status">
+                {%- if blog.moderated? -%}{{ 'blogs.comments.moderated' | t }}{%- else -%}{{ 'blogs.comments.success' | t }}{%- endif -%}
+              </p>
+            {%- endif -%}
+            {%- if form.errors -%}
+              <p class="form-status form-status--error" role="alert">{{ form.errors | default_errors }}</p>
+            {%- endif -%}
+            <div class="article-comment-form__grid">
+              <label class="field">
+                <span class="field__label">{{ 'blogs.comments.name' | t }}</span>
+                <input class="field__input" type="text" name="comment[author]" value="{{ form.author }}" required autocomplete="name">
+              </label>
+              <label class="field">
+                <span class="field__label">{{ 'blogs.comments.email' | t }}</span>
+                <input class="field__input" type="email" name="comment[email]" value="{{ form.email }}" required autocomplete="email">
+              </label>
+              <label class="field article-comment-form__message">
+                <span class="field__label">{{ 'blogs.comments.message' | t }}</span>
+                <textarea class="field__textarea" name="comment[body]" required>{{ form.body }}</textarea>
+              </label>
+            </div>
+            <button type="submit" class="button">{{ 'blogs.comments.submit' | t }}</button>
+          {%- endform -%}
+        </section>
+      {%- endif -%}
+
+      <nav class="article-page__nav" aria-label="Journal navigation">
+        {%- if blog.previous_article -%}
+          <a href="{{ blog.previous_article.url }}" class="article-page__nav-link">
+            <span class="mono-label">{{ 'blogs.prev_article' | t }}</span>
+            <span class="h4">{{ blog.previous_article.title }}</span>
+          </a>
+        {%- endif -%}
+        <a href="{{ blog.url }}" class="link-arrow">{{ 'blogs.back_to_journal' | t }}</a>
+        {%- if blog.next_article -%}
+          <a href="{{ blog.next_article.url }}" class="article-page__nav-link article-page__nav-link--next">
+            <span class="mono-label">{{ 'blogs.next_article' | t }}</span>
+            <span class="h4">{{ blog.next_article.title }}</span>
+          </a>
+        {%- endif -%}
+      </nav>
+    </div>
+  </div>
+
+  {%- if section.settings.show_related and blog.articles.size > 1 -%}
+    <section class="article-related container">
+      <div class="section-header">
+        <div class="section-header__titles">
+          <span class="mono-label">{{ 'blogs.related' | t }}</span>
+          <h2>Keep reading</h2>
+        </div>
+      </div>
+      <div class="article-grid">
+        {%- assign related_count = 0 -%}
+        {%- for related in blog.articles -%}
+          {%- if related.url != article.url and related_count < 3 -%}
+            {% render 'article-card', article: related %}
+            {%- assign related_count = related_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+</article>
+
+{% schema %}
+{
+  "name": "Journal article",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "checkbox", "id": "show_image", "label": "Show featured image", "default": true },
+    { "type": "checkbox", "id": "show_related", "label": "Show related stories", "default": true }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,113 @@
+{%- liquid
+  assign principle_blocks = section.blocks | where: 'type', 'principle'
+  assign marquee_items = section.settings.marquee | split: '|'
+-%}
+
+<section class="about-manifesto color-{{ section.settings.color_scheme }}" id="about-manifesto">
+  <div class="container">
+    <div class="about-manifesto__head" data-reveal>
+      <span class="mono-label">{{ section.settings.eyebrow }}</span>
+      <span class="section-index">{{ section.settings.side_note }}</span>
+    </div>
+
+    <blockquote class="about-manifesto__quote" data-reveal data-reveal-delay="1">
+      <p>{{ section.settings.statement }}</p>
+      {%- if section.settings.signature != blank -%}
+        <footer class="about-manifesto__signature">
+          <span class="about-manifesto__rule" aria-hidden="true"></span>
+          <span>{{ section.settings.signature }}</span>
+          {%- if section.settings.signature_role != blank -%}
+            <span class="text-muted">{{ section.settings.signature_role }}</span>
+          {%- endif -%}
+        </footer>
+      {%- endif -%}
+    </blockquote>
+
+    <div class="about-manifesto__body">
+      <div class="about-manifesto__column" data-reveal>
+        <h2 class="h4">{{ section.settings.left_heading }}</h2>
+        <div class="rte">{{ section.settings.left_text }}</div>
+      </div>
+      <div class="about-manifesto__column" data-reveal data-reveal-delay="1">
+        <h2 class="h4">{{ section.settings.right_heading }}</h2>
+        <div class="rte">{{ section.settings.right_text }}</div>
+      </div>
+    </div>
+
+    {%- if principle_blocks.size > 0 -%}
+      <ul class="about-principles">
+        {%- for block in principle_blocks -%}
+          <li class="about-principle" data-reveal data-reveal-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <span class="about-principle__index">0{{ forloop.index }}</span>
+            <h3 class="about-principle__title">{{ block.settings.title }}</h3>
+            <p class="about-principle__text">{{ block.settings.text }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.marquee != blank -%}
+    <div class="about-manifesto__ticker" aria-hidden="true">
+      <div class="marquee">
+        <div class="marquee__track">
+          {%- for i in (1..2) -%}
+            {%- for item in marquee_items -%}
+              <span class="marquee__item">{{ item | strip }}</span>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "About — Manifesto",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "paper",
+      "options": [
+        { "value": "paper", "label": "t:sections.all.color_scheme.options.paper" },
+        { "value": "stone", "label": "t:sections.all.color_scheme.options.stone" },
+        { "value": "midnight", "label": "t:sections.all.color_scheme.options.midnight" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Mono meta label", "default": "02 / MANIFESTO" },
+    { "type": "text", "id": "side_note", "label": "Right meta note", "default": "WRITTEN IN PORTO · REVISED 2026" },
+    { "type": "textarea", "id": "statement", "label": "Manifesto statement", "default": "We are not interested in reinventing the shirt every season. We are interested in the eleventh revision of the same collar." },
+    { "type": "text", "id": "signature", "label": "Signature", "default": "Lukas Lindqvist & Clara Monteiro" },
+    { "type": "text", "id": "signature_role", "label": "Signature role", "default": "Founders, Gridium" },
+    { "type": "text", "id": "left_heading", "label": "Left column heading", "default": "Why so few styles" },
+    { "type": "richtext", "id": "left_text", "label": "Left column text", "default": "<p>A wardrobe is a system, not a feed. When a shape is right — the shoulder sits where your arm actually pivots, the hem clears the hip at the correct angle — newness stops being the point. So we keep one shirt block per silhouette and spend the year improving it instead of replacing it.</p>" },
+    { "type": "text", "id": "right_heading", "label": "Right column heading", "default": "How we manufacture" },
+    { "type": "richtext", "id": "right_text", "label": "Right column text", "default": "<p>Our weaving partners are family-run mills in Portugal, Belgium and Italy that we pay directly, on time, at volumes small enough to keep quality accountable. Every run is cut in a single atelier, checked by hand, and released only when the collar rolls the way the sample did.</p>" },
+    { "type": "text", "id": "marquee", "label": "Ticker words (separate with |)", "default": "MEASURE TWICE|CUT ONCE|22 STITCHES PER INCH|NO SEASONAL NOISE|REPAIR BEFORE REPLACE|MILL-FIRST SOURCING|MADE TO BE REWORN" }
+  ],
+  "blocks": [
+    {
+      "type": "principle",
+      "name": "Principle",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Proportion before decoration" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Silhouette is resolved on the pattern table — trims come last and only if they earn their place." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About — Manifesto",
+      "blocks": [
+        { "type": "principle", "settings": { "title": "Proportion before decoration", "text": "Silhouette is resolved on the pattern table — trims come last and only if they earn their place." } },
+        { "type": "principle", "settings": { "title": "Materials with a paper trail", "text": "Every yarn has a mill, a batch number and a certification we can name out loud." } },
+        { "type": "principle", "settings": { "title": "Repair before replace", "text": "Buttons, collars and cuffs are stocked for a decade so a shirt can outlive a trend cycle." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

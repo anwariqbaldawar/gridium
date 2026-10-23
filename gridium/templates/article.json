@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "color_scheme": "paper",
+        "show_image": true,
+        "show_related": true
+      }
+    }
+  },
+  "order": ["main"]
+}
