@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="100%" height="480" style="background:#0b0d0b;border-radius:12px;overflow:hidden;box-shadow:0 18px 48px rgba(0,0,0,0.5);">
+  <defs>
+    <linearGradient id="box-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181e17"/>
+      <stop offset="100%" stop-color="#0f130f"/>
+    </linearGradient>
+    <linearGradient id="box-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e251c"/>
+      <stop offset="100%" stop-color="#141812"/>
+    </linearGradient>
+    <linearGradient id="box-grad-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a3826"/>
+      <stop offset="100%" stop-color="#172115"/>
+    </linearGradient>
+    <linearGradient id="line-flow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#697a64" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#86efac" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#697a64" stop-opacity="0.2"/>
+    </linearGradient>
+    <style>
+      .arch-title { font-family: 'Syne', 'Cinzel', serif; font-weight: 700; fill: #ffffff; letter-spacing: 0.2em; }
+      .arch-header { font-family: 'Jost', 'Inter', sans-serif; font-weight: 600; font-size: 15px; fill: #e5ece3; }
+      .arch-sub { font-family: 'Inter', -apple-system, sans-serif; font-size: 11.5px; fill: rgba(255,255,255,0.6); }
+      .arch-badge { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; }
+      .arch-code { font-family: 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #93c5fd; }
+    </style>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="1100" height="480" fill="#0b0d0b"/>
+  
+  <!-- Header Title -->
+  <g transform="translate(60, 42)">
+    <text x="0" y="0" class="arch-title" font-size="16">SYSTEM ARCHITECTURE &amp; WORKFLOW PIPELINE</text>
+    <text x="0" y="20" class="arch-sub">DUAL-ENVIRONMENT: VITE STUDIO RAPID PROTOTYPING → AUTOMATED AUDIT → SHOPIFY OS 2.0</text>
+  </g>
+  <line x1="60" y1="78" x2="1040" y2="78" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+  <!-- STEP 1: React 19 Studio App -->
+  <g transform="translate(60, 110)">
+    <rect width="280" height="310" rx="10" fill="url(#box-grad-1)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <rect x="18" y="18" width="60" height="20" rx="4" fill="#1e3a24"/>
+    <text x="48" y="32" text-anchor="middle" fill="#86efac" class="arch-badge">MODULE 01</text>
+    
+    <text x="18" y="66" class="arch-header">React 19 Studio</text>
+    <text x="18" y="86" class="arch-sub">Client-side instant preview &amp; theme IDE</text>
+
+    <line x1="18" y1="102" x2="262" y2="102" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+    <!-- Items -->
+    <g transform="translate(18, 124)">
+      <circle cx="6" cy="6" r="3" fill="#697a64"/>
+      <text x="18" y="10" class="arch-sub">Vite 7 + React 19 + TypeScript</text>
+
+      <circle cx="6" cy="34" r="3" fill="#697a64"/>
+      <text x="18" y="38" class="arch-sub">Full Storefront Route Simulator</text>
+
+      <circle cx="6" cy="62" r="3" fill="#697a64"/>
+      <text x="18" y="66" class="arch-sub">Live Color Scheme Switcher</text>
+
+      <circle cx="6" cy="90" r="3" fill="#697a64"/>
+      <text x="18" y="94" class="arch-sub">Tailwind CSS v4 Utility Layer</text>
+
+      <circle cx="6" cy="118" r="3" fill="#697a64"/>
+      <text x="18" y="122" class="arch-sub">Browser-side JSZip Exporter</text>
+    </g>
+
+    <rect x="18" y="272" width="244" height="26" rx="4" fill="#141913"/>
+    <text x="28" y="289" class="arch-code">$ npm run dev (port 5173)</text>
+  </g>
+
+  <!-- Connector 1 -> 2 -->
+  <g transform="translate(340, 255)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="url(#line-flow)" stroke-width="2"/>
+    <polygon points="60,0 52,-4 52,4" fill="#86efac"/>
+  </g>
+
+  <!-- STEP 2: Compliance & Packager Gate -->
+  <g transform="translate(410, 110)">
+    <rect width="280" height="310" rx="10" fill="url(#box-grad-accent)" stroke="rgba(134,239,172,0.3)" stroke-width="1.2"/>
+    <rect x="18" y="18" width="60" height="20" rx="4" fill="#2d4a34"/>
+    <text x="48" y="32" text-anchor="middle" fill="#bbf7d0" class="arch-badge">MODULE 02</text>
+    
+    <text x="18" y="66" class="arch-header">Audit &amp; Packager</text>
+    <text x="18" y="86" class="arch-sub">Deterministic zero-defect release gate</text>
+
+    <line x1="18" y1="102" x2="262" y2="102" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+    <!-- Items -->
+    <g transform="translate(18, 124)">
+      <circle cx="6" cy="6" r="3" fill="#86efac"/>
+      <text x="18" y="10" class="arch-sub">Shopify Theme Check (0 Offenses)</text>
+
+      <circle cx="6" cy="34" r="3" fill="#86efac"/>
+      <text x="18" y="38" class="arch-sub">Static Theme Audit (112 Files)</text>
+
+      <circle cx="6" cy="62" r="3" fill="#86efac"/>
+      <text x="18" y="66" class="arch-sub">JSON Syntax &amp; Schema Integrity</text>
+
+      <circle cx="6" cy="90" r="3" fill="#86efac"/>
+      <text x="18" y="94" class="arch-sub">Liquid Render / Snippet Resolver</text>
+
+      <circle cx="6" cy="118" r="3" fill="#86efac"/>
+      <text x="18" y="122" class="arch-sub">Strict Level-9 Deflate Packager</text>
+    </g>
+
+    <rect x="18" y="272" width="244" height="26" rx="4" fill="#111c13"/>
+    <text x="28" y="289" class="arch-code">$ npm run theme:zip</text>
+  </g>
+
+  <!-- Connector 2 -> 3 -->
+  <g transform="translate(690, 255)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="url(#line-flow)" stroke-width="2"/>
+    <polygon points="60,0 52,-4 52,4" fill="#86efac"/>
+  </g>
+
+  <!-- STEP 3: Shopify OS 2.0 Storefront -->
+  <g transform="translate(760, 110)">
+    <rect width="280" height="310" rx="10" fill="url(#box-grad-2)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+    <rect x="18" y="18" width="60" height="20" rx="4" fill="#1e3a24"/>
+    <text x="48" y="32" text-anchor="middle" fill="#86efac" class="arch-badge">MODULE 03</text>
+    
+    <text x="18" y="66" class="arch-header">Shopify OS 2.0</text>
+    <text x="18" y="86" class="arch-sub">Production runtime live storefront</text>
+
+    <line x1="18" y1="102" x2="262" y2="102" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+    <!-- Items -->
+    <g transform="translate(18, 124)">
+      <circle cx="6" cy="6" r="3" fill="#697a64"/>
+      <text x="18" y="10" class="arch-sub">43 Modular Liquid Sections</text>
+
+      <circle cx="6" cy="34" r="3" fill="#697a64"/>
+      <text x="18" y="38" class="arch-sub">16 Reusable Component Snippets</text>
+
+      <circle cx="6" cy="62" r="3" fill="#697a64"/>
+      <text x="18" y="66" class="arch-sub">Section Rendering API &amp; AJAX Cart</text>
+
+      <circle cx="6" cy="90" r="3" fill="#697a64"/>
+      <text x="18" y="94" class="arch-sub">Predictive Instant Search</text>
+
+      <circle cx="6" cy="118" r="3" fill="#697a64"/>
+      <text x="18" y="122" class="arch-sub">9-Section Editorial Story Suite</text>
+    </g>
+
+    <rect x="18" y="272" width="244" height="26" rx="4" fill="#141913"/>
+    <text x="28" y="289" class="arch-code">release/gridium-v1.3.0.zip</text>
+  </g>
+</svg>
